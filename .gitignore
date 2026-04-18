@@ -50,3 +50,6 @@ next-env.d.ts
 # OS
 Thumbs.db
 desktop.ini
+
+# runtime uploads (dev only — swap for S3-compatible storage in prod)
+/public/uploads/

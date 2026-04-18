@@ -7,7 +7,8 @@ import { parse as parseLocalized, tr } from '@/lib/zod/localized'
 import type { Locale } from '@/i18n/routing'
 import { AdminHeader, LinkButton } from '@/components/fci/admin/AdminHeader'
 import { LotForm } from '../LotForm'
-import { addLotMedia, deleteLot, removeLotMedia } from '../actions'
+import { deleteLot, removeLotMedia } from '../actions'
+import { LotMediaAdd } from './LotMediaAdd'
 
 export default async function EditLotPage({
   params,
@@ -120,43 +121,7 @@ export default async function EditLotPage({
           </p>
         )}
 
-        <form action={addLotMedia} className="grid gap-3 rounded-xl border border-[color:var(--border)] bg-background p-4 sm:grid-cols-[120px_1fr_1fr_auto]">
-          <input type="hidden" name="lotId" value={lot.id} />
-          <input type="hidden" name="locale" value={locale} />
-          <label className="block space-y-1">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted">Kind</span>
-            <select name="kind" className="w-full rounded-lg border border-[color:var(--border)] bg-background px-2 py-1.5 text-sm">
-              <option value="image">Image</option>
-              <option value="video">Video</option>
-              <option value="pdf">PDF</option>
-              <option value="tour">Tour</option>
-            </select>
-          </label>
-          <label className="block space-y-1">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted">URL</span>
-            <input
-              name="url"
-              type="url"
-              required
-              placeholder="https://..."
-              className="w-full rounded-lg border border-[color:var(--border)] bg-background px-2 py-1.5 text-sm"
-            />
-          </label>
-          <label className="block space-y-1">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted">Alt text (optional, same for FR/EN)</span>
-            <input
-              name="alt"
-              type="text"
-              className="w-full rounded-lg border border-[color:var(--border)] bg-background px-2 py-1.5 text-sm"
-            />
-          </label>
-          <button
-            type="submit"
-            className="self-end inline-flex h-9 items-center rounded-full bg-[color:var(--brand-navy)] px-4 text-xs font-semibold text-white hover:bg-[color:var(--brand-navy-700)]"
-          >
-            Add media
-          </button>
-        </form>
+        <LotMediaAdd lotId={lot.id} locale={locale} />
       </section>
 
       {/* Danger zone ─────────────────────────────────────────────── */}
