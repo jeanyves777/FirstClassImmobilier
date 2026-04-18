@@ -115,5 +115,32 @@
     "tagline": "A New Life Begins!",
     "copyright": "© {year} FirstClass Immobilier. All rights reserved.",
     "followUs": "Follow us"
+  },
+  "lot": {
+    "availableLots": "Available lots & units",
+    "lots": "lots",
+    "lot": "Lot",
+    "none": "No lots published yet. Check back soon.",
+    "zone": "Zone",
+    "type": "Type",
+    "status": "Status",
+    "available": "Available",
+    "statusAvailable": "Available",
+    "statusReserved": "Reserved",
+    "statusSold": "Sold",
+    "surface": "Surface",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "price": "Price",
+    "gallery": "Gallery",
+    "virtualTour": "360° virtual tour",
+    "videoTour": "Video tour",
+    "openTour": "Open virtual tour",
+    "features": "Features",
+    "reserveCta": "Reserve this lot",
+    "visitCta": "Request an in-person visit",
+    "visitTitle": "Request a visit",
+    "visitIntro": "Book an on-site visit — our agent will reach out to confirm the slot.",
+    "backToProgram": "Back to program"
   }
 }

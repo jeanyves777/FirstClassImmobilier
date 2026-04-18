@@ -115,5 +115,32 @@
     "tagline": "Une Nouvelle Vie Commence !",
     "copyright": "© {year} FirstClass Immobilier. Tous droits réservés.",
     "followUs": "Suivez-nous"
+  },
+  "lot": {
+    "availableLots": "Lots & biens disponibles",
+    "lots": "lots",
+    "lot": "Lot",
+    "none": "Aucun lot publié pour le moment. Revenez bientôt.",
+    "zone": "Zone",
+    "type": "Type",
+    "status": "Statut",
+    "available": "Disponibles",
+    "statusAvailable": "Disponible",
+    "statusReserved": "Réservé",
+    "statusSold": "Vendu",
+    "surface": "Surface",
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de bain",
+    "price": "Prix",
+    "gallery": "Galerie",
+    "virtualTour": "Visite virtuelle 360°",
+    "videoTour": "Visite en vidéo",
+    "openTour": "Ouvrir la visite virtuelle",
+    "features": "Équipements",
+    "reserveCta": "Je réserve ce lot",
+    "visitCta": "Demander une visite sur site",
+    "visitTitle": "Demander une visite",
+    "visitIntro": "Planifiez une visite en personne. Notre agent vous recontactera pour confirmer le créneau.",
+    "backToProgram": "Retour au programme"
   }
 }

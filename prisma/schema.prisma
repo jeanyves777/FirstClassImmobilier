@@ -30,7 +30,9 @@ model User {
   accounts      Account[]
   sessions      Session[]
   sales         Sale[]         @relation("BuyerSales")
+  agentSales    Sale[]         @relation("AgentSales")
   reservations  Reservation[]
+  agentReservations Reservation[] @relation("AgentReservations")
   leads         Lead[]
   application   Application?
   chatThreads   ChatThread[]
@@ -98,30 +100,46 @@ model Program {
 }
 
 model Lot {
-  id        String  @id @default(cuid())
-  programId String
-  reference String
-  surfaceM2 Int
-  priceFCFA BigInt
-  status    String  @default("available") // available | reserved | sold
+  id              String  @id @default(cuid())
+  programId       String
+  reference       String
+  surfaceM2       Int
+  priceFCFA       BigInt
+  status          String  @default("available") // available | reserved | sold
+  title           String? // LocalizedJSON (optional friendly title, e.g. "Villa T4")
+  description     String? // LocalizedJSON
+  highlights      String? // LocalizedJSON — short bullet summary
+  features        String? // JSON array of amenities
+  bedrooms        Int?
+  bathrooms       Int?
+  videoUrl        String? // direct video (mp4 / webm) or external URL
+  virtualTourUrl  String? // Matterport / Kuula / YouTube embed
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   program      Program       @relation(fields: [programId], references: [id], onDelete: Cascade)
+  media        Media[]
   reservations Reservation[]
   sales        Sale[]
+  appointments Appointment[]
+
+  @@unique([programId, reference])
 }
 
 model Reservation {
-  id        String   @id @default(cuid())
-  userId    String
-  programId String
-  lotId     String?
-  status    String   @default("pending") // pending | confirmed | cancelled
-  note      String?
-  createdAt DateTime @default(now())
+  id              String   @id @default(cuid())
+  userId          String
+  programId       String
+  lotId           String?
+  assignedAgentId String?
+  status          String   @default("pending") // pending | confirmed | cancelled
+  note            String?
+  createdAt       DateTime @default(now())
 
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  program Program @relation(fields: [programId], references: [id])
-  lot     Lot?    @relation(fields: [lotId], references: [id])
+  user          User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  program       Program @relation(fields: [programId], references: [id])
+  lot           Lot?    @relation(fields: [lotId], references: [id])
+  assignedAgent User?   @relation("AgentReservations", fields: [assignedAgentId], references: [id])
 }
 
 model Sale {
@@ -129,20 +147,24 @@ model Sale {
   buyerId               String
   programId             String
   lotId                 String?
+  assignedAgentId       String?
+  stage                 String    @default("draft") // draft | contract-sent | signed | in-progress | acd-pending | completed | cancelled
   totalFCFA             BigInt
-  signedAt              DateTime
+  signedAt              DateTime?
   acdIssuedAt           DateTime?
   acdDocumentId         String?
   constructionProgress  Int       @default(0)
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
 
-  buyer      User        @relation("BuyerSales", fields: [buyerId], references: [id])
-  program    Program     @relation(fields: [programId], references: [id])
-  lot        Lot?        @relation(fields: [lotId], references: [id])
-  payments   Payment[]
-  documents  Document[]
-  milestones Milestone[]
+  buyer           User  @relation("BuyerSales", fields: [buyerId], references: [id])
+  program         Program @relation(fields: [programId], references: [id])
+  lot             Lot?    @relation(fields: [lotId], references: [id])
+  assignedAgent   User?   @relation("AgentSales", fields: [assignedAgentId], references: [id])
+  payments        Payment[]
+  documents       Document[]
+  milestones      Milestone[]
+  requirements    DocumentRequirement[]
 }
 
 model Payment {
@@ -264,18 +286,28 @@ model ChatMessage {
 }
 
 model Appointment {
-  id          String   @id @default(cuid())
-  userId      String
-  staffId     String?
-  purpose     String // visit-site | office-meeting | online-call
-  programId   String?
-  scheduledAt DateTime
-  durationMin Int      @default(30)
-  status      String   @default("booked") // booked | confirmed | cancelled | completed
-  meetingUrl  String?
+  id           String   @id @default(cuid())
+  userId       String?                // null for guest / pre-account requests
+  guestName    String?
+  guestEmail   String?
+  guestPhone   String?
+  staffId      String?
+  purpose      String // visit-site | office-meeting | online-call | lot-visit
+  source       String   @default("public-form") // public-form | portal | admin
+  programId    String?
+  lotId        String?
+  scheduledAt  DateTime?              // may be null when prospect requests callback for scheduling
+  preferredAt  DateTime?              // slot requested by the prospect before staff confirmation
+  durationMin  Int      @default(45)
+  status       String   @default("requested") // requested | booked | confirmed | cancelled | completed
+  note         String?
+  meetingUrl   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  user  User  @relation("UserAppointments", fields: [userId], references: [id])
+  user  User? @relation("UserAppointments", fields: [userId], references: [id])
   staff User? @relation("StaffAppointments", fields: [staffId], references: [id])
+  lot   Lot?  @relation(fields: [lotId], references: [id])
 }
 
 model Notification {
@@ -321,13 +353,16 @@ model PageView {
 
 model Media {
   id         String    @id @default(cuid())
-  kind       String    @default("image") // image | video | pdf
+  kind       String    @default("image") // image | video | pdf | tour
   url        String
   alt        String? // LocalizedJSON
+  order      Int       @default(0)
   programId  String?
+  lotId      String?
   activityId String?
 
   program  Program?  @relation(fields: [programId], references: [id])
+  lot      Lot?      @relation(fields: [lotId], references: [id], onDelete: Cascade)
   activity Activity? @relation(fields: [activityId], references: [id])
 }
 
@@ -358,4 +393,22 @@ model Milestone {
   reachedAt DateTime?
   photoId   String?
   sale      Sale      @relation(fields: [saleId], references: [id], onDelete: Cascade)
+}
+
+model DocumentRequirement {
+  id         String    @id @default(cuid())
+  saleId     String
+  kind       String    // contract | id | proof-address | down-payment | acd | final-deed | ...
+  label      String    // LocalizedJSON
+  status     String    @default("required") // required | uploaded | approved | rejected
+  documentId String?   // link to uploaded Document
+  note       String?
+  reviewedById String?
+  reviewedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  sale Sale @relation(fields: [saleId], references: [id], onDelete: Cascade)
+
+  @@index([saleId, status])
 }
