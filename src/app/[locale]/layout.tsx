@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { ThemeProvider } from '@/components/theme-provider'
+import { ToastProvider } from '@/components/ui/Toast'
 import { site } from '@/lib/site'
 import '../globals.css'
 
@@ -60,7 +61,9 @@ export default async function LocaleRootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <ThemeProvider>
-          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          <NextIntlClientProvider>
+            <ToastProvider>{children}</ToastProvider>
+          </NextIntlClientProvider>
         </ThemeProvider>
       </body>
     </html>
