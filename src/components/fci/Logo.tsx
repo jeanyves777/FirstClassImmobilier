@@ -50,9 +50,13 @@ export function Logo({
       </svg>
       {showWordmark && (
         <span className="font-display leading-none">
-          <span className={cn('text-2xl font-semibold tracking-tight', colors.first)}>First</span>
-          <span className={cn('text-2xl font-semibold tracking-tight', colors.class)}>Class</span>
-          <span className={cn('block text-[10px] uppercase tracking-[0.24em]', colors.sub)}>
+          <span className={cn('text-xl font-semibold tracking-tight sm:text-2xl', colors.first)}>
+            First
+          </span>
+          <span className={cn('text-xl font-semibold tracking-tight sm:text-2xl', colors.class)}>
+            Class
+          </span>
+          <span className={cn('mt-0.5 hidden text-[10px] uppercase tracking-[0.24em] sm:block', colors.sub)}>
             Immobilier
           </span>
         </span>

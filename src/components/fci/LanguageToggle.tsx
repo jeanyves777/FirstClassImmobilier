@@ -26,7 +26,7 @@ export function LanguageToggle({ className }: { className?: string }) {
       role="group"
       aria-label="Language"
       className={cn(
-        'inline-flex items-center rounded-full border border-[color:var(--border)] bg-surface p-1 text-xs font-medium',
+        'inline-flex items-center rounded-full border border-[color:var(--border)] bg-surface p-0.5 text-[11px] font-semibold',
         isPending && 'opacity-70',
         className,
       )}
@@ -38,7 +38,7 @@ export function LanguageToggle({ className }: { className?: string }) {
           onClick={() => switchTo(loc)}
           aria-pressed={current === loc}
           className={cn(
-            'rounded-full px-3 py-1 uppercase tracking-wider transition-colors',
+            'rounded-full px-2 py-1 uppercase tracking-wider transition-colors',
             current === loc
               ? 'bg-[color:var(--brand-navy)] text-white shadow-sm'
               : 'text-muted hover:text-foreground',

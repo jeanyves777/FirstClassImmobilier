@@ -44,8 +44,8 @@ export default async function AdminSalesList({
         ))}
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-[color:var(--border)] bg-surface">
-        <table className="w-full text-left text-sm">
+      <div className="overflow-x-auto rounded-2xl border border-[color:var(--border)] bg-surface">
+        <table className="w-full min-w-[880px] text-left text-sm">
           <thead className="border-b border-[color:var(--border)] bg-surface-muted text-xs uppercase tracking-wider text-muted">
             <tr>
               <th className="px-4 py-3 font-medium">Buyer</th>

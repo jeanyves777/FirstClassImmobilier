@@ -27,8 +27,8 @@ export default async function AdminProgramsList({
         action={<LinkButton href="/admin/programs/new">+ New program</LinkButton>}
       />
 
-      <div className="overflow-hidden rounded-2xl border border-[color:var(--border)] bg-surface">
-        <table className="w-full text-left text-sm">
+      <div className="overflow-x-auto rounded-2xl border border-[color:var(--border)] bg-surface">
+        <table className="w-full min-w-[720px] text-left text-sm">
           <thead className="border-b border-[color:var(--border)] bg-surface-muted text-xs uppercase tracking-wider text-muted">
             <tr>
               <th className="px-4 py-3 font-medium">Program</th>

@@ -169,8 +169,8 @@ export default async function SaleDetailPage({
       {/* Payments ─────────────────────────────────── */}
       <section className="mt-6 rounded-2xl border border-[color:var(--border)] bg-surface p-6">
         <h2 className="font-display text-lg font-semibold text-foreground">Payment schedule</h2>
-        <div className="mt-4 overflow-hidden rounded-xl border border-[color:var(--border)]">
-          <table className="w-full text-left text-sm">
+        <div className="mt-4 overflow-x-auto rounded-xl border border-[color:var(--border)]">
+          <table className="w-full min-w-[640px] text-left text-sm">
             <thead className="bg-surface-muted text-xs uppercase tracking-wider text-muted">
               <tr>
                 <th className="px-3 py-2 font-medium">Due</th>

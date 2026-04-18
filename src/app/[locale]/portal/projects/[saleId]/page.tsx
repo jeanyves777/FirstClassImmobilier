@@ -147,8 +147,8 @@ export default async function BuyerProjectPage({
       {/* Payments */}
       <section>
         <h2 className="mb-4 font-display text-xl font-semibold text-foreground">{t('payments')}</h2>
-        <div className="overflow-hidden rounded-2xl border border-[color:var(--border)] bg-surface">
-          <table className="w-full text-left text-sm">
+        <div className="overflow-x-auto rounded-2xl border border-[color:var(--border)] bg-surface">
+          <table className="w-full min-w-[520px] text-left text-sm">
             <thead className="bg-surface-muted text-xs uppercase tracking-wider text-muted">
               <tr>
                 <th className="px-4 py-3 font-medium">{t('due')}</th>

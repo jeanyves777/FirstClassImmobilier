@@ -25,12 +25,13 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-[color:var(--border)] bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70">
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-2 px-3 sm:gap-3 sm:px-6 lg:px-8">
+        <Link href="/" className="flex shrink-0 items-center" aria-label="FirstClass Immobilier">
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        {/* Full horizontal nav — only when we have real room (xl = 1280px) */}
+        <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Primary">
           {NAV_ITEMS.map(({ href, key }) => {
             const active = pathname === href
             return (
@@ -38,7 +39,7 @@ export function Header() {
                 key={href}
                 href={href}
                 className={cn(
-                  'rounded-full px-3 py-1.5 text-sm font-medium transition-colors',
+                  'whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors',
                   active
                     ? 'bg-[color:var(--brand-navy)] text-white'
                     : 'text-foreground/80 hover:bg-surface-muted hover:text-foreground',
@@ -50,37 +51,44 @@ export function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          {/* Portal CTA — icon always, label only at lg+ where there's real room. */}
           <Link
             href="/portal"
-            className="hidden rounded-full border border-[color:var(--border)] bg-surface px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-foreground transition-colors hover:bg-[color:var(--brand-navy)] hover:text-white md:inline-flex"
+            aria-label={t('portalCta')}
+            className="inline-flex h-9 items-center gap-2 rounded-full border border-[color:var(--border)] bg-surface px-2.5 text-xs font-semibold uppercase tracking-wider text-foreground transition-colors hover:bg-[color:var(--brand-navy)] hover:text-white sm:px-3"
           >
-            {t('portalCta')}
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 21a8 8 0 0 1 16 0" />
+            </svg>
+            <span className="hidden whitespace-nowrap lg:inline">{t('portalCta')}</span>
           </Link>
+
           <LanguageToggle className="hidden sm:inline-flex" />
           <ThemeToggle />
+
+          {/* Hamburger — visible under xl so the drawer carries the nav */}
           <button
             type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--border)] bg-surface text-foreground lg:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--border)] bg-surface text-foreground xl:hidden"
             aria-label="Menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-              {open ? (
-                <path d="M6 6l12 12M6 18L18 6" />
-              ) : (
-                <path d="M4 7h16M4 12h16M4 17h16" />
-              )}
+              {open ? <path d="M6 6l12 12M6 18L18 6" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
             </svg>
           </button>
         </div>
       </div>
 
-      {/* Mobile drawer */}
       {open && (
-        <div className="border-t border-[color:var(--border)] bg-background lg:hidden">
-          <nav className="mx-auto flex w-full max-w-7xl flex-col px-4 py-3 sm:px-6" aria-label="Mobile">
+        <div className="border-t border-[color:var(--border)] bg-background xl:hidden">
+          <nav
+            className="mx-auto flex w-full max-w-7xl flex-col px-3 py-3 sm:px-6 lg:px-8"
+            aria-label="Mobile"
+          >
             {NAV_ITEMS.map(({ href, key }) => {
               const active = pathname === href
               return (
