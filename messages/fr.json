@@ -116,6 +116,51 @@
     "copyright": "© {year} FirstClass Immobilier. Tous droits réservés.",
     "followUs": "Suivez-nous"
   },
+  "auth": {
+    "signInTitle": "Connexion à l\u2019Espace FCI",
+    "signInIntro": "Connectez-vous pour accéder à votre espace client ou à l\u2019administration.",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "submitting": "Connexion en cours…",
+    "invalid": "Identifiants invalides.",
+    "signOut": "Se déconnecter",
+    "signedInAs": "Connecté en tant que"
+  },
+  "admin": {
+    "navDashboard": "Tableau de bord",
+    "navPrograms": "Programmes",
+    "navLots": "Lots",
+    "navSales": "Ventes",
+    "navLeads": "Prospects",
+    "navApplications": "Candidatures",
+    "navAppointments": "Rendez-vous",
+    "navActivities": "Activités",
+    "navTeam": "Équipe",
+    "navPartners": "Partenaires",
+    "navStats": "Compteurs",
+    "navUsers": "Utilisateurs",
+    "navSettings": "Paramètres",
+    "dashboardTitle": "Tableau de bord",
+    "dashboardIntro": "Vue d\u2019ensemble de votre activité sur la plateforme.",
+    "kpi": {
+      "programs": "Programmes",
+      "lots": "Lots",
+      "available": "Lots disponibles",
+      "reserved": "Lots réservés",
+      "sold": "Lots vendus",
+      "leads": "Prospects ouverts",
+      "applications": "Candidatures reçues",
+      "appointments": "Visites à confirmer",
+      "sales": "Ventes en cours"
+    },
+    "latest": {
+      "appointments": "Dernières demandes de visite",
+      "leads": "Derniers messages (Vos Avis)",
+      "applications": "Dernières candidatures"
+    },
+    "welcome": "Bonjour, {name}"
+  },
   "lot": {
     "availableLots": "Lots & biens disponibles",
     "lots": "lots",

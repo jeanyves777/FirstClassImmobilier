@@ -116,6 +116,51 @@
     "copyright": "© {year} FirstClass Immobilier. All rights reserved.",
     "followUs": "Follow us"
   },
+  "auth": {
+    "signInTitle": "Sign in to FCI",
+    "signInIntro": "Sign in to access your client portal or the admin area.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "invalid": "Invalid credentials.",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as"
+  },
+  "admin": {
+    "navDashboard": "Dashboard",
+    "navPrograms": "Programs",
+    "navLots": "Lots",
+    "navSales": "Sales",
+    "navLeads": "Leads",
+    "navApplications": "Applications",
+    "navAppointments": "Appointments",
+    "navActivities": "Activities",
+    "navTeam": "Team",
+    "navPartners": "Partners",
+    "navStats": "Counters",
+    "navUsers": "Users",
+    "navSettings": "Settings",
+    "dashboardTitle": "Dashboard",
+    "dashboardIntro": "Overview of activity across the platform.",
+    "kpi": {
+      "programs": "Programs",
+      "lots": "Lots",
+      "available": "Available lots",
+      "reserved": "Reserved lots",
+      "sold": "Sold lots",
+      "leads": "Open leads",
+      "applications": "Applications received",
+      "appointments": "Visits to confirm",
+      "sales": "Ongoing sales"
+    },
+    "latest": {
+      "appointments": "Latest visit requests",
+      "leads": "Latest feedback messages",
+      "applications": "Latest applications"
+    },
+    "welcome": "Hello, {name}"
+  },
   "lot": {
     "availableLots": "Available lots & units",
     "lots": "lots",

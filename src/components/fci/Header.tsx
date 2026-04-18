@@ -51,6 +51,12 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <Link
+            href="/signin"
+            className="hidden rounded-full border border-[color:var(--border)] bg-surface px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-foreground transition-colors hover:bg-[color:var(--brand-navy)] hover:text-white md:inline-flex"
+          >
+            {t('portalCta')}
+          </Link>
           <LanguageToggle className="hidden sm:inline-flex" />
           <ThemeToggle />
           <button

@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
+import { hash as argonHash } from '@node-rs/argon2'
 import 'dotenv/config'
 
 const url = (process.env.DATABASE_URL ?? 'file:./dev.db').replace(/^file:/, '')
@@ -8,6 +9,29 @@ const prisma = new PrismaClient({ adapter: new PrismaBetterSqlite3({ url }) })
 const loc = (fr: string, en: string) => JSON.stringify({ fr, en })
 
 async function main() {
+  // ─── Admin user ────────────────────────────────────────────────────────
+  const adminEmail = (process.env.SEED_ADMIN_EMAIL ?? 'admin@firstclassimmo.com').toLowerCase()
+  const adminPassword = process.env.SEED_ADMIN_PASSWORD ?? 'Admin1234!'
+  const adminName = process.env.SEED_ADMIN_NAME ?? 'FCI Admin'
+  const passwordHash = await argonHash(adminPassword, {
+    memoryCost: 19456,
+    timeCost: 2,
+    parallelism: 1,
+  })
+  await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: { role: 'ADMIN', fullName: adminName, passwordHash },
+    create: {
+      email: adminEmail,
+      fullName: adminName,
+      role: 'ADMIN',
+      locale: 'fr',
+      passwordHash,
+      emailVerifiedAt: new Date(),
+    },
+  })
+  console.log('Admin user ready:', adminEmail)
+
   await prisma.siteStats.upsert({
     where: { id: 1 },
     create: {
