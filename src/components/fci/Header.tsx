@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Link, usePathname } from '@/i18n/navigation'
 import { Logo } from './Logo'
 import { LanguageToggle } from './LanguageToggle'
@@ -83,36 +84,55 @@ export function Header() {
         </div>
       </div>
 
-      {open && (
-        <div className="border-t border-[color:var(--border)] bg-background xl:hidden">
-          <nav
-            className="mx-auto flex w-full max-w-7xl flex-col px-3 py-3 sm:px-6 lg:px-8"
-            aria-label="Mobile"
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="mobile-drawer"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 240, damping: 28, mass: 0.7 }}
+            className="overflow-hidden border-t border-[color:var(--border)] bg-background xl:hidden"
           >
-            {NAV_ITEMS.map(({ href, key }) => {
-              const active = pathname === href
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    'rounded-lg px-3 py-2.5 text-base font-medium',
-                    active
-                      ? 'bg-[color:var(--brand-navy)] text-white'
-                      : 'text-foreground hover:bg-surface-muted',
-                  )}
-                >
-                  {t(key)}
-                </Link>
-              )
-            })}
-            <div className="mt-3 border-t border-[color:var(--border)] pt-3 sm:hidden">
-              <LanguageToggle />
-            </div>
-          </nav>
-        </div>
-      )}
+            <motion.nav
+              initial={{ y: -8 }}
+              animate={{ y: 0 }}
+              exit={{ y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="mx-auto flex w-full max-w-7xl flex-col px-3 py-3 sm:px-6 lg:px-8"
+              aria-label="Mobile"
+            >
+              {NAV_ITEMS.map(({ href, key }, i) => {
+                const active = pathname === href
+                return (
+                  <motion.div
+                    key={href}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.04 * i, duration: 0.24 }}
+                  >
+                    <Link
+                      href={href}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        'block rounded-lg px-3 py-2.5 text-base font-medium',
+                        active
+                          ? 'bg-[color:var(--brand-navy)] text-white'
+                          : 'text-foreground hover:bg-surface-muted',
+                      )}
+                    >
+                      {t(key)}
+                    </Link>
+                  </motion.div>
+                )
+              })}
+              <div className="mt-3 border-t border-[color:var(--border)] pt-3 sm:hidden">
+                <LanguageToggle />
+              </div>
+            </motion.nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

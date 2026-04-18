@@ -9,6 +9,7 @@ import { AdminHeader, LinkButton } from '@/components/fci/admin/AdminHeader'
 import { LotForm } from '../LotForm'
 import { deleteLot, removeLotMedia } from '../actions'
 import { LotMediaAdd } from './LotMediaAdd'
+import { ConfirmButton } from '@/components/ui/ConfirmButton'
 
 export default async function EditLotPage({
   params,
@@ -100,17 +101,19 @@ export default async function EditLotPage({
                 </div>
                 <div className="p-3 text-xs">
                   <p className="truncate text-muted" title={m.url}>{m.url}</p>
-                  <form action={removeLotMedia} className="mt-2 flex justify-end">
-                    <input type="hidden" name="mediaId" value={m.id} />
-                    <input type="hidden" name="lotId" value={lot.id} />
-                    <input type="hidden" name="locale" value={locale} />
-                    <button
-                      type="submit"
-                      className="text-[11px] font-semibold uppercase tracking-wider text-[color:var(--brand-red)] hover:underline"
+                  <div className="mt-2 flex justify-end">
+                    <ConfirmButton
+                      action={removeLotMedia}
+                      hiddenFields={{ mediaId: m.id, lotId: lot.id, locale }}
+                      title="Remove this media?"
+                      description="It will disappear from the public gallery and the buyer portal."
+                      confirmLabel="Remove"
+                      variant="danger"
+                      size="sm"
                     >
                       Remove
-                    </button>
-                  </form>
+                    </ConfirmButton>
+                  </div>
                 </div>
               </li>
             ))}
@@ -125,22 +128,24 @@ export default async function EditLotPage({
       </section>
 
       {/* Danger zone ─────────────────────────────────────────────── */}
-      <form action={deleteLot} className="mt-10 rounded-2xl border border-[color:var(--brand-red)]/30 bg-[color:var(--brand-red)]/5 p-5">
-        <input type="hidden" name="id" value={lot.id} />
-        <input type="hidden" name="locale" value={locale} />
+      <section className="mt-10 rounded-2xl border border-[color:var(--brand-red)]/30 bg-[color:var(--brand-red)]/5 p-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h3 className="font-display text-base font-semibold text-foreground">Delete this lot</h3>
             <p className="text-xs text-muted">Removes all media and any related reservations. Irreversible.</p>
           </div>
-          <button
-            type="submit"
-            className="inline-flex h-10 items-center rounded-full border border-[color:var(--brand-red)]/60 bg-white px-4 text-xs font-semibold uppercase tracking-wider text-[color:var(--brand-red)] hover:bg-[color:var(--brand-red)] hover:text-white dark:bg-transparent"
+          <ConfirmButton
+            action={deleteLot}
+            hiddenFields={{ id: lot.id, locale }}
+            title="Delete this lot?"
+            description={`Lot ${lot.reference} and its ${lot.media.length} media items will be permanently removed.`}
+            confirmLabel="Yes, delete lot"
+            variant="danger"
           >
             Delete lot
-          </button>
+          </ConfirmButton>
         </div>
-      </form>
+      </section>
 
       <Link
         href={`/a-la-une/${lot.program.slug}/lots/${lot.reference}`}

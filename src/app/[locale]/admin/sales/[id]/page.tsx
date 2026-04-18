@@ -17,6 +17,7 @@ import {
 } from '../actions'
 import { formatFCFA } from '@/lib/format'
 import { SALE_STAGES, saleProgress } from '@/lib/sales/packet'
+import { ConfirmButton } from '@/components/ui/ConfirmButton'
 
 const DOC_STATUSES = ['required', 'uploaded', 'approved', 'rejected'] as const
 
@@ -346,22 +347,24 @@ export default async function SaleDetailPage({
 
       {/* Cancel ────────────────────────────────────── */}
       {sale.stage !== 'cancelled' && (
-        <form action={cancelSale} className="mt-10 rounded-2xl border border-[color:var(--brand-red)]/30 bg-[color:var(--brand-red)]/5 p-5">
-          <input type="hidden" name="id" value={sale.id} />
-          <input type="hidden" name="locale" value={locale} />
+        <section className="mt-10 rounded-2xl border border-[color:var(--brand-red)]/30 bg-[color:var(--brand-red)]/5 p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h3 className="font-display text-base font-semibold text-foreground">Cancel this sale</h3>
               <p className="text-xs text-muted">Marks the sale as cancelled. The lot is not automatically re-listed — handle that manually.</p>
             </div>
-            <button
-              type="submit"
-              className="inline-flex h-10 items-center rounded-full border border-[color:var(--brand-red)]/60 bg-white px-4 text-xs font-semibold uppercase tracking-wider text-[color:var(--brand-red)] hover:bg-[color:var(--brand-red)] hover:text-white dark:bg-transparent"
+            <ConfirmButton
+              action={cancelSale}
+              hiddenFields={{ id: sale.id, locale }}
+              title="Cancel this sale?"
+              description="The buyer portal will flip to cancelled, payments and documents remain for audit. You can still reactivate the lot manually."
+              confirmLabel="Yes, cancel sale"
+              variant="danger"
             >
               Cancel sale
-            </button>
+            </ConfirmButton>
           </div>
-        </form>
+        </section>
       )}
 
       <Link

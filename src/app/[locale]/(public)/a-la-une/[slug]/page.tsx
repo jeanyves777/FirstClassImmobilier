@@ -63,7 +63,7 @@ export default async function ProgramPage({
             <Link
               key={lot.id}
               href={`/a-la-une/${slug}/lots/${lot.reference}`}
-              className="group overflow-hidden rounded-2xl border border-[color:var(--border)] bg-surface transition-shadow hover:shadow-[0_24px_60px_-28px_rgba(15,23,42,.25)]"
+              className="group overflow-hidden rounded-2xl border border-[color:var(--border)] bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--brand-navy)]/30 hover:shadow-[0_28px_70px_-28px_rgba(15,23,42,.35)]"
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-surface-muted">
                 {cover ? (

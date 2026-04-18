@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Link, usePathname } from '@/i18n/navigation'
 import { Logo } from './Logo'
 import { LanguageToggle } from './LanguageToggle'
@@ -59,10 +60,12 @@ export function AdminSidebar({
         </div>
       </div>
 
-      <aside
+      <motion.aside
+        initial={false}
+        animate={{ x: open ? 0 : -288 }}
+        transition={{ type: 'spring', stiffness: 340, damping: 34, mass: 0.8 }}
         className={cn(
-          'fixed inset-y-0 left-0 z-40 flex w-72 flex-col border-r border-[color:var(--border)] bg-surface transition-transform lg:sticky lg:top-0 lg:h-dvh lg:translate-x-0',
-          open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
+          'fixed inset-y-0 left-0 z-40 flex w-72 flex-col border-r border-[color:var(--border)] bg-surface lg:sticky lg:top-0 lg:h-dvh lg:!translate-x-0',
         )}
       >
         <div className="flex items-center justify-between border-b border-[color:var(--border)] px-5 py-4">
@@ -127,15 +130,22 @@ export function AdminSidebar({
             </button>
           </form>
         </div>
-      </aside>
+      </motion.aside>
 
-      {open && (
-        <div
-          role="presentation"
-          className="fixed inset-0 z-30 bg-black/40 lg:hidden"
-          onClick={() => setOpen(false)}
-        />
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="admin-scrim"
+            role="presentation"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 z-30 bg-[color:var(--brand-ink)]/60 backdrop-blur-sm lg:hidden"
+            onClick={() => setOpen(false)}
+          />
+        )}
+      </AnimatePresence>
     </>
   )
 }

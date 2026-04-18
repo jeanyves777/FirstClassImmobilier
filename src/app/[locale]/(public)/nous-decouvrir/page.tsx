@@ -24,7 +24,7 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/nous-de
         {sections.map((s) => (
           <article
             key={s.key}
-            className="group rounded-2xl border border-[color:var(--border)] bg-surface p-6 transition-shadow hover:shadow-[0_24px_60px_-28px_rgba(15,23,42,.25)]"
+            className="group rounded-2xl border border-[color:var(--border)] bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--brand-navy)]/30 hover:shadow-[0_28px_70px_-28px_rgba(15,23,42,.35)]"
           >
             <h3 className="font-display text-xl font-semibold text-foreground">{s.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted">{s.body}</p>

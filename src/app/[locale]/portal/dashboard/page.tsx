@@ -75,7 +75,7 @@ export default async function PortalDashboard({
                 <Link
                   key={s.id}
                   href={`/portal/projects/${s.id}`}
-                  className="group rounded-2xl border border-[color:var(--border)] bg-surface p-5 transition-shadow hover:shadow-[0_24px_60px_-28px_rgba(15,23,42,.25)]"
+                  className="group rounded-2xl border border-[color:var(--border)] bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--brand-navy)]/30 hover:shadow-[0_28px_70px_-28px_rgba(15,23,42,.35)]"
                 >
                   <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--brand-red)]">{s.lot?.reference}</p>
                   <h3 className="mt-1 font-display text-lg font-semibold text-foreground">{tr(s.program.name, l)}</h3>

@@ -32,7 +32,7 @@ export default async function FeaturedPage({ params }: PageProps<'/[locale]/a-la
           <Link
             key={w.slug}
             href={`/a-la-une/${w.slug}`}
-            className="group relative overflow-hidden rounded-2xl border border-[color:var(--border)]"
+            className="group relative overflow-hidden rounded-2xl border border-[color:var(--border)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_-28px_rgba(15,23,42,.35)]"
           >
             <div className={`aspect-[4/5] bg-gradient-to-br ${w.accent}`} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
