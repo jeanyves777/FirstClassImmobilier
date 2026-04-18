@@ -1,0 +1,188 @@
+import { setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
+import Image from 'next/image'
+import { Link } from '@/i18n/navigation'
+import { prisma } from '@/lib/db'
+import { parse as parseLocalized, tr } from '@/lib/zod/localized'
+import type { Locale } from '@/i18n/routing'
+import { AdminHeader, LinkButton } from '@/components/fci/admin/AdminHeader'
+import { LotForm } from '../LotForm'
+import { addLotMedia, deleteLot, removeLotMedia } from '../actions'
+
+export default async function EditLotPage({
+  params,
+}: PageProps<'/[locale]/admin/lots/[id]'>) {
+  const { locale, id } = await params
+  setRequestLocale(locale)
+  const l = locale as Locale
+
+  const [lot, programs] = await Promise.all([
+    prisma.lot.findUnique({
+      where: { id },
+      include: {
+        media: { orderBy: { order: 'asc' } },
+        program: { select: { id: true, slug: true, name: true } },
+      },
+    }),
+    prisma.program.findMany({ orderBy: { updatedAt: 'desc' } }),
+  ])
+  if (!lot) notFound()
+
+  const features: string[] = lot.features
+    ? (() => {
+        try { return JSON.parse(lot.features) as string[] } catch { return [] }
+      })()
+    : []
+
+  return (
+    <div>
+      <AdminHeader
+        backHref="/admin/lots"
+        backLabel="Lots"
+        eyebrow={`${tr(lot.program.name, l) || lot.program.slug} · ${lot.reference}`}
+        title={tr(lot.title, l) || lot.reference}
+        description={`${lot.media.length} media · ${lot.status}`}
+        action={
+          <LinkButton
+            href={`/a-la-une/${lot.program.slug}/lots/${lot.reference}`}
+            variant="secondary"
+          >
+            View on site →
+          </LinkButton>
+        }
+      />
+
+      <LotForm
+        locale={locale}
+        mode="edit"
+        programs={programs.map((p) => ({ id: p.id, slug: p.slug, label: tr(p.name, l) || p.slug }))}
+        lot={{
+          id: lot.id,
+          programId: lot.programId,
+          reference: lot.reference,
+          surfaceM2: lot.surfaceM2,
+          priceFCFA: lot.priceFCFA.toString(),
+          status: lot.status,
+          bedrooms: lot.bedrooms,
+          bathrooms: lot.bathrooms,
+          title: lot.title ? parseLocalized(lot.title) : null,
+          description: lot.description ? parseLocalized(lot.description) : null,
+          highlights: lot.highlights ? parseLocalized(lot.highlights) : null,
+          features,
+          videoUrl: lot.videoUrl,
+          virtualTourUrl: lot.virtualTourUrl,
+        }}
+      />
+
+      {/* Media management ────────────────────────────────────────── */}
+      <section className="mt-10 rounded-2xl border border-[color:var(--border)] bg-surface p-6">
+        <header className="mb-5 flex items-baseline justify-between">
+          <h2 className="font-display text-lg font-semibold text-foreground">Gallery & videos</h2>
+          <p className="text-xs text-muted">{lot.media.length} items</p>
+        </header>
+
+        {lot.media.length > 0 ? (
+          <ul className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {lot.media.map((m) => (
+              <li key={m.id} className="overflow-hidden rounded-xl border border-[color:var(--border)] bg-surface-muted">
+                <div className="relative aspect-video bg-zinc-900">
+                  {m.kind === 'image' ? (
+                    <Image src={m.url} alt={tr(m.alt, l) || m.url} fill sizes="300px" className="object-cover" />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-xs uppercase tracking-wider text-white/70">
+                      {m.kind}
+                    </div>
+                  )}
+                  <span className="absolute top-2 left-2 rounded-full bg-black/70 px-2 py-0.5 text-[10px] font-semibold uppercase text-white">
+                    {m.kind}
+                  </span>
+                </div>
+                <div className="p-3 text-xs">
+                  <p className="truncate text-muted" title={m.url}>{m.url}</p>
+                  <form action={removeLotMedia} className="mt-2 flex justify-end">
+                    <input type="hidden" name="mediaId" value={m.id} />
+                    <input type="hidden" name="lotId" value={lot.id} />
+                    <input type="hidden" name="locale" value={locale} />
+                    <button
+                      type="submit"
+                      className="text-[11px] font-semibold uppercase tracking-wider text-[color:var(--brand-red)] hover:underline"
+                    >
+                      Remove
+                    </button>
+                  </form>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mb-6 rounded-xl border border-dashed border-[color:var(--border)] bg-surface-muted p-6 text-center text-sm text-muted">
+            No media yet. Add the first image below.
+          </p>
+        )}
+
+        <form action={addLotMedia} className="grid gap-3 rounded-xl border border-[color:var(--border)] bg-background p-4 sm:grid-cols-[120px_1fr_1fr_auto]">
+          <input type="hidden" name="lotId" value={lot.id} />
+          <input type="hidden" name="locale" value={locale} />
+          <label className="block space-y-1">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted">Kind</span>
+            <select name="kind" className="w-full rounded-lg border border-[color:var(--border)] bg-background px-2 py-1.5 text-sm">
+              <option value="image">Image</option>
+              <option value="video">Video</option>
+              <option value="pdf">PDF</option>
+              <option value="tour">Tour</option>
+            </select>
+          </label>
+          <label className="block space-y-1">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted">URL</span>
+            <input
+              name="url"
+              type="url"
+              required
+              placeholder="https://..."
+              className="w-full rounded-lg border border-[color:var(--border)] bg-background px-2 py-1.5 text-sm"
+            />
+          </label>
+          <label className="block space-y-1">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted">Alt text (optional, same for FR/EN)</span>
+            <input
+              name="alt"
+              type="text"
+              className="w-full rounded-lg border border-[color:var(--border)] bg-background px-2 py-1.5 text-sm"
+            />
+          </label>
+          <button
+            type="submit"
+            className="self-end inline-flex h-9 items-center rounded-full bg-[color:var(--brand-navy)] px-4 text-xs font-semibold text-white hover:bg-[color:var(--brand-navy-700)]"
+          >
+            Add media
+          </button>
+        </form>
+      </section>
+
+      {/* Danger zone ─────────────────────────────────────────────── */}
+      <form action={deleteLot} className="mt-10 rounded-2xl border border-[color:var(--brand-red)]/30 bg-[color:var(--brand-red)]/5 p-5">
+        <input type="hidden" name="id" value={lot.id} />
+        <input type="hidden" name="locale" value={locale} />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h3 className="font-display text-base font-semibold text-foreground">Delete this lot</h3>
+            <p className="text-xs text-muted">Removes all media and any related reservations. Irreversible.</p>
+          </div>
+          <button
+            type="submit"
+            className="inline-flex h-10 items-center rounded-full border border-[color:var(--brand-red)]/60 bg-white px-4 text-xs font-semibold uppercase tracking-wider text-[color:var(--brand-red)] hover:bg-[color:var(--brand-red)] hover:text-white dark:bg-transparent"
+          >
+            Delete lot
+          </button>
+        </div>
+      </form>
+
+      <Link
+        href={`/a-la-une/${lot.program.slug}/lots/${lot.reference}`}
+        className="mt-6 inline-flex text-xs text-muted hover:text-foreground"
+      >
+        ↗ View public lot page
+      </Link>
+    </div>
+  )
+}
