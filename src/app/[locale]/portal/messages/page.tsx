@@ -1,5 +1,10 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { site, whatsappLink } from '@/lib/site'
+import { prisma } from '@/lib/db'
+import { getSessionUser } from '@/lib/auth/rbac'
+import { ChatThreadView } from '@/components/fci/ChatThreadView'
+import { ChatComposer } from '@/components/fci/ChatComposer'
+import { ChatLive } from '@/components/fci/ChatLive'
+import { sendPortalMessage } from './actions'
 
 export default async function PortalMessages({
   params,
@@ -7,27 +12,62 @@ export default async function PortalMessages({
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations('portal')
+  const user = await getSessionUser()
+  if (!user) return null
+
+  // Ensure there's always at least one open thread between this user and FCI.
+  let thread = await prisma.chatThread.findFirst({
+    where: { userId: user.id, status: { in: ['open', 'pending'] } },
+    orderBy: { updatedAt: 'desc' },
+  })
+  if (!thread) {
+    thread = await prisma.chatThread.create({
+      data: { userId: user.id, status: 'open', subject: 'Conversation with FCI' },
+    })
+  }
+
+  const messages = await prisma.chatMessage.findMany({
+    where: { threadId: thread.id },
+    orderBy: { createdAt: 'asc' },
+  })
+
+  // Mark incoming messages as read on view
+  await prisma.chatMessage.updateMany({
+    where: { threadId: thread.id, senderId: { not: user.id }, readAt: null },
+    data: { readAt: new Date() },
+  })
+
+  const assignedStaff = thread.assignedStaffId
+    ? await prisma.user.findUnique({
+        where: { id: thread.assignedStaffId },
+        select: { fullName: true, email: true },
+      })
+    : null
 
   return (
-    <div className="space-y-6">
-      <header>
-        <h1 className="font-display text-3xl font-semibold text-foreground sm:text-4xl">{t('portalMessages')}</h1>
+    <div className="flex h-[calc(100dvh-8rem)] flex-col overflow-hidden rounded-2xl border border-[color:var(--border)] bg-background">
+      <header className="flex items-center justify-between gap-3 border-b border-[color:var(--border)] bg-surface px-5 py-4">
+        <div>
+          <h1 className="font-display text-lg font-semibold text-foreground">{t('portalMessages')}</h1>
+          <p className="text-xs text-muted">
+            {assignedStaff
+              ? `Your agent: ${assignedStaff.fullName ?? assignedStaff.email}`
+              : 'FCI staff will reply here soon.'}
+          </p>
+        </div>
+        <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400">
+          Live
+        </span>
       </header>
 
-      <section className="rounded-2xl border border-dashed border-[color:var(--border)] bg-surface-muted p-10 text-center">
-        <p className="text-sm text-muted">
-          {t('messagesComingSoon')}
-        </p>
-        <a
-          href={whatsappLink('Bonjour, je souhaite échanger avec FirstClass Immobilier.')}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2 text-sm font-semibold text-white hover:brightness-95"
-        >
-          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M20.52 3.48A11.84 11.84 0 0 0 12.04 0C5.5 0 .22 5.27.22 11.76a11.6 11.6 0 0 0 1.66 6.02L0 24l6.41-1.67a11.83 11.83 0 0 0 5.63 1.43h.01c6.54 0 11.82-5.28 11.82-11.77a11.68 11.68 0 0 0-3.35-8.51z"/></svg>
-          WhatsApp · +{site.whatsapp}
-        </a>
-      </section>
+      <ChatThreadView messages={messages} currentUserId={user.id} locale={locale} />
+      <ChatLive threadId={thread.id} />
+      <ChatComposer
+        action={sendPortalMessage}
+        threadId={thread.id}
+        locale={locale}
+        placeholder="Message FCI…"
+      />
     </div>
   )
 }

@@ -7,6 +7,7 @@ import { AdminHeader } from '@/components/fci/admin/AdminHeader'
 import { ProgramForm } from '../ProgramForm'
 import { deleteProgram } from '../actions'
 import { ConfirmButton } from '@/components/ui/ConfirmButton'
+import { ProgramMediaManager } from './ProgramMediaManager'
 
 export default async function EditProgramPage({
   params,
@@ -16,7 +17,11 @@ export default async function EditProgramPage({
 
   const program = await prisma.program.findUnique({
     where: { id },
-    include: { _count: { select: { lots: true } } },
+    include: {
+      _count: { select: { lots: true } },
+      media: { orderBy: { order: 'asc' } },
+      plans: { orderBy: { id: 'asc' } },
+    },
   })
   if (!program) notFound()
 
@@ -52,6 +57,14 @@ export default async function EditProgramPage({
           zone: program.zone,
           featured: program.featured,
         }}
+      />
+
+      <ProgramMediaManager
+        programId={program.id}
+        locale={locale}
+        media={program.media.map((m) => ({ id: m.id, kind: m.kind, url: m.url }))}
+        plans={program.plans.map((p) => ({ id: p.id, label: p.label, fileUrl: p.fileUrl }))}
+        heroMediaId={program.heroMediaId}
       />
 
       <section className="mt-10 rounded-2xl border border-[color:var(--brand-red)]/30 bg-[color:var(--brand-red)]/5 p-5">

@@ -98,3 +98,97 @@ export async function deleteProgram(formData: FormData): Promise<void> {
   revalidatePath(`/${locale}/a-la-une`)
   redirect(`/${locale}/admin/programs`)
 }
+
+// ── Program media (hero + gallery) ─────────────────────────────────────
+
+const mediaSchema = z.object({
+  programId: z.string().min(1),
+  kind: z.enum(['image', 'video', 'tour']),
+  url: z.url(),
+})
+
+export async function addProgramMedia(formData: FormData): Promise<void> {
+  const locale = String(formData.get('locale') ?? 'fr')
+  await requireStaff(locale)
+  const parsed = mediaSchema.safeParse({
+    programId: formData.get('programId'),
+    kind: formData.get('kind'),
+    url: formData.get('url'),
+  })
+  if (!parsed.success) return
+  const count = await prisma.media.count({ where: { programId: parsed.data.programId } })
+  await prisma.media.create({
+    data: {
+      programId: parsed.data.programId,
+      kind: parsed.data.kind,
+      url: parsed.data.url,
+      order: count,
+    },
+  })
+  revalidatePath(`/${locale}/admin/programs/${parsed.data.programId}`)
+  revalidatePath(`/${locale}/a-la-une`)
+}
+
+export async function removeProgramMedia(formData: FormData): Promise<void> {
+  const locale = String(formData.get('locale') ?? 'fr')
+  const programId = String(formData.get('programId') ?? '')
+  const mediaId = String(formData.get('mediaId') ?? '')
+  await requireStaff(locale)
+  if (!mediaId) return
+  await prisma.media.delete({ where: { id: mediaId } })
+  if (programId) revalidatePath(`/${locale}/admin/programs/${programId}`)
+  revalidatePath(`/${locale}/a-la-une`)
+}
+
+export async function setProgramHero(formData: FormData): Promise<void> {
+  const locale = String(formData.get('locale') ?? 'fr')
+  const programId = String(formData.get('programId') ?? '')
+  const rawMediaId = String(formData.get('mediaId') ?? '')
+  const heroMediaId = rawMediaId === '' ? null : rawMediaId
+  await requireStaff(locale)
+  if (!programId) return
+  await prisma.program.update({ where: { id: programId }, data: { heroMediaId } })
+  revalidatePath(`/${locale}/admin/programs/${programId}`)
+  revalidatePath(`/${locale}/a-la-une`)
+  revalidatePath(`/${locale}/a-la-une/${programId}`)
+}
+
+// ── Program plans (PDFs) ───────────────────────────────────────────────
+
+const planSchema = z.object({
+  programId: z.string().min(1),
+  label: z.string().transform((v, ctx) => {
+    try {
+      const parsed = localizedTextSchema.parse(JSON.parse(v))
+      return JSON.stringify(parsed)
+    } catch {
+      ctx.addIssue({ code: 'custom', message: 'Invalid payload' })
+      return v
+    }
+  }),
+  fileUrl: z.url(),
+})
+
+export async function addProgramPlan(formData: FormData): Promise<void> {
+  const locale = String(formData.get('locale') ?? 'fr')
+  await requireStaff(locale)
+  const parsed = planSchema.safeParse({
+    programId: formData.get('programId'),
+    label: formData.get('label'),
+    fileUrl: formData.get('fileUrl'),
+  })
+  if (!parsed.success) return
+  await prisma.plan.create({ data: { ...parsed.data } })
+  revalidatePath(`/${locale}/admin/programs/${parsed.data.programId}`)
+  revalidatePath(`/${locale}/a-la-une/${parsed.data.programId}`)
+}
+
+export async function removeProgramPlan(formData: FormData): Promise<void> {
+  const locale = String(formData.get('locale') ?? 'fr')
+  const programId = String(formData.get('programId') ?? '')
+  const planId = String(formData.get('planId') ?? '')
+  await requireStaff(locale)
+  if (!planId) return
+  await prisma.plan.delete({ where: { id: planId } })
+  if (programId) revalidatePath(`/${locale}/admin/programs/${programId}`)
+}

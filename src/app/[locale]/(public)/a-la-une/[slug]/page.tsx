@@ -23,9 +23,14 @@ export default async function ProgramPage({
           media: { orderBy: { order: 'asc' }, take: 1 },
         },
       },
+      plans: { orderBy: { id: 'asc' } },
     },
   })
   if (!program) notFound()
+
+  const hero = program.heroMediaId
+    ? await prisma.media.findUnique({ where: { id: program.heroMediaId }, select: { url: true, kind: true } })
+    : null
 
   const t = await getTranslations('featured')
   const tLot = await getTranslations('lot')
@@ -37,6 +42,19 @@ export default async function ProgramPage({
       intro={tr(program.tagline, locale as Locale)}
       wide
     >
+      {hero && hero.kind === 'image' && (
+        <div className="relative mb-10 aspect-[16/7] w-full overflow-hidden rounded-2xl border border-[color:var(--border)] bg-surface-muted">
+          <Image
+            src={hero.url}
+            alt={tr(program.name, locale as Locale)}
+            fill
+            priority
+            sizes="(min-width: 1024px) 1100px, 100vw"
+            className="object-cover"
+          />
+        </div>
+      )}
+
       <section className="mb-10 rounded-2xl border border-[color:var(--border)] bg-surface p-6 sm:p-8">
         <p className="max-w-3xl text-base leading-relaxed text-muted">
           {tr(program.description, locale as Locale)}
@@ -48,6 +66,36 @@ export default async function ProgramPage({
           <Stat label={tLot('available')} value={String(program.lots.filter((l) => l.status === 'available').length)} />
         </dl>
       </section>
+
+      {program.plans.length > 0 && (
+        <section className="mb-10 rounded-2xl border border-[color:var(--border)] bg-surface p-6 sm:p-8">
+          <h2 className="font-display text-xl font-semibold text-foreground">
+            {locale === 'fr' ? 'Plans & catalogues' : 'Plans & catalogs'}
+          </h2>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+            {program.plans.map((p) => {
+              const label = tr(p.label, locale as Locale)
+              return (
+                <li key={p.id}>
+                  <a
+                    href={p.fileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 rounded-xl border border-[color:var(--border)] bg-surface-muted px-4 py-3 text-sm font-medium text-foreground transition-colors hover:border-[color:var(--brand-navy)] hover:bg-[color:var(--brand-navy)] hover:text-white"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <path d="M14 2v6h6M8 13h8M8 17h5" />
+                    </svg>
+                    <span className="flex-1 truncate">{label}</span>
+                    <span className="text-xs uppercase tracking-wider">PDF</span>
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
+      )}
 
       <div className="flex items-baseline justify-between gap-4">
         <h2 className="font-display text-2xl font-semibold text-foreground">{tLot('availableLots')}</h2>
