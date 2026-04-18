@@ -1,9 +1,39 @@
 /**
- * Central configuration for FirstClass Immobilier contact & identity.
- * Values come from env vars so staging/prod can swap without code changes.
+ * FirstClass Immobilier site configuration.
+ *
+ * `site` (the sync export) holds the env-defined defaults used by client
+ * components that can't hit Prisma. Server components should prefer
+ * `getSiteConfig()` which merges env defaults with the editable
+ * `SiteSettings` singleton so admin edits take effect live.
  */
 
-export const site = {
+type Social = {
+  facebook: string
+  instagram: string
+  linkedin: string
+  youtube: string
+  tiktok: string
+}
+
+export type SiteConfig = {
+  name: string
+  shortName: string
+  slogan: { fr: string; en: string }
+  brandTagline: { fr: string; en: string }
+  heroStatement: { fr: string; en: string }
+  address: string
+  hours: { fr: string; en: string }
+  phone: string
+  mobile: string
+  whatsapp: string
+  email: string
+  siteUrl: string
+  social: Social
+  countries: readonly string[]
+  footerCopy?: { fr: string; en: string } | null
+}
+
+const DEFAULTS = {
   name: 'FirstClass Immobilier',
   shortName: 'FCI',
   slogan: { fr: 'Une Nouvelle Vie Commence !', en: 'A New Life Begins!' },
@@ -33,9 +63,54 @@ export const site = {
     tiktok: process.env.NEXT_PUBLIC_TIKTOK_URL || '',
   },
   countries: ['CI', 'USA'] as const,
-} as const
+  footerCopy: null as { fr: string; en: string } | null,
+} satisfies SiteConfig
 
-export const whatsappLink = (message?: string) => {
-  const base = `https://wa.me/${site.whatsapp}`
+/** Env-only snapshot. Safe to import from Client Components. */
+export const site: SiteConfig = DEFAULTS
+
+export const whatsappLink = (message?: string, number?: string) => {
+  const n = (number ?? site.whatsapp).replace(/\D/g, '')
+  const base = `https://wa.me/${n}`
   return message ? `${base}?text=${encodeURIComponent(message)}` : base
+}
+
+/**
+ * Server-only: merge env defaults with the editable SiteSettings row.
+ */
+export async function getSiteConfig(): Promise<SiteConfig> {
+  // Dynamically import to keep this file client-safe.
+  const { prisma } = await import('@/lib/db')
+  const row = await prisma.siteSettings.findUnique({ where: { id: 1 } })
+  if (!row) return DEFAULTS
+
+  const merged: SiteConfig = {
+    ...DEFAULTS,
+    phone: row.phone || DEFAULTS.phone,
+    mobile: row.mobile || DEFAULTS.mobile,
+    whatsapp: row.whatsapp || DEFAULTS.whatsapp,
+    email: row.email || DEFAULTS.email,
+    address: row.address || DEFAULTS.address,
+    hours: {
+      fr: row.hoursFr || DEFAULTS.hours.fr,
+      en: row.hoursEn || DEFAULTS.hours.en,
+    },
+    social: {
+      facebook: row.facebookUrl || DEFAULTS.social.facebook,
+      instagram: row.instagramUrl || DEFAULTS.social.instagram,
+      linkedin: row.linkedinUrl || DEFAULTS.social.linkedin,
+      youtube: row.youtubeUrl || DEFAULTS.social.youtube,
+      tiktok: row.tiktokUrl || DEFAULTS.social.tiktok,
+    },
+    footerCopy: row.footerCopy
+      ? (() => {
+          try {
+            return JSON.parse(row.footerCopy) as { fr: string; en: string }
+          } catch {
+            return null
+          }
+        })()
+      : null,
+  }
+  return merged
 }

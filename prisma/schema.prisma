@@ -233,6 +233,24 @@ model SiteStats {
   updatedAt        DateTime @updatedAt
 }
 
+model SiteSettings {
+  id           Int      @id @default(1)
+  phone        String?
+  mobile       String?
+  whatsapp     String?
+  email        String?
+  address      String?
+  hoursFr      String?
+  hoursEn      String?
+  facebookUrl  String?
+  instagramUrl String?
+  linkedinUrl  String?
+  youtubeUrl   String?
+  tiktokUrl    String?
+  footerCopy   String? // LocalizedJSON (fr/en)
+  updatedAt    DateTime @updatedAt
+}
+
 // ── Leads, forms, chat, scheduler ──────────────────────────────────────────
 
 model Lead {

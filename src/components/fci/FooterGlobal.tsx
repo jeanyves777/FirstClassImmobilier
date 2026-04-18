@@ -1,9 +1,10 @@
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
-import { site } from '@/lib/site'
+import { getSiteConfig } from '@/lib/site'
 import { Logo } from './Logo'
 
-type Social = { key: keyof typeof site.social; label: string; icon: React.ReactNode }
+type SocialKey = 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok'
+type Social = { key: SocialKey; label: string; icon: React.ReactNode }
 
 const FB = (
   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
@@ -39,10 +40,13 @@ const SOCIAL: Social[] = [
   { key: 'tiktok', label: 'TikTok', icon: TT },
 ]
 
-export function FooterGlobal() {
-  const t = useTranslations('footer')
-  const tContact = useTranslations('contact')
-  const tNav = useTranslations('nav')
+export async function FooterGlobal() {
+  const [t, tContact, tNav, cfg] = await Promise.all([
+    getTranslations('footer'),
+    getTranslations('contact'),
+    getTranslations('nav'),
+    getSiteConfig(),
+  ])
   const year = new Date().getFullYear()
 
   return (
@@ -58,18 +62,18 @@ export function FooterGlobal() {
         <div className="space-y-3 text-sm">
           <h3 className="font-display text-base font-semibold text-foreground">{tNav('contact')}</h3>
           <address className="not-italic text-muted">
-            <span className="block">{site.address}</span>
+            <span className="block">{cfg.address}</span>
             <span className="mt-2 block">
               <span className="font-medium text-foreground">{tContact('phone')}:</span>{' '}
-              <a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a>
+              <a href={`tel:${cfg.phone.replace(/\s/g, '')}`}>{cfg.phone}</a>
             </span>
             <span className="block">
               <span className="font-medium text-foreground">{tContact('mobile')}:</span>{' '}
-              <a href={`tel:${site.mobile.replace(/\s/g, '')}`}>{site.mobile}</a>
+              <a href={`tel:${cfg.mobile.replace(/\s/g, '')}`}>{cfg.mobile}</a>
             </span>
             <span className="block">
               <span className="font-medium text-foreground">{tContact('email')}:</span>{' '}
-              <a href={`mailto:${site.email}`}>{site.email}</a>
+              <a href={`mailto:${cfg.email}`}>{cfg.email}</a>
             </span>
           </address>
         </div>
@@ -78,7 +82,7 @@ export function FooterGlobal() {
           <h3 className="font-display text-base font-semibold text-foreground">{t('followUs')}</h3>
           <ul className="flex flex-wrap gap-2">
             {SOCIAL.map(({ key, label, icon }) => {
-              const url = site.social[key]
+              const url = cfg.social[key]
               if (!url) return null
               return (
                 <li key={key}>
@@ -102,7 +106,7 @@ export function FooterGlobal() {
         <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-2 px-4 py-4 text-xs text-muted sm:flex-row sm:items-center sm:px-6 lg:px-8">
           <p>{t('copyright', { year })}</p>
           <p>
-            <a href={`mailto:${site.email}`}>{site.email}</a>
+            <a href={`mailto:${cfg.email}`}>{cfg.email}</a>
           </p>
         </div>
       </div>
