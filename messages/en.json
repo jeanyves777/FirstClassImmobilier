@@ -25,7 +25,8 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System",
-    "whatsappCta": "Chat on WhatsApp"
+    "whatsappCta": "Chat on WhatsApp",
+    "viewSite": "View site"
   },
   "home": {
     "tagline": "FirstClass Immobilier, Licensed Real Estate Developer.",

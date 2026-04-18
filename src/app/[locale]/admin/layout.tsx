@@ -1,6 +1,7 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
+import { prisma } from '@/lib/db'
 import { requireStaff } from '@/lib/auth/rbac'
-import { AdminSidebar } from '@/components/fci/AdminSidebar'
+import { AdminShell } from '@/components/fci/AdminShell'
 import { doSignOut } from './signout/actions'
 
 export default async function AdminLayout({
@@ -11,15 +12,25 @@ export default async function AdminLayout({
   setRequestLocale(locale)
   const user = await requireStaff(locale, `/${locale}/admin/dashboard`)
 
+  const [chatBadge, t] = await Promise.all([
+    prisma.chatMessage.count({
+      where: {
+        readAt: null,
+        senderId: { not: user.id },
+        thread: { status: { in: ['open', 'pending'] } },
+      },
+    }),
+    getTranslations('common'),
+  ])
+
   return (
-    <div className="flex min-h-dvh flex-col bg-background lg:flex-row">
-      <AdminSidebar
-        user={{ name: user.name, email: user.email, role: user.role }}
-        onSignOut={doSignOut}
-      />
-      <div className="flex-1 min-w-0">
-        <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-8 sm:py-12">{children}</main>
-      </div>
-    </div>
+    <AdminShell
+      user={{ name: user.name, email: user.email, role: user.role }}
+      onSignOut={doSignOut}
+      badges={{ chat: chatBadge }}
+      viewSiteLabel={t('viewSite')}
+    >
+      {children}
+    </AdminShell>
   )
 }

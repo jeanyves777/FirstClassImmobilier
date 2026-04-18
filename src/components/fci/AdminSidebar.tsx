@@ -1,13 +1,12 @@
 'use client'
 
-import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, usePathname } from '@/i18n/navigation'
 import { Logo } from './Logo'
-import { LanguageToggle } from './LanguageToggle'
-import { ThemeToggle } from './ThemeToggle'
 import { cn } from '@/lib/utils'
+
+type Badges = { chat?: number }
 
 const NAV = [
   { href: '/admin/dashboard', key: 'navDashboard', icon: IconDashboard },
@@ -16,7 +15,7 @@ const NAV = [
   { href: '/admin/reservations', key: 'navReservations', icon: IconBookmark },
   { href: '/admin/sales', key: 'navSales', icon: IconHandshake },
   { href: '/admin/appointments', key: 'navAppointments', icon: IconCalendar },
-  { href: '/admin/chat', key: 'navChat', icon: IconChat },
+  { href: '/admin/chat', key: 'navChat', icon: IconChat, badgeKey: 'chat' as const },
   { href: '/admin/analytics', key: 'navAnalytics', icon: IconTrending },
   { href: '/admin/leads', key: 'navLeads', icon: IconMessage },
   { href: '/admin/applications', key: 'navApplications', icon: IconClipboard },
@@ -30,53 +29,34 @@ const NAV = [
 
 export function AdminSidebar({
   user,
-  onSignOut,
+  open,
+  onClose,
+  badges,
 }: {
   user: { name?: string | null; email?: string | null; role?: string }
-  onSignOut: () => Promise<void>
+  open: boolean
+  onClose: () => void
+  badges?: Badges
 }) {
   const t = useTranslations('admin')
   const tAuth = useTranslations('auth')
   const pathname = usePathname()
-  const [open, setOpen] = useState(false)
 
   return (
     <>
-      {/* Mobile top bar */}
-      <div className="sticky top-0 z-40 flex items-center justify-between border-b border-[color:var(--border)] bg-background/85 px-4 py-3 backdrop-blur lg:hidden">
-        <Link href="/admin/dashboard" className="flex items-center">
-          <Logo />
-        </Link>
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <button
-            type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--border)] bg-surface"
-            aria-label="Menu"
-            onClick={() => setOpen((v) => !v)}
-          >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-              {open ? <path d="M6 6l12 12M6 18L18 6" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-            </svg>
-          </button>
-        </div>
-      </div>
-
       <motion.aside
         initial={false}
         animate={{ x: open ? 0 : -288 }}
         transition={{ type: 'spring', stiffness: 340, damping: 34, mass: 0.8 }}
-        className={cn(
-          'fixed inset-y-0 left-0 z-40 flex w-72 flex-col border-r border-[color:var(--border)] bg-surface lg:sticky lg:top-0 lg:h-dvh lg:!translate-x-0',
-        )}
+        className="fixed inset-y-0 left-0 z-40 flex w-72 flex-col border-r border-[color:var(--border)] bg-surface lg:sticky lg:top-0 lg:h-dvh lg:!translate-x-0"
       >
         <div className="flex items-center justify-between border-b border-[color:var(--border)] px-5 py-4">
-          <Link href="/admin/dashboard" className="flex items-center">
+          <Link href="/admin/dashboard" className="flex items-center" onClick={onClose}>
             <Logo />
           </Link>
           <button
             type="button"
-            onClick={() => setOpen(false)}
+            onClick={onClose}
             aria-label="Close"
             className="inline-flex h-8 w-8 items-center justify-center rounded-full lg:hidden"
           >
@@ -88,13 +68,15 @@ export function AdminSidebar({
 
         <nav className="flex-1 overflow-y-auto px-3 py-3" aria-label="Admin">
           <ul className="space-y-1">
-            {NAV.map(({ href, key, icon: Icon }) => {
+            {NAV.map(({ href, key, icon: Icon, ...rest }) => {
               const active = pathname === href || pathname.startsWith(href + '/')
+              const badgeKey = (rest as { badgeKey?: 'chat' }).badgeKey
+              const badge = badgeKey && badges ? badges[badgeKey] : undefined
               return (
                 <li key={href}>
                   <Link
                     href={href}
-                    onClick={() => setOpen(false)}
+                    onClick={onClose}
                     className={cn(
                       'flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors',
                       active
@@ -103,7 +85,19 @@ export function AdminSidebar({
                     )}
                   >
                     <Icon className="h-4 w-4 shrink-0" />
-                    <span>{t(key)}</span>
+                    <span className="flex-1">{t(key)}</span>
+                    {badge !== undefined && badge > 0 && (
+                      <span
+                        className={cn(
+                          'rounded-full px-1.5 py-0.5 text-[10px] font-semibold',
+                          active
+                            ? 'bg-white/20 text-white'
+                            : 'bg-[color:var(--brand-red)] text-white',
+                        )}
+                      >
+                        {badge}
+                      </span>
+                    )}
                   </Link>
                 </li>
               )
@@ -111,26 +105,12 @@ export function AdminSidebar({
           </ul>
         </nav>
 
-        <div className="border-t border-[color:var(--border)] p-4 space-y-3">
-          <div className="flex items-center gap-2">
-            <LanguageToggle />
-            <div className="hidden lg:block">
-              <ThemeToggle />
-            </div>
-          </div>
+        <div className="border-t border-[color:var(--border)] p-4">
           <div className="rounded-xl border border-[color:var(--border)] bg-surface-muted p-3 text-xs">
-            <p className="text-muted uppercase tracking-wider">{tAuth('signedInAs')}</p>
-            <p className="mt-0.5 font-semibold text-foreground">{user.name || user.email}</p>
+            <p className="uppercase tracking-wider text-muted">{tAuth('signedInAs')}</p>
+            <p className="mt-0.5 truncate font-semibold text-foreground">{user.name || user.email}</p>
             <p className="text-[10px] uppercase tracking-wider text-[color:var(--brand-red)]">{user.role}</p>
           </div>
-          <form action={onSignOut}>
-            <button
-              type="submit"
-              className="w-full rounded-xl bg-surface-muted px-3 py-2 text-xs font-semibold text-foreground hover:bg-[color:var(--brand-navy)] hover:text-white transition-colors"
-            >
-              {tAuth('signOut')}
-            </button>
-          </form>
         </div>
       </motion.aside>
 
@@ -144,7 +124,7 @@ export function AdminSidebar({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
             className="fixed inset-0 z-30 bg-[color:var(--brand-ink)]/60 backdrop-blur-sm lg:hidden"
-            onClick={() => setOpen(false)}
+            onClick={onClose}
           />
         )}
       </AnimatePresence>
