@@ -1,0 +1,119 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "Nous Découvrir",
+    "realisations": "Nos Réalisations",
+    "featured": "À la Une",
+    "activities": "Nos Activités",
+    "team": "Nos Équipes",
+    "contact": "Contacts",
+    "portalCta": "Espace Client"
+  },
+  "common": {
+    "loading": "Chargement…",
+    "backHome": "Retour à l\u2019accueil",
+    "readMore": "En savoir plus",
+    "viewAll": "Tout voir",
+    "submit": "Envoyer",
+    "submitting": "Envoi en cours…",
+    "required": "Champ requis",
+    "invalidEmail": "Adresse e-mail invalide",
+    "success": "Merci ! Votre message a bien été envoyé.",
+    "error": "Une erreur est survenue. Réessayez plus tard.",
+    "language": "Langue",
+    "theme": "Thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système",
+    "whatsappCta": "Discutons sur WhatsApp"
+  },
+  "home": {
+    "tagline": "FirstClass Immobilier, Promoteur Immobilier Agréé.",
+    "subTagline": "Leader dans ses secteurs d\u2019Activité.",
+    "statement": "Avec nous, soyez-en sûr, l\u2019Immobilier se fait et se vit autrement.",
+    "counters": {
+      "years": "Années d\u2019expérience",
+      "clients": "Clients satisfaits",
+      "projects": "Projets",
+      "countries": "Pays de présence"
+    },
+    "discoverCta": "Découvrir nos programmes"
+  },
+  "about": {
+    "title": "Nous Découvrir",
+    "bioTitle": "Qui sommes-nous ?",
+    "bio": "FirstClass Immobilier est un promoteur immobilier agréé basé à Abidjan. Depuis plus de huit ans, nous accompagnons particuliers, entreprises et investisseurs dans l\u2019acquisition de terrains, la construction de maisons et le développement de lotissements de qualité.",
+    "servicesTitle": "Nos Services",
+    "valuesTitle": "Nos Valeurs",
+    "visionTitle": "Notre Vision",
+    "missionTitle": "Notre Mission",
+    "productsTitle": "Nos Produits",
+    "partnersTitle": "Nos Partenaires & Clients",
+    "values": "Intégrité, excellence, innovation, service client. Nous construisons des relations durables en plaçant la transparence au cœur de chaque transaction.",
+    "vision": "Devenir la référence incontournable de la promotion immobilière en Côte d\u2019Ivoire et dans la sous-région, à travers des réalisations premium et des quartiers qui façonnent un meilleur art de vivre.",
+    "mission": "Démocratiser l\u2019accès à la propriété pour la diaspora et les familles ivoiriennes en livrant des projets fiables, sécurisés, sur des délais maîtrisés, avec un accompagnement de bout en bout.",
+    "products": "Terrains viabilisés, maisons clé en main, appartements, lotissements complets, accompagnement ACD, gestion locative."
+  },
+  "realisations": {
+    "title": "Nos Réalisations",
+    "intro": "Découvrez l\u2019étendue de nos projets livrés à travers les zones d\u2019Abidjan, du Grand Abidjan, de l\u2019intérieur et de l\u2019extérieur du pays.",
+    "categories": {
+      "terrains": "Terrains",
+      "maisons": "Maisons",
+      "lotissements": "Lotissements"
+    },
+    "counters": {
+      "clients": "Clients satisfaits",
+      "landsSold": "Terrains vendus",
+      "housesBuilt": "Maisons réalisées",
+      "acd": "ACD délivrés",
+      "projects": "Projets"
+    }
+  },
+  "featured": {
+    "title": "À la Une",
+    "intro": "Nos programmes phares actuellement commercialisés et nos offres de terrains par zone.",
+    "programs": {
+      "aerocity": "Programme Immobilier AEROCITY BEACH",
+      "labella": "Programme Immobilier LABELLA RESIDENCE",
+      "lands": "Offres de Terrains"
+    },
+    "reserveCta": "Réserver un lot",
+    "catalogCta": "Télécharger le catalogue"
+  },
+  "activities": {
+    "title": "Nos Activités",
+    "intro": "Événements, inaugurations, séances de signatures, et vie de l\u2019entreprise."
+  },
+  "team": {
+    "title": "Nos Équipes",
+    "intro": "Une équipe pluridisciplinaire au service de votre projet immobilier."
+  },
+  "contact": {
+    "title": "Contacts",
+    "infoWindow": "Nos Contacts",
+    "applyWindow": "Postuler",
+    "feedbackWindow": "Vos Avis",
+    "address": "Adresse",
+    "hours": "Horaires",
+    "phone": "Téléphone",
+    "mobile": "Cellulaire",
+    "whatsapp": "WhatsApp",
+    "email": "E-mail",
+    "site": "Site internet",
+    "applyIntro": "Envoyez votre candidature spontanée. Joignez votre CV et décrivez brièvement votre profil.",
+    "feedbackIntro": "Partagez votre avis, une suggestion ou un besoin. Nous vous recontactons rapidement.",
+    "fields": {
+      "fullName": "Nom et Prénoms",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "message": "Message",
+      "resume": "CV (PDF, DOC, DOCX)"
+    }
+  },
+  "footer": {
+    "tagline": "Une Nouvelle Vie Commence !",
+    "copyright": "© {year} FirstClass Immobilier. Tous droits réservés.",
+    "followUs": "Suivez-nous"
+  }
+}

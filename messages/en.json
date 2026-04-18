@@ -1,0 +1,119 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "realisations": "Our Work",
+    "featured": "Featured",
+    "activities": "Activities",
+    "team": "Team",
+    "contact": "Contact",
+    "portalCta": "Client Portal"
+  },
+  "common": {
+    "loading": "Loading…",
+    "backHome": "Back to home",
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "submit": "Send",
+    "submitting": "Sending…",
+    "required": "Required field",
+    "invalidEmail": "Invalid email address",
+    "success": "Thanks! Your message was sent successfully.",
+    "error": "Something went wrong. Please try again later.",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "whatsappCta": "Chat on WhatsApp"
+  },
+  "home": {
+    "tagline": "FirstClass Immobilier, Licensed Real Estate Developer.",
+    "subTagline": "Leader in its sectors of activity.",
+    "statement": "With us, rest assured — real estate is done and lived differently.",
+    "counters": {
+      "years": "Years of experience",
+      "clients": "Satisfied clients",
+      "projects": "Projects",
+      "countries": "Countries of presence"
+    },
+    "discoverCta": "Discover our programs"
+  },
+  "about": {
+    "title": "About Us",
+    "bioTitle": "Who we are",
+    "bio": "FirstClass Immobilier is a licensed real estate developer based in Abidjan. For over eight years we have supported individuals, companies, and investors in acquiring land, building homes, and developing premium subdivisions.",
+    "servicesTitle": "Our Services",
+    "valuesTitle": "Our Values",
+    "visionTitle": "Our Vision",
+    "missionTitle": "Our Mission",
+    "productsTitle": "Our Products",
+    "partnersTitle": "Our Partners & Clients",
+    "values": "Integrity, excellence, innovation, client-first service. We build lasting relationships by placing transparency at the heart of every transaction.",
+    "vision": "Become the go-to reference of real estate development in Côte d\u2019Ivoire and the sub-region, through premium developments and neighborhoods that shape a better way of life.",
+    "mission": "Democratize access to property ownership for the diaspora and Ivorian families by delivering reliable, secure projects on controlled timelines, with end-to-end support.",
+    "products": "Serviced land, turn-key homes, apartments, complete subdivisions, ACD support, rental management."
+  },
+  "realisations": {
+    "title": "Our Work",
+    "intro": "Explore our delivered projects across Abidjan, Greater Abidjan, inland, and beyond.",
+    "categories": {
+      "terrains": "Land",
+      "maisons": "Homes",
+      "lotissements": "Subdivisions"
+    },
+    "counters": {
+      "clients": "Satisfied clients",
+      "landsSold": "Lots sold",
+      "housesBuilt": "Homes built",
+      "acd": "ACDs delivered",
+      "projects": "Projects"
+    }
+  },
+  "featured": {
+    "title": "Featured",
+    "intro": "Our flagship programs currently on sale and curated land offers by zone.",
+    "programs": {
+      "aerocity": "AEROCITY BEACH Real Estate Program",
+      "labella": "LABELLA RESIDENCE Real Estate Program",
+      "lands": "Land Offers"
+    },
+    "reserveCta": "Reserve a lot",
+    "catalogCta": "Download catalog"
+  },
+  "activities": {
+    "title": "Activities",
+    "intro": "Events, openings, signing ceremonies, and company life."
+  },
+  "team": {
+    "title": "Our Team",
+    "intro": "A multidisciplinary team at the service of your real estate project."
+  },
+  "contact": {
+    "title": "Contact",
+    "infoWindow": "Our Contacts",
+    "applyWindow": "Apply",
+    "feedbackWindow": "Your Feedback",
+    "address": "Address",
+    "hours": "Hours",
+    "phone": "Phone",
+    "mobile": "Mobile",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "site": "Website",
+    "applyIntro": "Send a spontaneous application. Attach your résumé and briefly describe your profile.",
+    "feedbackIntro": "Share feedback, a suggestion, or a need. We will get back to you quickly.",
+    "fields": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "resume": "Resume (PDF, DOC, DOCX)"
+    }
+  },
+  "footer": {
+    "tagline": "A New Life Begins!",
+    "copyright": "© {year} FirstClass Immobilier. All rights reserved.",
+    "followUs": "Follow us"
+  }
+}

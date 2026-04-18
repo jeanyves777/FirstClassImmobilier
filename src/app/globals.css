@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── FirstClass Immobilier brand tokens ────────────────────────────────── */
+
+:root {
+  --brand-red: #c8102e;
+  --brand-red-600: #a30b25;
+  --brand-red-200: #f7c7cf;
+  --brand-navy: #1b2c4d;
+  --brand-navy-700: #12203b;
+  --brand-navy-500: #2c4372;
+  --brand-cream: #f7f5f0;
+  --brand-ink: #0b1324;
+
+  /* semantic — light */
+  --background: var(--brand-cream);
+  --surface: #ffffff;
+  --surface-muted: #f1eee7;
+  --foreground: var(--brand-ink);
+  --muted: #6b7280;
+  --border: #e7e3d8;
+  --primary: var(--brand-navy);
+  --primary-foreground: #ffffff;
+  --accent: var(--brand-red);
+  --accent-foreground: #ffffff;
+  --ring: var(--brand-navy-500);
+}
+
+.dark {
+  --background: #0a1220;
+  --surface: #121b2d;
+  --surface-muted: #172239;
+  --foreground: #ecefff;
+  --muted: #8b93a8;
+  --border: #1f2a44;
+  --primary: #3959a0;
+  --primary-foreground: #ffffff;
+  --accent: #e8384f;
+  --accent-foreground: #ffffff;
+  --ring: #4b6fc2;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ring: var(--ring);
+  --color-brand-red: var(--brand-red);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-cream: var(--brand-cream);
+
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-inter);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: light dark;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
