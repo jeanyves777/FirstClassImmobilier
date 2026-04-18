@@ -16,15 +16,20 @@ export default {
       if (user) {
         token.role = (user as { role?: string }).role ?? 'VISITOR'
         token.locale = (user as { locale?: string }).locale ?? 'fr'
+        if ((user as { id?: string }).id) token.sub = (user as { id: string }).id
       }
       return token
     },
     async session({ session, token }) {
       if (session.user) {
-        ;(session.user as typeof session.user & { role?: string; locale?: string }).role =
-          (token.role as string | undefined) ?? 'VISITOR'
-        ;(session.user as typeof session.user & { role?: string; locale?: string }).locale =
-          (token.locale as string | undefined) ?? 'fr'
+        const u = session.user as typeof session.user & {
+          id?: string
+          role?: string
+          locale?: string
+        }
+        if (token.sub) u.id = token.sub
+        u.role = (token.role as string | undefined) ?? 'VISITOR'
+        u.locale = (token.locale as string | undefined) ?? 'fr'
       }
       return session
     },

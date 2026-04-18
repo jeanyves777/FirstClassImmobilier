@@ -8,6 +8,7 @@ import { formatFCFA, formatSurface } from '@/lib/format'
 import type { Locale } from '@/i18n/routing'
 import { LotGallery } from './LotGallery'
 import { VisitRequestForm } from './VisitRequestForm'
+import { reserveLot } from './reserve-actions'
 
 export default async function LotPage({
   params,
@@ -139,12 +140,18 @@ export default async function LotPage({
               </dl>
 
               {lot.status === 'available' && (
-                <button
-                  type="button"
-                  className="mt-6 w-full rounded-full bg-[color:var(--brand-red)] px-6 py-3 text-sm font-semibold text-white hover:bg-[color:var(--brand-red-600)]"
-                >
-                  {t('reserveCta')}
-                </button>
+                <form action={reserveLot} className="mt-6">
+                  <input type="hidden" name="locale" value={locale} />
+                  <input type="hidden" name="lotId" value={lot.id} />
+                  <input type="hidden" name="slug" value={slug} />
+                  <input type="hidden" name="ref" value={lot.reference} />
+                  <button
+                    type="submit"
+                    className="w-full rounded-full bg-[color:var(--brand-red)] px-6 py-3 text-sm font-semibold text-white hover:bg-[color:var(--brand-red-600)]"
+                  >
+                    {t('reserveCta')}
+                  </button>
+                </form>
               )}
             </div>
 

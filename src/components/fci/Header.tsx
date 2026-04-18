@@ -52,7 +52,7 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <Link
-            href="/signin"
+            href="/portal"
             className="hidden rounded-full border border-[color:var(--border)] bg-surface px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-foreground transition-colors hover:bg-[color:var(--brand-navy)] hover:text-white md:inline-flex"
           >
             {t('portalCta')}

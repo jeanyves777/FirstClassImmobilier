@@ -12,10 +12,11 @@ const NAV = [
   { href: '/admin/dashboard', key: 'navDashboard', icon: IconDashboard },
   { href: '/admin/programs', key: 'navPrograms', icon: IconBuilding },
   { href: '/admin/lots', key: 'navLots', icon: IconGrid },
+  { href: '/admin/reservations', key: 'navReservations', icon: IconBookmark },
   { href: '/admin/sales', key: 'navSales', icon: IconHandshake },
+  { href: '/admin/appointments', key: 'navAppointments', icon: IconCalendar },
   { href: '/admin/leads', key: 'navLeads', icon: IconMessage },
   { href: '/admin/applications', key: 'navApplications', icon: IconClipboard },
-  { href: '/admin/appointments', key: 'navAppointments', icon: IconCalendar },
   { href: '/admin/activities', key: 'navActivities', icon: IconSparkles },
   { href: '/admin/team', key: 'navTeam', icon: IconUsers },
   { href: '/admin/partners', key: 'navPartners', icon: IconLayers },
@@ -164,3 +165,4 @@ function IconLayers(p: { className?: string }) { return <svg {...svgProps(p.clas
 function IconTrending(p: { className?: string }) { return <svg {...svgProps(p.className)}><path d="m3 17 6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg> }
 function IconKey(p: { className?: string }) { return <svg {...svgProps(p.className)}><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg> }
 function IconGear(p: { className?: string }) { return <svg {...svgProps(p.className)}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> }
+function IconBookmark(p: { className?: string }) { return <svg {...svgProps(p.className)}><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> }
