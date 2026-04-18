@@ -15,7 +15,7 @@ export function ApplicationForm() {
 
   return (
     <FormCard title={t('applyWindow')} intro={t('applyIntro')} state={state}>
-      <form action={action} className="grid gap-4" encType="multipart/form-data">
+      <form action={action} className="grid gap-4">
         <Field label={t('fields.fullName')} name="fullName" required errors={state.errors?.fullName} />
         <Field label={t('fields.email')} name="email" type="email" required errors={state.errors?.email} />
         <Field label={t('fields.phone')} name="phone" type="tel" required errors={state.errors?.phone} />
