@@ -32,14 +32,14 @@ export default async function AdminLotsList({
   return (
     <div>
       <AdminHeader
-        eyebrow={t('navDashboard')}
+        eyebrow={t('eyebrow.content')}
         title={t('navLots')}
-        description="Manage every lot across your programs. Click a row to edit its content, media, and virtual tour."
+        description={t('descriptions.lots')}
         action={
           <LinkButton
             href={programId ? `/admin/lots/new?programId=${programId}` : '/admin/lots/new'}
           >
-            + New lot
+            {t('newLot')}
           </LinkButton>
         }
       />

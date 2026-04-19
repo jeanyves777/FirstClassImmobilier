@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { prisma } from '@/lib/db'
 import { AdminHeader } from '@/components/fci/admin/AdminHeader'
 import { parse as parseLocalized } from '@/lib/zod/localized'
@@ -10,15 +10,16 @@ export default async function AdminSettingsPage({
 }: PageProps<'/[locale]/admin/settings'>) {
   const { locale } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
 
   const row = await prisma.siteSettings.findUnique({ where: { id: 1 } })
 
   return (
     <div>
       <AdminHeader
-        eyebrow="Site"
-        title="Settings"
-        description="Contact details, social URLs and footer copy shown across the public site."
+        eyebrow={t('eyebrow.site')}
+        title={t('navSettings')}
+        description={t('descriptions.settings')}
       />
       <SettingsForm
         locale={locale}

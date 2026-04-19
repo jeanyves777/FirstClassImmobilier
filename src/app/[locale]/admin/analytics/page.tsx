@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { prisma } from '@/lib/db'
 import { AdminHeader } from '@/components/fci/admin/AdminHeader'
 import type { Locale } from '@/i18n/routing'
@@ -8,6 +8,7 @@ export default async function AdminAnalyticsPage({
 }: PageProps<'/[locale]/admin/analytics'>) {
   const { locale } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
   const l = locale as Locale
 
   const now = new Date()
@@ -78,9 +79,9 @@ export default async function AdminAnalyticsPage({
   return (
     <div>
       <AdminHeader
-        eyebrow="Insight"
-        title="Analytics"
-        description="Last 30 days of visitor activity and the conversion funnel feeding your pipeline."
+        eyebrow={t('eyebrow.insight')}
+        title={t('navAnalytics')}
+        description={t('descriptions.analytics')}
       />
 
       <section className="grid gap-4 sm:grid-cols-3">

@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import { prisma } from '@/lib/db'
 import { AdminHeader } from '@/components/fci/admin/AdminHeader'
@@ -12,6 +12,7 @@ export default async function AdminChatInbox({
 }: PageProps<'/[locale]/admin/chat'>) {
   const { locale } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
   const l = locale as Locale
   const sp = await searchParams
   const status = typeof sp.status === 'string' ? sp.status : undefined
@@ -53,9 +54,9 @@ export default async function AdminChatInbox({
   return (
     <div>
       <AdminHeader
-        eyebrow="Support"
-        title="Chat"
-        description="Every ongoing conversation with buyers, prospects and applicants."
+        eyebrow={t('eyebrow.support')}
+        title={t('navChat')}
+        description={t('descriptions.chat')}
       />
 
       <div className="mb-6 flex flex-wrap gap-2">

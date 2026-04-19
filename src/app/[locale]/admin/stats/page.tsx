@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { prisma } from '@/lib/db'
 import { AdminHeader } from '@/components/fci/admin/AdminHeader'
 import { StatsForm } from './StatsForm'
@@ -8,6 +8,7 @@ export default async function AdminStatsPage({
 }: PageProps<'/[locale]/admin/stats'>) {
   const { locale } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
 
   const row = await prisma.siteStats.findUnique({ where: { id: 1 } })
   const defaults = {
@@ -22,9 +23,9 @@ export default async function AdminStatsPage({
   return (
     <div>
       <AdminHeader
-        eyebrow="Content"
-        title="Home counters"
-        description="These numbers power the animated counters on Accueil and Nos Réalisations."
+        eyebrow={t('eyebrow.content')}
+        title={t('navStats')}
+        description={t('descriptions.stats')}
       />
       <StatsForm locale={locale} defaults={defaults} />
     </div>

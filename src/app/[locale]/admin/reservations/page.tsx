@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import { prisma } from '@/lib/db'
 import { tr } from '@/lib/zod/localized'
@@ -19,6 +19,7 @@ export default async function ReservationsInbox({
 }: PageProps<'/[locale]/admin/reservations'>) {
   const { locale } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
   const l = locale as Locale
   const sp = await searchParams
   const status = typeof sp.status === 'string' ? sp.status : undefined
@@ -43,9 +44,9 @@ export default async function ReservationsInbox({
   return (
     <div>
       <AdminHeader
-        eyebrow="Pipeline"
-        title="Reservations"
-        description="Prospects that clicked Reserve on a lot. Confirm to convert into a Sale."
+        eyebrow={t('eyebrow.pipeline')}
+        title={t('navReservations')}
+        description={t('descriptions.reservations')}
       />
 
       <div className="mb-6 flex flex-wrap gap-2">

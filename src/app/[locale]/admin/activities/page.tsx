@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import { prisma } from '@/lib/db'
 import { tr } from '@/lib/zod/localized'
@@ -10,6 +10,7 @@ export default async function AdminActivitiesList({
 }: PageProps<'/[locale]/admin/activities'>) {
   const { locale } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
   const l = locale as Locale
 
   const activities = await prisma.activity.findMany({
@@ -27,10 +28,10 @@ export default async function AdminActivitiesList({
   return (
     <div>
       <AdminHeader
-        eyebrow="Content"
-        title="Activities"
-        description="Events, openings and company life. Published entries appear on the public « Nos Activités » tab."
-        action={<LinkButton href="/admin/activities/new">+ New activity</LinkButton>}
+        eyebrow={t('eyebrow.content')}
+        title={t('navActivities')}
+        description={t('descriptions.activities')}
+        action={<LinkButton href="/admin/activities/new">{t('newActivity')}</LinkButton>}
       />
 
       {activities.length === 0 ? (

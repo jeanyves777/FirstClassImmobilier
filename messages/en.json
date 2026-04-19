@@ -188,7 +188,11 @@
     "submitting": "Signing in…",
     "invalid": "Invalid credentials.",
     "signOut": "Sign out",
-    "signedInAs": "Signed in as"
+    "signedInAs": "Signed in as",
+    "adminArea": "Admin",
+    "portalArea": "Client Portal",
+    "adminSettings": "Admin settings",
+    "accountSettings": "Account settings"
   },
   "admin": {
     "navDashboard": "Dashboard",
@@ -225,7 +229,36 @@
       "leads": "Latest feedback messages",
       "applications": "Latest applications"
     },
-    "welcome": "Hello, {name}"
+    "welcome": "Hello, {name}",
+    "descriptions": {
+      "programs": "Create, edit, and publish real-estate programs.",
+      "lots": "Manage every lot across your programs. Click a row to edit its content, media, and virtual tour.",
+      "reservations": "Prospects that clicked Reserve on a lot. Confirm to convert into a Sale.",
+      "sales": "Every confirmed sale, from draft to completion.",
+      "appointments": "Visit requests, office meetings and calls. Confirm or assign to an agent.",
+      "chat": "Every ongoing conversation with buyers, prospects and applicants.",
+      "analytics": "Last 30 days of visitor activity and the conversion funnel feeding your pipeline.",
+      "leads": "\u00ab Vos Avis \u00bb submissions and other inbound leads. Move through the pipeline.",
+      "applications": "Spontaneous job applications from the Postuler form.",
+      "activities": "Events, openings and company life. Published entries appear on the public \u00ab Nos Activit\u00e9s \u00bb tab.",
+      "team": "People shown on the \u00ab Nos \u00c9quipes \u00bb tab. Reorder by changing the order number.",
+      "partners": "Logos shown in the \u00ab Nos Partenaires & Clients \u00bb strip on Nous D\u00e9couvrir.",
+      "stats": "These numbers power the animated counters on Accueil and Nos R\u00e9alisations.",
+      "users": "Directory of every account. Promote staff, downgrade inactive buyers, or search for a specific person.",
+      "settings": "Contact details, social URLs and footer copy shown across the public site."
+    },
+    "eyebrow": {
+      "pipeline": "Pipeline",
+      "content": "Content",
+      "site": "Site",
+      "support": "Support",
+      "access": "Access",
+      "insight": "Insight"
+    },
+    "newProgram": "+ New program",
+    "newLot": "+ New lot",
+    "newActivity": "+ New activity",
+    "edit": "Edit"
   },
   "lot": {
     "availableLots": "Available lots & units",

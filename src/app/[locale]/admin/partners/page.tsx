@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import { prisma } from '@/lib/db'
 import { AdminHeader } from '@/components/fci/admin/AdminHeader'
@@ -11,6 +11,7 @@ export default async function AdminPartnersPage({
 }: PageProps<'/[locale]/admin/partners'>) {
   const { locale } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
 
   const partners = await prisma.partner.findMany({ orderBy: [{ order: 'asc' }, { name: 'asc' }] })
   const logoIds = partners.map((p) => p.logoId).filter((v): v is string => !!v)
@@ -22,9 +23,9 @@ export default async function AdminPartnersPage({
   return (
     <div>
       <AdminHeader
-        eyebrow="Content"
-        title="Partners"
-        description="Logos shown in the « Nos Partenaires & Clients » strip on Nous Découvrir."
+        eyebrow={t('eyebrow.content')}
+        title={t('navPartners')}
+        description={t('descriptions.partners')}
       />
 
       {partners.length > 0 && (

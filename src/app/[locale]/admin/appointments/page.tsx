@@ -41,9 +41,9 @@ export default async function AppointmentsInbox({
   return (
     <div>
       <AdminHeader
-        eyebrow={t('navDashboard')}
+        eyebrow={t('eyebrow.pipeline')}
         title={t('navAppointments')}
-        description="Visit requests, office meetings and calls. Confirm or assign to an agent."
+        description={t('descriptions.appointments')}
       />
 
       <div className="mb-6 flex flex-wrap gap-2">

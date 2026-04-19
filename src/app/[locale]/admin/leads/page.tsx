@@ -25,9 +25,9 @@ export default async function LeadsInbox({
   return (
     <div>
       <AdminHeader
-        eyebrow={t('navDashboard')}
+        eyebrow={t('eyebrow.pipeline')}
         title={t('navLeads')}
-        description={"« Vos Avis » submissions and other inbound leads. Move through the pipeline."}
+        description={t('descriptions.leads')}
       />
 
       <div className="mb-6 flex flex-wrap gap-2">

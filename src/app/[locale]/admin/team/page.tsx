@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import { prisma } from '@/lib/db'
 import { parse as parseLocalized, tr } from '@/lib/zod/localized'
@@ -13,6 +13,7 @@ export default async function AdminTeamList({
 }: PageProps<'/[locale]/admin/team'>) {
   const { locale } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
   const l = locale as Locale
 
   const members = await prisma.teamMember.findMany({
@@ -28,9 +29,9 @@ export default async function AdminTeamList({
   return (
     <div>
       <AdminHeader
-        eyebrow="Content"
-        title="Team"
-        description="People shown on the « Nos Équipes » tab. Reorder by changing the order number."
+        eyebrow={t('eyebrow.content')}
+        title={t('navTeam')}
+        description={t('descriptions.team')}
       />
 
       {members.length > 0 && (

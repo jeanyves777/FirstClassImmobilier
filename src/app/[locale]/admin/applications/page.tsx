@@ -25,9 +25,9 @@ export default async function ApplicationsInbox({
   return (
     <div>
       <AdminHeader
-        eyebrow={t('navDashboard')}
+        eyebrow={t('eyebrow.pipeline')}
         title={t('navApplications')}
-        description="Spontaneous job applications from the Postuler form."
+        description={t('descriptions.applications')}
       />
 
       <div className="mb-6 flex flex-wrap gap-2">

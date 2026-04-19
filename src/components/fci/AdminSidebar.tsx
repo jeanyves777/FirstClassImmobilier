@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, usePathname } from '@/i18n/navigation'
-import { Logo } from './Logo'
 import { cn } from '@/lib/utils'
 
 type Badges = { chat?: number }
@@ -50,9 +49,17 @@ export function AdminSidebar({
           open ? 'translate-x-0' : '-translate-x-full',
         )}
       >
-        <div className="flex items-center justify-between border-b border-[color:var(--border)] px-5 py-4">
-          <Link href="/admin/dashboard" className="flex items-center" onClick={onClose}>
-            <Logo />
+        <div className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-[color:var(--border)] px-5">
+          <Link href="/admin/dashboard" className="inline-flex items-center gap-2" onClick={onClose} aria-label="FirstClass Immobilier">
+            <svg viewBox="0 0 64 48" fill="none" className="h-6 w-auto text-[color:var(--brand-navy)] dark:text-foreground" aria-hidden>
+              <path d="M6 34 L32 6 L58 34" stroke="currentColor" strokeWidth="5" strokeLinejoin="miter" />
+              <path d="M44 18 H50 V30 H44 Z" fill="currentColor" />
+              <path d="M4 38 H60" stroke="currentColor" strokeWidth="2" />
+            </svg>
+            <span className="font-display leading-none">
+              <span className="text-base font-semibold tracking-tight text-[color:var(--brand-red)]">First</span>
+              <span className="text-base font-semibold tracking-tight text-[color:var(--brand-navy)] dark:text-foreground">Class</span>
+            </span>
           </Link>
           <button
             type="button"

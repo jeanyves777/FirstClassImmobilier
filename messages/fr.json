@@ -188,7 +188,11 @@
     "submitting": "Connexion en cours…",
     "invalid": "Identifiants invalides.",
     "signOut": "Se déconnecter",
-    "signedInAs": "Connecté en tant que"
+    "signedInAs": "Connecté en tant que",
+    "adminArea": "Espace Admin",
+    "portalArea": "Espace Client",
+    "adminSettings": "Paramètres admin",
+    "accountSettings": "Paramètres du compte"
   },
   "admin": {
     "navDashboard": "Tableau de bord",
@@ -225,7 +229,36 @@
       "leads": "Derniers messages (Vos Avis)",
       "applications": "Dernières candidatures"
     },
-    "welcome": "Bonjour, {name}"
+    "welcome": "Bonjour, {name}",
+    "descriptions": {
+      "programs": "Créez, modifiez et publiez vos programmes immobiliers.",
+      "lots": "Gérez chaque lot de vos programmes. Cliquez sur une ligne pour éditer son contenu, ses médias et sa visite virtuelle.",
+      "reservations": "Prospects qui ont cliqué sur « Réserver » sur un lot. Confirmez pour convertir en vente.",
+      "sales": "Chaque vente confirmée, du brouillon à la livraison.",
+      "appointments": "Demandes de visite, réunions et appels. Confirmez ou assignez à un agent.",
+      "chat": "Toutes les conversations en cours avec acquéreurs, prospects et candidats.",
+      "analytics": "30 derniers jours d\u2019activité des visiteurs et tunnel de conversion alimentant votre pipeline.",
+      "leads": "Messages reçus via le formulaire « Vos Avis » et autres prospects entrants.",
+      "applications": "Candidatures spontanées déposées via le formulaire « Postuler ».",
+      "activities": "Événements, inaugurations et vie de l\u2019entreprise. Les entrées publiées apparaissent sur « Nos Activités ».",
+      "team": "Membres visibles sur l\u2019onglet « Nos Équipes ». Modifiez l\u2019ordre d\u2019affichage avec le champ ordre.",
+      "partners": "Logos affichés dans la bande « Nos Partenaires & Clients » sur Nous Découvrir.",
+      "stats": "Ces compteurs animent la page d\u2019accueil et « Nos Réalisations ».",
+      "users": "Annuaire de tous les comptes. Promouvez votre équipe ou réaffectez des rôles.",
+      "settings": "Coordonnées, liens sociaux et slogan du pied de page affichés sur le site public."
+    },
+    "eyebrow": {
+      "pipeline": "Pipeline",
+      "content": "Contenu",
+      "site": "Site",
+      "support": "Support",
+      "access": "Accès",
+      "insight": "Analytique"
+    },
+    "newProgram": "+ Nouveau programme",
+    "newLot": "+ Nouveau lot",
+    "newActivity": "+ Nouvelle activité",
+    "edit": "Modifier"
   },
   "lot": {
     "availableLots": "Lots & biens disponibles",

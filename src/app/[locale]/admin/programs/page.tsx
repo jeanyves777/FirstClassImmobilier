@@ -21,10 +21,10 @@ export default async function AdminProgramsList({
   return (
     <div>
       <AdminHeader
-        eyebrow={t('navDashboard')}
+        eyebrow={t('eyebrow.content')}
         title={t('navPrograms')}
-        description="Create, edit, and publish real-estate programs."
-        action={<LinkButton href="/admin/programs/new">+ New program</LinkButton>}
+        description={t('descriptions.programs')}
+        action={<LinkButton href="/admin/programs/new">{t('newProgram')}</LinkButton>}
       />
 
       <div className="overflow-x-auto rounded-2xl border border-[color:var(--border)] bg-surface">

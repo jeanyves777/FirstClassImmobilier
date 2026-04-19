@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { prisma } from '@/lib/db'
 import { AdminHeader } from '@/components/fci/admin/AdminHeader'
 import { getSessionUser } from '@/lib/auth/rbac'
@@ -13,6 +13,7 @@ export default async function AdminUsersPage({
 }: PageProps<'/[locale]/admin/users'>) {
   const { locale } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
   const l = locale as Locale
   const sp = await searchParams
   const q = typeof sp.q === 'string' ? sp.q.trim() : ''
@@ -47,9 +48,9 @@ export default async function AdminUsersPage({
   return (
     <div>
       <AdminHeader
-        eyebrow="Access"
-        title="Users"
-        description="Directory of every account. Promote staff, downgrade inactive buyers, or search for a specific person."
+        eyebrow={t('eyebrow.access')}
+        title={t('navUsers')}
+        description={t('descriptions.users')}
       />
 
       <form className="mb-6 flex flex-wrap items-center gap-3" method="GET">

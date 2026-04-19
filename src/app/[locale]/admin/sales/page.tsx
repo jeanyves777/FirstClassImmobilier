@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import { prisma } from '@/lib/db'
 import { tr } from '@/lib/zod/localized'
@@ -13,6 +13,7 @@ export default async function AdminSalesList({
 }: PageProps<'/[locale]/admin/sales'>) {
   const { locale } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
   const l = locale as Locale
   const sp = await searchParams
   const stage = typeof sp.stage === 'string' ? sp.stage : undefined
@@ -32,9 +33,9 @@ export default async function AdminSalesList({
   return (
     <div>
       <AdminHeader
-        eyebrow="Pipeline"
-        title="Sales"
-        description="Every confirmed sale, from draft to completion."
+        eyebrow={t('eyebrow.pipeline')}
+        title={t('navSales')}
+        description={t('descriptions.sales')}
       />
 
       <div className="mb-6 flex flex-wrap gap-2">

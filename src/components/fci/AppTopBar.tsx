@@ -66,7 +66,7 @@ export function AppTopBar({
       </button>
 
       <span className="hidden text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-red)] sm:inline">
-        {variant === 'admin' ? 'FCI Admin' : 'FCI Portal'}
+        {variant === 'admin' ? tAuth('adminArea') : tAuth('portalArea')}
       </span>
 
       <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
@@ -136,7 +136,7 @@ export function AppTopBar({
                       <circle cx="12" cy="12" r="3" />
                       <path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2.1-1.2l-.4-2.4h-4l-.4 2.4a7 7 0 0 0-2.1 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12" />
                     </svg>
-                    {variant === 'admin' ? 'Admin settings' : 'Account settings'}
+                    {variant === 'admin' ? tAuth('adminSettings') : tAuth('accountSettings')}
                   </Link>
                   <Link
                     href="/"
