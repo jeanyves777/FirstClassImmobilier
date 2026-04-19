@@ -39,9 +39,14 @@ export default async function AdminSalesList({
       />
 
       <div className="mb-6 flex flex-wrap gap-2">
-        <Chip href="/admin/sales" active={!stage} label="All" />
+        <Chip href="/admin/sales" active={!stage} label={t('labels.all')} />
         {SALE_STAGES.map((s) => (
-          <Chip key={s} href={`/admin/sales?stage=${s}`} active={stage === s} label={s} />
+          <Chip
+            key={s}
+            href={`/admin/sales?stage=${s}`}
+            active={stage === s}
+            label={t(`statusFilter.${s}`)}
+          />
         ))}
       </div>
 
@@ -49,12 +54,12 @@ export default async function AdminSalesList({
         <table className="w-full min-w-[880px] text-left text-sm">
           <thead className="border-b border-[color:var(--border)] bg-surface-muted text-xs uppercase tracking-wider text-muted">
             <tr>
-              <th className="px-4 py-3 font-medium">Buyer</th>
-              <th className="px-4 py-3 font-medium">Lot</th>
-              <th className="px-4 py-3 font-medium">Total</th>
-              <th className="px-4 py-3 font-medium">Stage</th>
-              <th className="px-4 py-3 font-medium">Progress</th>
-              <th className="px-4 py-3 font-medium">Agent</th>
+              <th className="px-4 py-3 font-medium">{t('labels.buyer')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.lot')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.total')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.status')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.progress')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.agent')}</th>
               <th className="px-4 py-3 font-medium"></th>
             </tr>
           </thead>
@@ -100,7 +105,7 @@ export default async function AdminSalesList({
                       href={`/admin/sales/${s.id}`}
                       className="text-xs font-semibold text-[color:var(--brand-navy)] hover:underline dark:text-foreground"
                     >
-                      Open →
+                      {t('labels.open')}
                     </Link>
                   </td>
                 </tr>
@@ -109,7 +114,7 @@ export default async function AdminSalesList({
             {sales.length === 0 && (
               <tr>
                 <td colSpan={7} className="px-4 py-10 text-center text-sm text-muted">
-                  No sales in this view yet. Convert a Reservation to create one.
+                  —
                 </td>
               </tr>
             )}

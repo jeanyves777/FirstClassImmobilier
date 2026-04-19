@@ -60,9 +60,9 @@ export default async function AdminChatInbox({
       />
 
       <div className="mb-6 flex flex-wrap gap-2">
-        <Chip href="/admin/chat" active={!status} label="All" />
+        <Chip href="/admin/chat" active={!status} label={t('labels.all')} />
         {STATUS_ORDER.map((s) => (
-          <Chip key={s} href={`/admin/chat?status=${s}`} active={status === s} label={s} />
+          <Chip key={s} href={`/admin/chat?status=${s}`} active={status === s} label={t(`statusFilter.${s}`)} />
         ))}
       </div>
 

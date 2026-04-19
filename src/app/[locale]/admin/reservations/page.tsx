@@ -50,9 +50,9 @@ export default async function ReservationsInbox({
       />
 
       <div className="mb-6 flex flex-wrap gap-2">
-        <Chip href="/admin/reservations" active={!status} label="All" />
+        <Chip href="/admin/reservations" active={!status} label={t('labels.all')} />
         {STATUS_ORDER.map((s) => (
-          <Chip key={s} href={`/admin/reservations?status=${s}`} active={status === s} label={s} />
+          <Chip key={s} href={`/admin/reservations?status=${s}`} active={status === s} label={t(`statusFilter.${s}`)} />
         ))}
       </div>
 

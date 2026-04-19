@@ -57,7 +57,7 @@ export default async function AdminUsersPage({
         <input
           name="q"
           defaultValue={q}
-          placeholder="Search by name or email…"
+          placeholder={t('labels.searchUser')}
           className="min-w-[220px] flex-1 rounded-xl border border-[color:var(--border)] bg-background px-3.5 py-2 text-sm text-foreground focus:border-[color:var(--brand-navy)] focus:outline-none focus:ring-2 focus:ring-[color:var(--ring)]/40"
         />
         <select
@@ -65,7 +65,7 @@ export default async function AdminUsersPage({
           defaultValue={role ?? ''}
           className="rounded-xl border border-[color:var(--border)] bg-background px-3 py-2 text-sm"
         >
-          <option value="">All roles</option>
+          <option value="">{t('labels.allRoles')}</option>
           {ROLES.map((r) => (
             <option key={r} value={r}>{r}</option>
           ))}
@@ -74,7 +74,7 @@ export default async function AdminUsersPage({
           type="submit"
           className="inline-flex h-10 items-center rounded-full bg-[color:var(--brand-navy)] px-4 text-xs font-semibold uppercase tracking-wider text-white hover:bg-[color:var(--brand-navy-700)]"
         >
-          Search
+          {t('labels.search')}
         </button>
       </form>
 
@@ -82,11 +82,11 @@ export default async function AdminUsersPage({
         <table className="w-full min-w-[860px] text-left text-sm">
           <thead className="border-b border-[color:var(--border)] bg-surface-muted text-xs uppercase tracking-wider text-muted">
             <tr>
-              <th className="px-4 py-3 font-medium">Name</th>
-              <th className="px-4 py-3 font-medium">Email</th>
-              <th className="px-4 py-3 font-medium">Created</th>
-              <th className="px-4 py-3 font-medium">Activity</th>
-              <th className="px-4 py-3 font-medium">Role</th>
+              <th className="px-4 py-3 font-medium">{t('labels.name')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.email')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.created')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.activity')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.role')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[color:var(--border)]">
@@ -126,7 +126,7 @@ export default async function AdminUsersPage({
                       disabled={me?.id === u.id}
                       className="rounded-lg bg-[color:var(--brand-navy)] px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-[color:var(--brand-navy-700)] disabled:opacity-50"
                     >
-                      Save
+                      {t('labels.save')}
                     </button>
                   </form>
                   {me?.id === u.id && (

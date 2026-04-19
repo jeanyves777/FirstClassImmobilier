@@ -31,9 +31,9 @@ export default async function ApplicationsInbox({
       />
 
       <div className="mb-6 flex flex-wrap gap-2">
-        <Chip href="/admin/applications" active={!status} label="All" />
+        <Chip href="/admin/applications" active={!status} label={t('labels.all')} />
         {STATUS_ORDER.map((s) => (
-          <Chip key={s} href={`/admin/applications?status=${s}`} active={status === s} label={s} />
+          <Chip key={s} href={`/admin/applications?status=${s}`} active={status === s} label={t(`statusFilter.${s}`)} />
         ))}
       </div>
 

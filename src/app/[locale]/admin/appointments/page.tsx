@@ -47,13 +47,13 @@ export default async function AppointmentsInbox({
       />
 
       <div className="mb-6 flex flex-wrap gap-2">
-        <FilterChip href="/admin/appointments" active={!status} label="All" />
+        <FilterChip href="/admin/appointments" active={!status} label={t('labels.all')} />
         {STATUS_ORDER.map((s) => (
           <FilterChip
             key={s}
             href={`/admin/appointments?status=${s}`}
             active={status === s}
-            label={s}
+            label={t(`statusFilter.${s}`)}
           />
         ))}
       </div>

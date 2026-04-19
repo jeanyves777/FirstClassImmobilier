@@ -45,7 +45,7 @@ export default async function AdminLotsList({
       />
 
       <div className="mb-6 flex flex-wrap gap-2">
-        <FilterChip href="/admin/lots" active={!programId} label="All programs" />
+        <FilterChip href="/admin/lots" active={!programId} label={t('labels.allPrograms')} />
         {programs.map((p) => (
           <FilterChip
             key={p.id}
@@ -60,12 +60,12 @@ export default async function AdminLotsList({
         <table className="w-full min-w-[820px] text-left text-sm">
           <thead className="border-b border-[color:var(--border)] bg-surface-muted text-xs uppercase tracking-wider text-muted">
             <tr>
-              <th className="px-4 py-3 font-medium">Reference</th>
-              <th className="px-4 py-3 font-medium">Program</th>
-              <th className="px-4 py-3 font-medium">Surface</th>
-              <th className="px-4 py-3 font-medium">Price</th>
-              <th className="px-4 py-3 font-medium">Media</th>
-              <th className="px-4 py-3 font-medium">Status</th>
+              <th className="px-4 py-3 font-medium">{t('labels.reference')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.program')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.surface')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.price')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.media')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.status')}</th>
               <th className="px-4 py-3 font-medium"></th>
             </tr>
           </thead>
@@ -92,14 +92,14 @@ export default async function AdminLotsList({
                   </span>
                 </td>
                 <td className="px-4 py-3">
-                  <LotStatusPill value={lot.status} />
+                  <LotStatusPill value={lot.status} t={t} />
                 </td>
                 <td className="px-4 py-3 text-right">
                   <Link
                     href={`/admin/lots/${lot.id}`}
                     className="text-xs font-semibold text-[color:var(--brand-navy)] hover:underline dark:text-foreground"
                   >
-                    Edit →
+                    {t('labels.edit')}
                   </Link>
                 </td>
               </tr>
@@ -107,7 +107,7 @@ export default async function AdminLotsList({
             {lots.length === 0 && (
               <tr>
                 <td colSpan={7} className="px-4 py-10 text-center text-sm text-muted">
-                  No lots in this view yet.
+                  —
                 </td>
               </tr>
             )}
@@ -133,16 +133,24 @@ function FilterChip({ href, active, label }: { href: string; active: boolean; la
   )
 }
 
-function LotStatusPill({ value }: { value: string }) {
+type TranslatorFn = (key: string) => string
+
+function LotStatusPill({ value, t }: { value: string; t: TranslatorFn }) {
   const map: Record<string, string> = {
     available: 'bg-[color:var(--brand-red)]/10 text-[color:var(--brand-red)]',
     reserved: 'bg-amber-500/10 text-amber-700 dark:text-amber-400',
     sold: 'bg-zinc-900 text-white',
   }
   const cls = map[value] ?? 'bg-surface-muted text-muted'
+  let label = value
+  try {
+    label = t(`statusFilter.${value}`)
+  } catch {
+    /* fall back to raw value */
+  }
   return (
     <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider ${cls}`}>
-      {value}
+      {label}
     </span>
   )
 }

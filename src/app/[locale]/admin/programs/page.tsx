@@ -31,11 +31,11 @@ export default async function AdminProgramsList({
         <table className="w-full min-w-[720px] text-left text-sm">
           <thead className="border-b border-[color:var(--border)] bg-surface-muted text-xs uppercase tracking-wider text-muted">
             <tr>
-              <th className="px-4 py-3 font-medium">Program</th>
-              <th className="px-4 py-3 font-medium">Type</th>
-              <th className="px-4 py-3 font-medium">Status</th>
-              <th className="px-4 py-3 font-medium">Zone</th>
-              <th className="px-4 py-3 font-medium">Lots</th>
+              <th className="px-4 py-3 font-medium">{t('labels.program')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.type')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.status')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.zone')}</th>
+              <th className="px-4 py-3 font-medium">{t('labels.lots')}</th>
               <th className="px-4 py-3 font-medium"></th>
             </tr>
           </thead>
@@ -48,7 +48,7 @@ export default async function AdminProgramsList({
                       {tr(p.name, l)}
                       {p.featured && (
                         <span className="rounded-full bg-[color:var(--brand-red)]/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[color:var(--brand-red)]">
-                          Featured
+                          {t('labels.featured')}
                         </span>
                       )}
                     </div>
@@ -66,7 +66,7 @@ export default async function AdminProgramsList({
                     href={`/admin/programs/${p.id}`}
                     className="text-xs font-semibold text-[color:var(--brand-navy)] hover:underline dark:text-foreground"
                   >
-                    Edit →
+                    {t('labels.edit')}
                   </Link>
                 </td>
               </tr>
@@ -74,7 +74,7 @@ export default async function AdminProgramsList({
             {programs.length === 0 && (
               <tr>
                 <td colSpan={6} className="px-4 py-10 text-center text-sm text-muted">
-                  No programs yet. Create the first one to get started.
+                  —
                 </td>
               </tr>
             )}
