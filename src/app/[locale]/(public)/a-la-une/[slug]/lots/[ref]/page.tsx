@@ -9,6 +9,7 @@ import type { Locale } from '@/i18n/routing'
 import { LotGallery } from './LotGallery'
 import { VisitRequestForm } from './VisitRequestForm'
 import { reserveLot } from './reserve-actions'
+import { getNextSlots, parseAvailability } from '@/lib/schedule/availability'
 
 export default async function LotPage({
   params,
@@ -24,6 +25,29 @@ export default async function LotPage({
     include: { media: { orderBy: { order: 'asc' } } },
   })
   if (!lot) notFound()
+
+  // Scheduler — compute up to 6 suggested slots from SiteSettings availability.
+  const settings = await prisma.siteSettings.findUnique({ where: { id: 1 } })
+  const availability = parseAvailability(settings?.availability)
+  const upcomingBookings = await prisma.appointment.findMany({
+    where: {
+      status: { in: ['booked', 'confirmed'] },
+      scheduledAt: { gte: new Date() },
+    },
+    select: { scheduledAt: true },
+  })
+  const suggestedSlots =
+    availability.length > 0
+      ? getNextSlots({
+          availability,
+          durationMin: settings?.slotDurationMin ?? 45,
+          from: new Date(),
+          take: 6,
+          bookings: upcomingBookings
+            .map((b) => b.scheduledAt)
+            .filter((d): d is Date => d !== null),
+        }).map((d) => d.toISOString())
+      : []
 
   const t = await getTranslations('lot')
   const l = locale as Locale
@@ -155,7 +179,12 @@ export default async function LotPage({
               )}
             </div>
 
-            <VisitRequestForm lotId={lot.id} programId={program.id} />
+            <VisitRequestForm
+              lotId={lot.id}
+              programId={program.id}
+              locale={locale}
+              suggestedSlots={suggestedSlots}
+            />
           </div>
         </aside>
       </div>

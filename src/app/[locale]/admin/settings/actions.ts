@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { prisma } from '@/lib/db'
 import { requireStaff } from '@/lib/auth/rbac'
 import { localizedTextSchema } from '@/lib/zod/localized'
+import { availabilitySchema } from '@/lib/schedule/availability'
 
 type State = { ok: boolean; errors?: Record<string, string[]>; timestamp?: number }
 
@@ -42,6 +43,21 @@ const schema = z.object({
         return raw
       }
     }),
+  slotDurationMin: z.coerce.number().int().min(15).max(240).default(45),
+  availability: z
+    .string()
+    .optional()
+    .transform((v, ctx) => {
+      const raw = (v ?? '').trim()
+      if (!raw) return null
+      try {
+        const parsed = availabilitySchema.parse(JSON.parse(raw))
+        return JSON.stringify(parsed)
+      } catch {
+        ctx.addIssue({ code: 'custom', message: 'Invalid availability windows' })
+        return raw
+      }
+    }),
 })
 
 export async function updateSiteSettings(_prev: State, fd: FormData): Promise<State> {
@@ -61,6 +77,8 @@ export async function updateSiteSettings(_prev: State, fd: FormData): Promise<St
     youtubeUrl: fd.get('youtubeUrl') ?? '',
     tiktokUrl: fd.get('tiktokUrl') ?? '',
     footerCopy: fd.get('footerCopy') ?? '',
+    slotDurationMin: fd.get('slotDurationMin') ?? 45,
+    availability: fd.get('availability') ?? '',
   })
   if (!parsed.success) return { ok: false, errors: z.flattenError(parsed.error).fieldErrors }
 

@@ -3,7 +3,7 @@ import { prisma } from '@/lib/db'
 import { tr } from '@/lib/zod/localized'
 import type { Locale } from '@/i18n/routing'
 import { AdminHeader } from '@/components/fci/admin/AdminHeader'
-import { assignAppointment, setAppointmentStatus } from './actions'
+import { assignAppointment, confirmAppointment, setAppointmentStatus } from './actions'
 
 const STATUS_ORDER = ['requested', 'booked', 'confirmed', 'completed', 'cancelled']
 const STATUS_OPTIONS = ['requested', 'booked', 'confirmed', 'cancelled', 'completed'] as const
@@ -134,6 +134,31 @@ export default async function AppointmentsInbox({
                     Assign
                   </button>
                 </form>
+
+                {a.status !== 'confirmed' && a.status !== 'cancelled' && a.status !== 'completed' && (
+                  <form action={confirmAppointment} className="flex flex-col gap-1.5 rounded-lg border border-[color:var(--border)] bg-surface-muted/50 p-2">
+                    <input type="hidden" name="id" value={a.id} />
+                    <input type="hidden" name="locale" value={locale} />
+                    <label className="block">
+                      <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted">
+                        Confirm slot
+                      </span>
+                      <input
+                        type="datetime-local"
+                        name="scheduledAt"
+                        defaultValue={toLocalInput(a.scheduledAt ?? a.preferredAt)}
+                        className="mt-0.5 w-full rounded-lg border border-[color:var(--border)] bg-background px-2 py-1.5 text-xs"
+                      />
+                    </label>
+                    <input type="hidden" name="durationMin" value={a.durationMin} />
+                    <button
+                      type="submit"
+                      className="rounded-lg bg-[color:var(--brand-red)] px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-white hover:bg-[color:var(--brand-red-600)]"
+                    >
+                      Confirm &amp; send invite
+                    </button>
+                  </form>
+                )}
               </div>
             </article>
           )
@@ -145,6 +170,22 @@ export default async function AppointmentsInbox({
         )}
       </div>
     </div>
+  )
+}
+
+function toLocalInput(d: Date | null | undefined): string {
+  if (!d) return ''
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return (
+    d.getFullYear() +
+    '-' +
+    pad(d.getMonth() + 1) +
+    '-' +
+    pad(d.getDate()) +
+    'T' +
+    pad(d.getHours()) +
+    ':' +
+    pad(d.getMinutes())
   )
 }
 

@@ -2,6 +2,7 @@ import { setRequestLocale } from 'next-intl/server'
 import { prisma } from '@/lib/db'
 import { AdminHeader } from '@/components/fci/admin/AdminHeader'
 import { parse as parseLocalized } from '@/lib/zod/localized'
+import { parseAvailability } from '@/lib/schedule/availability'
 import { SettingsForm } from './SettingsForm'
 
 export default async function AdminSettingsPage({
@@ -35,6 +36,8 @@ export default async function AdminSettingsPage({
           youtubeUrl: row?.youtubeUrl ?? '',
           tiktokUrl: row?.tiktokUrl ?? '',
           footerCopy: row?.footerCopy ? parseLocalized(row.footerCopy) : null,
+          slotDurationMin: row?.slotDurationMin ?? 45,
+          availability: parseAvailability(row?.availability),
         }}
       />
     </div>

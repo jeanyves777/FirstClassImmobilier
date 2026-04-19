@@ -6,6 +6,8 @@ import { useToast } from '@/components/ui/Toast'
 import { LocalizedField } from '@/components/fci/admin/LocalizedField'
 import { updateSiteSettings } from './actions'
 import type { LocalizedText } from '@/lib/zod/localized'
+import type { AvailabilityWindow } from '@/lib/schedule/availability'
+import { AvailabilityEditor } from './AvailabilityEditor'
 
 type Defaults = {
   phone: string
@@ -21,6 +23,8 @@ type Defaults = {
   youtubeUrl: string
   tiktokUrl: string
   footerCopy: LocalizedText | null
+  slotDurationMin: number
+  availability: AvailabilityWindow[]
 }
 
 type State = { ok: boolean; errors?: Record<string, string[]>; timestamp?: number }
@@ -94,6 +98,30 @@ export function SettingsForm({ locale, defaults }: { locale: string; defaults: D
           defaultValue={defaults.footerCopy ?? undefined}
           rows={2}
         />
+      </Section>
+
+      <Section
+        title="Scheduler"
+        hint="Weekly windows offered to prospects when they request an on-site visit. Each slot runs for the configured duration."
+      >
+        <div className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-start">
+          <label className="block space-y-1.5">
+            <span className="text-xs font-medium uppercase tracking-wider text-muted">Slot duration (min)</span>
+            <input
+              type="number"
+              name="slotDurationMin"
+              min={15}
+              max={240}
+              step={15}
+              defaultValue={defaults.slotDurationMin}
+              className="w-32 rounded-xl border border-[color:var(--border)] bg-background px-3.5 py-2.5 text-sm text-foreground focus:border-[color:var(--brand-navy)] focus:outline-none focus:ring-2 focus:ring-[color:var(--ring)]/40"
+            />
+          </label>
+          <div>
+            <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted">Availability windows</p>
+            <AvailabilityEditor name="availability" defaultValue={defaults.availability} />
+          </div>
+        </div>
       </Section>
 
       <div className="flex justify-end">
