@@ -248,6 +248,11 @@ model SiteSettings {
   youtubeUrl   String?
   tiktokUrl    String?
   footerCopy   String? // LocalizedJSON (fr/en)
+
+  // Scheduler
+  slotDurationMin Int     @default(45)
+  availability    String? // JSON: [{ day: 0-6, start: "HH:MM", end: "HH:MM" }]
+
   updatedAt    DateTime @updatedAt
 }
 

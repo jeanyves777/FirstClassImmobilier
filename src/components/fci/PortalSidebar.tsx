@@ -37,11 +37,11 @@ export function PortalSidebar({
 
   return (
     <>
-      <motion.aside
-        initial={false}
-        animate={{ x: open ? 0 : -288 }}
-        transition={{ type: 'spring', stiffness: 340, damping: 34, mass: 0.8 }}
-        className="fixed inset-y-0 left-0 z-40 flex w-72 flex-col border-r border-[color:var(--border)] bg-surface lg:sticky lg:top-0 lg:h-dvh lg:!translate-x-0"
+      <aside
+        className={cn(
+          'fixed inset-y-0 left-0 z-40 flex w-72 flex-col border-r border-[color:var(--border)] bg-surface transition-transform duration-300 ease-out lg:sticky lg:top-0 lg:h-dvh lg:translate-x-0',
+          open ? 'translate-x-0' : '-translate-x-full',
+        )}
       >
         <div className="border-b border-[color:var(--border)] px-5 py-4">
           <Link href="/portal/dashboard" className="inline-flex" onClick={onClose}>
@@ -95,7 +95,7 @@ export function PortalSidebar({
             <p className="mt-0.5 truncate font-semibold text-foreground">{user.name || user.email}</p>
           </div>
         </div>
-      </motion.aside>
+      </aside>
 
       <AnimatePresence>
         {open && (
