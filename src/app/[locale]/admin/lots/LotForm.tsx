@@ -44,6 +44,8 @@ export function LotForm({
   programs: { id: string; slug: string; label: string }[]
 }) {
   const tc = useTranslations('common')
+  const tf = useTranslations('admin.forms')
+  const tl = useTranslations('admin.forms.lot')
   const action = mode === 'create' ? createLot : updateLot
   const [state, formAction, pending] = useActionState(action, initial)
 
@@ -52,60 +54,60 @@ export function LotForm({
       <input type="hidden" name="locale" value={locale} />
       {lot?.id && <input type="hidden" name="id" value={lot.id} />}
 
-      <Section title="Identity">
+      <Section title={tl('sectionIdentity')}>
         <div className="grid gap-4 sm:grid-cols-2">
           <SelectField
-            label="Program"
+            label={tl('program')}
             name="programId"
             defaultValue={lot?.programId ?? programs[0]?.id}
             options={programs.map((p) => ({ value: p.id, label: `${p.label} · ${p.slug}` }))}
             errors={state.errors?.programId}
           />
           <Field
-            label="Reference"
+            label={tl('reference')}
             name="reference"
             defaultValue={lot?.reference}
             required
-            hint="Unique within the program. Example: AERO-A01"
+            hint={tl('referenceHint')}
             errors={state.errors?.reference}
           />
         </div>
 
-        <LocalizedField name="title" label="Title" defaultValue={lot?.title ?? undefined} rows={1} errors={state.errors?.title as string[] | undefined} />
-        <LocalizedField name="highlights" label="Highlights" defaultValue={lot?.highlights ?? undefined} rows={2} hint="Short bullet-style summary shown on cards." errors={state.errors?.highlights as string[] | undefined} />
-        <LocalizedField name="description" label="Description" defaultValue={lot?.description ?? undefined} rows={6} errors={state.errors?.description as string[] | undefined} />
+        <LocalizedField name="title" label={tl('title')} defaultValue={lot?.title ?? undefined} rows={1} errors={state.errors?.title as string[] | undefined} />
+        <LocalizedField name="highlights" label={tl('highlights')} defaultValue={lot?.highlights ?? undefined} rows={2} hint={tl('highlightsHint')} errors={state.errors?.highlights as string[] | undefined} />
+        <LocalizedField name="description" label={tl('description')} defaultValue={lot?.description ?? undefined} rows={6} errors={state.errors?.description as string[] | undefined} />
       </Section>
 
-      <Section title="Specs & pricing">
+      <Section title={tl('sectionSpecs')}>
         <div className="grid gap-4 sm:grid-cols-3">
-          <Field label="Surface (m²)" name="surfaceM2" type="number" min={1} defaultValue={lot?.surfaceM2?.toString()} required errors={state.errors?.surfaceM2} />
-          <Field label="Price (FCFA)" name="priceFCFA" type="number" min={0} defaultValue={lot?.priceFCFA} required errors={state.errors?.priceFCFA} />
-          <SelectField label="Status" name="status" defaultValue={lot?.status ?? 'available'} options={STATUSES.map((s) => ({ value: s, label: s }))} />
+          <Field label={tl('surface')} name="surfaceM2" type="number" min={1} defaultValue={lot?.surfaceM2?.toString()} required errors={state.errors?.surfaceM2} />
+          <Field label={tl('price')} name="priceFCFA" type="number" min={0} defaultValue={lot?.priceFCFA} required errors={state.errors?.priceFCFA} />
+          <SelectField label={tl('status')} name="status" defaultValue={lot?.status ?? 'available'} options={STATUSES.map((s) => ({ value: s, label: s }))} />
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Bedrooms" name="bedrooms" type="number" min={0} defaultValue={lot?.bedrooms?.toString()} errors={state.errors?.bedrooms} />
-          <Field label="Bathrooms" name="bathrooms" type="number" min={0} defaultValue={lot?.bathrooms?.toString()} errors={state.errors?.bathrooms} />
+          <Field label={tl('bedrooms')} name="bedrooms" type="number" min={0} defaultValue={lot?.bedrooms?.toString()} errors={state.errors?.bedrooms} />
+          <Field label={tl('bathrooms')} name="bathrooms" type="number" min={0} defaultValue={lot?.bathrooms?.toString()} errors={state.errors?.bathrooms} />
         </div>
         <Field
-          label="Features"
+          label={tl('features')}
           name="features"
           as="textarea"
           rows={3}
           defaultValue={lot?.features?.join('\n')}
-          hint='One feature per line. Stored as a JSON array — e.g. "Pool\nSmart home\nPrivate garden"'
+          hint={tl('featuresHint')}
           errors={state.errors?.features}
         />
       </Section>
 
-      <Section title="Virtual visit">
-        <Field label="Virtual tour URL (Matterport / Kuula)" name="virtualTourUrl" type="url" defaultValue={lot?.virtualTourUrl ?? ''} hint="Embedded as an iframe on the lot detail page." errors={state.errors?.virtualTourUrl} />
-        <Field label="Video URL (direct mp4 or YouTube/Vimeo embed)" name="videoUrl" type="url" defaultValue={lot?.videoUrl ?? ''} errors={state.errors?.videoUrl} />
+      <Section title={tl('sectionVirtual')}>
+        <Field label={tl('virtualTourUrl')} name="virtualTourUrl" type="url" defaultValue={lot?.virtualTourUrl ?? ''} hint={tl('virtualTourHint')} errors={state.errors?.virtualTourUrl} />
+        <Field label={tl('videoUrl')} name="videoUrl" type="url" defaultValue={lot?.videoUrl ?? ''} errors={state.errors?.videoUrl} />
       </Section>
 
       <footer className="flex items-center justify-between gap-4 border-t border-[color:var(--border)] pt-6">
         {state.ok && mode === 'edit' && (
           <p className="rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
-            Saved ✓
+            {tf('saved')} ✓
           </p>
         )}
         <div className="ml-auto">
@@ -117,7 +119,7 @@ export function LotForm({
               pending && 'opacity-60',
             )}
           >
-            {pending ? tc('submitting') : mode === 'create' ? 'Create lot' : 'Save changes'}
+            {pending ? tc('submitting') : mode === 'create' ? tf('createLot') : tf('saveChanges')}
           </button>
         </div>
       </footer>

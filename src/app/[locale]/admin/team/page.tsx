@@ -60,13 +60,18 @@ export default async function AdminTeamList({
                 <ConfirmButton
                   action={deleteTeamMember}
                   hiddenFields={{ id: m.id, locale }}
-                  title="Remove team member?"
-                  description={`${m.fullName} will no longer appear on the public team page.`}
-                  confirmLabel="Remove"
+                  title={t('confirm.removeTeam.title')}
+                  description={
+                    l === 'fr'
+                      ? `${m.fullName} n\u2019apparaîtra plus sur la page publique de l\u2019équipe.`
+                      : `${m.fullName} will no longer appear on the public team page.`
+                  }
+                  confirmLabel={t('confirm.removeTeam.confirmLabel')}
+                  cancelLabel={t('confirm.cancel')}
                   variant="danger"
                   size="sm"
                 >
-                  Remove
+                  {t('confirm.removeTeam.confirmLabel')}
                 </ConfirmButton>
               </li>
             )

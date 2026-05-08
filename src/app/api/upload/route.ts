@@ -21,7 +21,8 @@ const ALLOWED = new Map<string, string>([
 export async function POST(request: Request) {
   const session = await auth()
   const role = (session?.user as { role?: string } | undefined)?.role
-  if (role !== 'STAFF' && role !== 'ADMIN') {
+  // Any authenticated non-visitor may upload. Staff/admin for media; buyers for their own requirement documents.
+  if (!role || role === 'VISITOR') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

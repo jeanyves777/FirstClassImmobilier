@@ -35,7 +35,7 @@ export function AdminShell({
           onToggleMenu={() => setMenuOpen((v) => !v)}
           onSignOut={onSignOut}
         />
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-8 sm:py-12">
+        <main id="main" tabIndex={-1} className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 focus:outline-none sm:px-8 sm:py-12">
           {children}
         </main>
       </div>

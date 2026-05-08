@@ -130,7 +130,7 @@ export default async function AdminUsersPage({
                     </button>
                   </form>
                   {me?.id === u.id && (
-                    <p className="mt-1 text-[10px] text-muted">You can't demote yourself.</p>
+                    <p className="mt-1 text-[10px] text-muted">You can&apos;t demote yourself.</p>
                   )}
                 </td>
               </tr>

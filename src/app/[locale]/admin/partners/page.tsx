@@ -61,12 +61,13 @@ export default async function AdminPartnersPage({
                 <ConfirmButton
                   action={deletePartner}
                   hiddenFields={{ id: p.id, locale }}
-                  title="Remove this partner?"
-                  confirmLabel="Remove"
+                  title={t('confirm.removePartner.title')}
+                  confirmLabel={t('confirm.removePartner.confirmLabel')}
+                  cancelLabel={t('confirm.cancel')}
                   variant="danger"
                   size="sm"
                 >
-                  Remove
+                  {t('confirm.removePartner.confirmLabel')}
                 </ConfirmButton>
               </li>
             )

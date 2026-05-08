@@ -6,7 +6,9 @@ import { setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ToastProvider } from '@/components/ui/Toast'
+import { SkipToContent } from '@/components/fci/SkipToContent'
 import { site } from '@/lib/site'
+import type { Locale } from '@/i18n/routing'
 import '../globals.css'
 
 const inter = Inter({
@@ -59,7 +61,11 @@ export default async function LocaleRootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body
+        className="min-h-full flex flex-col bg-background text-foreground"
+        suppressHydrationWarning
+      >
+        <SkipToContent locale={locale as Locale} />
         <ThemeProvider>
           <NextIntlClientProvider>
             <ToastProvider>{children}</ToastProvider>

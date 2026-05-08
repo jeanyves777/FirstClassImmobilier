@@ -12,6 +12,6 @@ export function proxy(request: Request) {
 export const config = {
   matcher: [
     // Run on every path except Next internals, static files, images, and public metadata.
-    '/((?!api|_next|.*\\..*|favicon.ico|robots.txt|sitemap.xml).*)',
+    '/((?!api|_next|.*\\..*|favicon.ico|robots.txt|sitemap.xml|og-default).*)',
   ],
 }

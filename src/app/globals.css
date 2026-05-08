@@ -88,6 +88,58 @@ body {
   font-family: var(--font-display), Georgia, "Times New Roman", serif;
 }
 
+/* Tiptap editor + public rich text rendering */
+.rich-text:focus { outline: none; }
+.rich-text p { margin: 0 0 0.75em; }
+.rich-text p:last-child { margin-bottom: 0; }
+.rich-text h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.35em;
+  font-weight: 600;
+  margin: 1.25em 0 0.5em;
+  color: var(--foreground);
+}
+.rich-text h3 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.15em;
+  font-weight: 600;
+  margin: 1em 0 0.4em;
+  color: var(--foreground);
+}
+.rich-text h4 { font-weight: 600; margin: 0.8em 0 0.3em; }
+.rich-text ul, .rich-text ol { margin: 0 0 0.75em 1.25em; }
+.rich-text ul { list-style: disc; }
+.rich-text ol { list-style: decimal; }
+.rich-text li { margin: 0.2em 0; }
+.rich-text blockquote {
+  margin: 0.75em 0;
+  padding: 0.25em 0.9em;
+  border-left: 3px solid var(--brand-red);
+  color: var(--muted);
+  font-style: italic;
+}
+.rich-text a {
+  color: var(--brand-navy);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.dark .rich-text a { color: var(--foreground); }
+.rich-text code {
+  background: var(--surface-muted);
+  padding: 0.1em 0.35em;
+  border-radius: 0.3em;
+  font-size: 0.92em;
+}
+.rich-text pre {
+  background: var(--surface-muted);
+  padding: 0.75em 1em;
+  border-radius: 0.6em;
+  overflow-x: auto;
+  margin: 0 0 0.75em;
+}
+.rich-text pre code { background: transparent; padding: 0; }
+.rich-text strong { font-weight: 600; }
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

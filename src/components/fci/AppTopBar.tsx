@@ -89,6 +89,7 @@ export function AppTopBar({
             onClick={() => setOpen((v) => !v)}
             aria-haspopup="menu"
             aria-expanded={open}
+            aria-label={user.name ?? user.email ?? 'Account menu'}
             className={cn(
               'flex h-9 items-center gap-2 rounded-full border border-[color:var(--border)] bg-surface px-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-surface-muted pr-3',
             )}

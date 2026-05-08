@@ -2,14 +2,21 @@
 
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef } from 'react'
+import { readConsent } from '@/lib/cookie-consent'
 
-/** Fire-and-forget beacon on mount + on path change. */
+/**
+ * Fire-and-forget beacon on mount + path change.
+ * Gated on explicit `accepted` consent (Loi n°2013-450 / APDP):
+ * analytics cookies require prior, informed consent.
+ */
 export function PageTracker({ locale }: { locale: string }) {
   const pathname = usePathname()
-  const start = useRef<number>(Date.now())
+  const start = useRef<number | null>(null)
 
   useEffect(() => {
     start.current = Date.now()
+    if (readConsent() !== 'accepted') return
+
     const payload = JSON.stringify({
       path: pathname,
       locale,

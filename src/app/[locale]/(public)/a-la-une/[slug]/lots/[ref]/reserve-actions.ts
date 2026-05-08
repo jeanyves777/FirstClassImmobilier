@@ -5,6 +5,9 @@ import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/db'
 import { getSessionUser } from '@/lib/auth/rbac'
 import { sendMail } from '@/lib/mail/transport'
+import { renderEmail } from '@/lib/mail/render'
+import { ReservationReceived } from '@/lib/mail/templates/ReservationReceived'
+import { formatFCFA } from '@/lib/format'
 import { site } from '@/lib/site'
 
 export async function reserveLot(formData: FormData): Promise<void> {
@@ -23,6 +26,7 @@ export async function reserveLot(formData: FormData): Promise<void> {
   const lot = await prisma.lot.findUnique({
     where: { id: lotId },
     include: { program: { select: { name: true } } },
+    // priceFCFA is already on Lot — no change needed
   })
   if (!lot) redirect(`/${locale}/a-la-une/${slug}`)
   if (lot.status !== 'available') {
@@ -51,16 +55,50 @@ export async function reserveLot(formData: FormData): Promise<void> {
 
   try {
     const programName = JSON.parse(lot.program.name).fr ?? 'FCI'
+    const l = (locale === 'en' ? 'en' : 'fr') as 'fr' | 'en'
+    const price = formatFCFA(lot.priceFCFA, l)
+    const buyerName = user.name ?? user.email ?? 'Acquéreur'
+
+    const adminMail = await renderEmail(
+      ReservationReceived({
+        locale: l,
+        buyerName,
+        programName,
+        lotReference: lot.reference,
+        price,
+        audience: 'admin',
+      }),
+    )
     await sendMail({
       to: process.env.SMTP_TO_CONTACT || site.email,
       replyTo: user.email ?? undefined,
       subject: `[Réservation] ${lot.reference} — ${programName}`,
-      text: `Nouvelle réservation\n\nLot: ${lot.reference}\nProgramme: ${programName}\n\nClient: ${user.name ?? ''} <${user.email ?? ''}>\n\n${note}`,
-      html: `<h2>Nouvelle réservation</h2>
-<p><b>Lot ${lot.reference}</b> — ${programName}</p>
-<p>Client: ${user.name ?? ''} &lt;${user.email ?? ''}&gt;</p>
-${note ? `<p>${escapeHtml(note)}</p>` : ''}`,
+      html: adminMail.html,
+      text: adminMail.text,
     })
+
+    // Acknowledgement to the buyer (best-effort — shouldn't block reservation).
+    if (user.email) {
+      const buyerEmail = await renderEmail(
+        ReservationReceived({
+          locale: l,
+          buyerName,
+          programName,
+          lotReference: lot.reference,
+          price,
+          audience: 'buyer',
+        }),
+      )
+      await sendMail({
+        to: user.email,
+        subject:
+          l === 'fr'
+            ? `Votre demande de réservation — ${lot.reference}`
+            : `Your reservation request — ${lot.reference}`,
+        html: buyerEmail.html,
+        text: buyerEmail.text,
+      })
+    }
   } catch (err) {
     console.error('[mail][reservation]', err)
   }
@@ -71,11 +109,3 @@ ${note ? `<p>${escapeHtml(note)}</p>` : ''}`,
   redirect(`/${locale}/portal/reservations?ok=1`)
 }
 
-function escapeHtml(s: string) {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
-}

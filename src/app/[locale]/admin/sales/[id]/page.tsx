@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { Link } from '@/i18n/navigation'
 import { prisma } from '@/lib/db'
@@ -27,6 +27,7 @@ export default async function SaleDetailPage({
   const { locale, id } = await params
   setRequestLocale(locale)
   const l = locale as Locale
+  const t = await getTranslations('admin')
 
   const [sale, staff] = await Promise.all([
     prisma.sale.findUnique({
@@ -356,12 +357,13 @@ export default async function SaleDetailPage({
             <ConfirmButton
               action={cancelSale}
               hiddenFields={{ id: sale.id, locale }}
-              title="Cancel this sale?"
-              description="The buyer portal will flip to cancelled, payments and documents remain for audit. You can still reactivate the lot manually."
-              confirmLabel="Yes, cancel sale"
+              title={t('confirm.cancelSale.title')}
+              description={t('confirm.cancelSale.description')}
+              confirmLabel={t('confirm.cancelSale.confirmLabel')}
+              cancelLabel={t('confirm.cancel')}
               variant="danger"
             >
-              Cancel sale
+              {t('confirm.cancelSale.confirmLabel')}
             </ConfirmButton>
           </div>
         </section>

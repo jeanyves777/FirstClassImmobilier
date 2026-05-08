@@ -11,7 +11,9 @@ export function ThemeToggle({ className }: { className?: string }) {
   const t = useTranslations('common')
   const [mounted, setMounted] = useState(false)
 
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    queueMicrotask(() => setMounted(true))
+  }, [])
 
   const isDark = mounted && (theme === 'dark' || (theme === 'system' && resolvedTheme === 'dark'))
 

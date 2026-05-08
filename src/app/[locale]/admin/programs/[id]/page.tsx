@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { Link } from '@/i18n/navigation'
 import { prisma } from '@/lib/db'
@@ -14,6 +14,7 @@ export default async function EditProgramPage({
 }: PageProps<'/[locale]/admin/programs/[id]'>) {
   const { locale, id } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
 
   const program = await prisma.program.findUnique({
     where: { id },
@@ -78,13 +79,14 @@ export default async function EditProgramPage({
           <ConfirmButton
             action={deleteProgram}
             hiddenFields={{ id: program.id, locale }}
-            title="Delete this program?"
-            description={`This permanently removes ${program._count.lots} lots, their media and related reservations. This cannot be undone.`}
-            confirmLabel="Yes, delete program"
+            title={t('confirm.deleteProgram.title')}
+            description={t('confirm.deleteProgram.description', { count: program._count.lots })}
+            confirmLabel={t('confirm.deleteProgram.confirmLabel')}
+            cancelLabel={t('confirm.cancel')}
             variant="danger"
             size="md"
           >
-            Delete program
+            {t('confirm.deleteProgram.confirmLabel')}
           </ConfirmButton>
         </div>
       </section>

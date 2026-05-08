@@ -10,6 +10,7 @@ type Role = 'BUYER' | 'PROSPECT' | 'APPLICANT' | 'VISITOR' | 'STAFF' | 'ADMIN'
 const BASE_NAV: { href: string; key: string; roles?: Role[]; badgeKey?: 'messages' }[] = [
   { href: '/portal/dashboard', key: 'portalDashboard' },
   { href: '/portal/reservations', key: 'portalReservations', roles: ['PROSPECT', 'BUYER'] },
+  { href: '/portal/saved', key: 'portalSaved' },
   { href: '/portal/projects', key: 'portalProjects', roles: ['BUYER'] },
   { href: '/portal/application', key: 'portalApplication', roles: ['APPLICANT'] },
   { href: '/portal/appointments', key: 'portalAppointments' },

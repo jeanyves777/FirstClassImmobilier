@@ -5,7 +5,13 @@ import { Button } from '@/components/ui/Button'
 import { useToast } from '@/components/ui/Toast'
 import { changePassword, updateProfile } from './actions'
 
-type Profile = { fullName: string; phone: string; whatsapp: string; locale: 'fr' | 'en' }
+type Profile = {
+  fullName: string
+  phone: string
+  whatsapp: string
+  locale: 'fr' | 'en'
+  themePreference: 'system' | 'light' | 'dark'
+}
 
 const baseField =
   'w-full rounded-xl border border-[color:var(--border)] bg-background px-3.5 py-2.5 text-sm text-foreground focus:border-[color:var(--brand-navy)] focus:outline-none focus:ring-2 focus:ring-[color:var(--ring)]/40'
@@ -46,12 +52,22 @@ export function ProfileForm({ locale, defaults }: { locale: string; defaults: Pr
         <input name="whatsapp" type="tel" defaultValue={defaults.whatsapp} className={baseField} />
       </label>
 
-      <label className="block space-y-1.5 sm:col-span-2">
+      <label className="block space-y-1.5">
         <span className="text-xs font-medium uppercase tracking-wider text-muted">Preferred language</span>
         <select name="userLocale" defaultValue={defaults.locale} className={baseField}>
           <option value="fr">Français</option>
           <option value="en">English</option>
         </select>
+      </label>
+
+      <label className="block space-y-1.5">
+        <span className="text-xs font-medium uppercase tracking-wider text-muted">Theme preference</span>
+        <select name="themePreference" defaultValue={defaults.themePreference} className={baseField}>
+          <option value="system">Match system</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+        <span className="block text-[10px] text-muted">Applied when you sign in on any device.</span>
       </label>
 
       <div className="flex justify-end sm:col-span-2">

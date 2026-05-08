@@ -67,7 +67,7 @@ export default async function ReservationsInbox({
                 <h3 className="font-display text-base font-semibold text-foreground">
                   {r.user.fullName || r.user.email}
                 </h3>
-                <Pill value={r.status} />
+                <Pill value={r.status} label={t(`statusFilter.${r.status}`)} />
               </div>
               <p className="text-xs text-muted">
                 <a href={`mailto:${r.user.email}`} className="hover:text-foreground">{r.user.email}</a>
@@ -98,14 +98,14 @@ export default async function ReservationsInbox({
                   className="flex-1 rounded-lg border border-[color:var(--border)] bg-background px-2 py-1.5 text-xs"
                 >
                   {STATUS_ORDER.map((s) => (
-                    <option key={s} value={s}>{s}</option>
+                    <option key={s} value={s}>{t(`statusFilter.${s}`)}</option>
                   ))}
                 </select>
                 <button
                   type="submit"
                   className="rounded-lg bg-[color:var(--brand-navy)] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[color:var(--brand-navy-700)]"
                 >
-                  Save
+                  {t('labels.save')}
                 </button>
               </form>
 
@@ -117,7 +117,7 @@ export default async function ReservationsInbox({
                   defaultValue={r.assignedAgentId ?? ''}
                   className="flex-1 rounded-lg border border-[color:var(--border)] bg-background px-2 py-1.5 text-xs"
                 >
-                  <option value="">— Unassigned —</option>
+                  <option value="">{t('labels.unassigned')}</option>
                   {staff.map((s) => (
                     <option key={s.id} value={s.id}>{s.fullName || s.email}</option>
                   ))}
@@ -126,7 +126,7 @@ export default async function ReservationsInbox({
                   type="submit"
                   className="rounded-lg border border-[color:var(--border)] bg-surface px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-surface-muted"
                 >
-                  Assign
+                  {t('labels.assign')}
                 </button>
               </form>
 
@@ -138,7 +138,7 @@ export default async function ReservationsInbox({
                     type="submit"
                     className="w-full rounded-lg bg-[color:var(--brand-red)] px-3 py-2 text-xs font-semibold uppercase tracking-wider text-white hover:bg-[color:var(--brand-red-600)]"
                   >
-                    Convert to sale →
+                    {t('labels.convertToSale')} →
                   </button>
                 </form>
               )}
@@ -147,7 +147,7 @@ export default async function ReservationsInbox({
         ))}
         {reservations.length === 0 && (
           <p className="rounded-2xl border border-dashed border-[color:var(--border)] bg-surface-muted p-10 text-center text-sm text-muted">
-            No reservations yet. As soon as a prospect clicks Reserve on a lot, it appears here.
+            {t('empty.reservations')}
           </p>
         )}
       </div>
@@ -170,7 +170,7 @@ function Chip({ href, active, label }: { href: string; active: boolean; label: s
   )
 }
 
-function Pill({ value }: { value: string }) {
+function Pill({ value, label }: { value: string; label: string }) {
   const map: Record<string, string> = {
     pending: 'bg-amber-500/10 text-amber-700 dark:text-amber-400',
     confirmed: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400',
@@ -179,7 +179,7 @@ function Pill({ value }: { value: string }) {
   const cls = map[value] ?? 'bg-surface-muted text-muted'
   return (
     <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider ${cls}`}>
-      {value}
+      {label}
     </span>
   )
 }

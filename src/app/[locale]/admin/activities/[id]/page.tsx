@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/db'
 import { parse as parseLocalized } from '@/lib/zod/localized'
@@ -12,6 +12,7 @@ export default async function EditActivityPage({
 }: PageProps<'/[locale]/admin/activities/[id]'>) {
   const { locale, id } = await params
   setRequestLocale(locale)
+  const t = await getTranslations('admin')
 
   const activity = await prisma.activity.findUnique({ where: { id } })
   if (!activity) notFound()
@@ -51,12 +52,13 @@ export default async function EditActivityPage({
           <ConfirmButton
             action={deleteActivity}
             hiddenFields={{ id: activity.id, locale }}
-            title="Delete this activity?"
-            description="The entry will disappear from the public gallery."
-            confirmLabel="Yes, delete"
+            title={t('confirm.deleteActivity.title')}
+            description={t('confirm.deleteActivity.description')}
+            confirmLabel={t('confirm.deleteActivity.confirmLabel')}
+            cancelLabel={t('confirm.cancel')}
             variant="danger"
           >
-            Delete activity
+            {t('confirm.deleteActivity.confirmLabel')}
           </ConfirmButton>
         </div>
       </section>

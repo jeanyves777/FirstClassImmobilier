@@ -85,7 +85,7 @@ export default async function AdminSalesList({
                     </Link>
                   </td>
                   <td className="px-4 py-3 text-muted">{formatFCFA(s.totalFCFA, l)}</td>
-                  <td className="px-4 py-3"><StagePill stage={s.stage} /></td>
+                  <td className="px-4 py-3"><StagePill stage={s.stage} label={t(`statusFilter.${s.stage}`)} /></td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <div className="relative h-1.5 w-28 rounded-full bg-surface-muted">
@@ -140,7 +140,7 @@ function Chip({ href, active, label }: { href: string; active: boolean; label: s
   )
 }
 
-function StagePill({ stage }: { stage: string }) {
+function StagePill({ stage, label }: { stage: string; label: string }) {
   const map: Record<string, string> = {
     draft: 'bg-surface-muted text-muted',
     'contract-sent': 'bg-amber-500/10 text-amber-700 dark:text-amber-400',
@@ -153,7 +153,7 @@ function StagePill({ stage }: { stage: string }) {
   const cls = map[stage] ?? 'bg-surface-muted text-muted'
   return (
     <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider ${cls}`}>
-      {stage}
+      {label}
     </span>
   )
 }

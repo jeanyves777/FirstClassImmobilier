@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { FileUpload } from '@/components/fci/admin/FileUpload'
 import { LocalizedField } from '@/components/fci/admin/LocalizedField'
@@ -35,6 +36,7 @@ export function ProgramMediaManager({
   plans: Plan[]
   heroMediaId: string | null
 }) {
+  const t = useTranslations('admin')
   const [newMediaUrl, setNewMediaUrl] = useState('')
   const [newPlanUrl, setNewPlanUrl] = useState('')
 
@@ -98,13 +100,18 @@ export function ProgramMediaManager({
                       <ConfirmButton
                         action={removeProgramMedia}
                         hiddenFields={{ mediaId: m.id, programId, locale }}
-                        title="Remove this media?"
-                        description={`${m.kind} will be removed from the program.`}
-                        confirmLabel="Remove"
+                        title={t('confirm.removeMedia.title')}
+                        description={
+                          locale === 'fr'
+                            ? `Le média (${m.kind}) sera retiré du programme.`
+                            : `The ${m.kind} will be removed from the program.`
+                        }
+                        confirmLabel={t('confirm.removeMedia.confirmLabel')}
+                        cancelLabel={t('confirm.cancel')}
                         variant="danger"
                         size="sm"
                       >
-                        Remove
+                        {t('confirm.removeMedia.confirmLabel')}
                       </ConfirmButton>
                     </div>
                   </div>
@@ -180,12 +187,13 @@ export function ProgramMediaManager({
                   <ConfirmButton
                     action={removeProgramPlan}
                     hiddenFields={{ planId: p.id, programId, locale }}
-                    title="Remove this plan?"
-                    confirmLabel="Remove"
+                    title={t('confirm.removePlan.title')}
+                    confirmLabel={t('confirm.removePlan.confirmLabel')}
+                    cancelLabel={t('confirm.cancel')}
                     variant="danger"
                     size="sm"
                   >
-                    Remove
+                    {t('confirm.removePlan.confirmLabel')}
                   </ConfirmButton>
                 </li>
               )

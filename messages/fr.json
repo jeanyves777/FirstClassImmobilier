@@ -11,7 +11,7 @@
   },
   "common": {
     "loading": "Chargement…",
-    "backHome": "Retour à l\u2019accueil",
+    "backHome": "Retour à l’accueil",
     "readMore": "En savoir plus",
     "viewAll": "Tout voir",
     "submit": "Envoyer",
@@ -30,34 +30,161 @@
   },
   "home": {
     "tagline": "FirstClass Immobilier, Promoteur Immobilier Agréé.",
-    "subTagline": "Leader dans ses secteurs d\u2019Activité.",
-    "statement": "Avec nous, soyez-en sûr, l\u2019Immobilier se fait et se vit autrement.",
+    "subTagline": "Leader dans ses secteurs d’activité.",
+    "statement": "Avec nous, soyez-en sûr, l’Immobilier se vit et se fait autrement.",
     "counters": {
-      "years": "Années d\u2019expérience",
+      "years": "Années d’expérience",
       "clients": "Clients satisfaits",
       "projects": "Projets",
       "countries": "Pays de présence"
     },
-    "discoverCta": "Découvrir nos programmes"
+    "discoverCta": "Découvrir nos programmes",
+    "usp": {
+      "eyebrow": "Pourquoi FirstClass",
+      "licensed": {
+        "title": "Promoteur agréé",
+        "body": "Agrément officiel du Ministère de la Construction — chaque programme est adossé à des documents réglementaires."
+      },
+      "experience": {
+        "title": "8+ années de livraisons",
+        "body": "De Cocody à l’intérieur du pays : des centaines de familles installées dans leur nouveau foyer."
+      },
+      "acd": {
+        "title": "ACD sécurisés",
+        "body": "380+ Attestations de Concession Définitive délivrées — la seule garantie d’être pleinement propriétaire."
+      },
+      "diaspora": {
+        "title": "Diaspora-friendly",
+        "body": "Réservation à distance, suivi en ligne de votre dossier, formalités notariales prises en charge à Abidjan."
+      }
+    },
+    "featured": {
+      "eyebrow": "À la une",
+      "title": "Programmes phares en commercialisation",
+      "subtitle": "Des lots encore disponibles dans nos programmes sélectionnés. Réservez en ligne et planifiez une visite.",
+      "viewAll": "Voir tous les programmes",
+      "empty": "De nouveaux programmes sont en préparation — suivez-nous pour être alerté."
+    },
+    "products": {
+      "eyebrow": "Ce que nous proposons",
+      "title": "Du terrain à la clé",
+      "subtitle": "Une équipe unique pour tout le cycle — trouver le terrain, sécuriser les documents, construire et livrer.",
+      "items": {
+        "land": {
+          "title": "Terrains viabilisés",
+          "body": "Parcelles bornées, viabilisées, prêtes pour ACD à Abidjan et dans les villes environnantes."
+        },
+        "house": {
+          "title": "Maisons clé en main",
+          "body": "Villas conçues par nos architectes, livrées finies avec leurs garanties."
+        },
+        "lotissement": {
+          "title": "Lotissements",
+          "body": "Quartiers complets — voiries, réseaux, sécurité, espaces communs."
+        },
+        "support": {
+          "title": "Accompagnement acquéreur",
+          "body": "Contrat, notaire, ACD, remise des clés — un agent dédié de la signature à l’emménagement."
+        }
+      }
+    },
+    "cta": {
+      "eyebrow": "Échangeons",
+      "title": "Prêt à lancer votre projet immobilier ?",
+      "subtitle": "Parlez-nous de votre besoin — un agent vous recontacte sous 24 heures.",
+      "primary": "Contacter un agent",
+      "secondary": "Discuter sur WhatsApp"
+    }
   },
   "about": {
     "title": "Nous Découvrir",
     "bioTitle": "Qui sommes-nous ?",
-    "bio": "FirstClass Immobilier est un promoteur immobilier agréé basé à Abidjan. Depuis plus de huit ans, nous accompagnons particuliers, entreprises et investisseurs dans l\u2019acquisition de terrains, la construction de maisons et le développement de lotissements de qualité.",
+    "bio": "Créé en Côte d’Ivoire depuis janvier 2018, FirstClass Immobilier est Leader dans ses secteurs d’activité. Agréé sous le numéro 22-00109/MCLU/DGLCV/CAPPI/ogla, notre entreprise se spécialise dans plusieurs domaines clés. Nous contribuons au développement urbain harmonieux et à l’amélioration de la qualité de vie de notre clientèle.",
     "servicesTitle": "Nos Services",
     "valuesTitle": "Nos Valeurs",
     "visionTitle": "Notre Vision",
     "missionTitle": "Notre Mission",
     "productsTitle": "Nos Produits",
     "partnersTitle": "Nos Partenaires & Clients",
-    "values": "Intégrité, excellence, innovation, service client. Nous construisons des relations durables en plaçant la transparence au cœur de chaque transaction.",
-    "vision": "Devenir la référence incontournable de la promotion immobilière en Côte d\u2019Ivoire et dans la sous-région, à travers des réalisations premium et des quartiers qui façonnent un meilleur art de vivre.",
-    "mission": "Démocratiser l\u2019accès à la propriété pour la diaspora et les familles ivoiriennes en livrant des projets fiables, sécurisés, sur des délais maîtrisés, avec un accompagnement de bout en bout.",
-    "products": "Terrains viabilisés, maisons clé en main, appartements, lotissements complets, accompagnement ACD, gestion locative."
+    "values": "Satisfaction client · Honnêteté · Responsabilité · Qualité · Engagement · Confiance.",
+    "vision": "Devenir Leader de l’Immobilier en Côte d’Ivoire et partout dans le monde, en offrant des solutions d’habitat de qualité supérieure, conformes aux normes et standards internationaux.",
+    "mission": "Chez FirstClass Immobilier, nous plaçons la satisfaction de nos clients au cœur de notre démarche.",
+    "products": "Terrains en friche, semi-viabilisés et viabilisés · Villas duplex haut standing avec ou sans piscine · Appartements moyen, haut et très haut standing · Logements sociaux (appartements et villas).",
+    "agrementBadge": "Agrement n° 22-00109/MCLU/DGLCV/CAPPI/ogla",
+    "services": {
+      "eyebrow": "Nos savoir-faire",
+      "title": "Nos Services",
+      "intro": "Six métiers complémentaires sous le même toit, pour livrer chaque projet de bout en bout.",
+      "expand": "Voir le détail",
+      "collapse": "Refermer",
+      "items": {
+        "promotion": {
+          "title": "Promotion immobilière",
+          "lede": "Découvrez nos projets immobiliers innovants.",
+          "body": "Nos promotions immobilières se distinguent par leur design contemporain et leur fonctionnalité. Chaque projet est élaboré en partenariat avec un personnel dynamique, des architectes de renom et des experts du secteur pour offrir des logements alliant esthétique, confort et durabilité.",
+          "bullets": [
+            "Localisation stratégique : commerces, écoles, transports, centres d’affaires.",
+            "Opportunités d’investissement à rentabilité maîtrisée.",
+            "Qualité supérieure à coûts accessibles."
+          ]
+        },
+        "amenagement": {
+          "title": "Aménagement foncier",
+          "lede": "Optimisez votre parcelle avec notre expertise.",
+          "body": "Nous valorisons vos parcelles en maximisant leur potentiel grâce à une connaissance approfondie des réglementations et à une approche stratégique. Nous créons des espaces fonctionnels et esthétiques.",
+          "bullets": [
+            "Études de faisabilité détaillées.",
+            "Planification et conception sur mesure.",
+            "Travaux de VRD : décapage, voirie, eau, électrification."
+          ]
+        },
+        "construction": {
+          "title": "Construction",
+          "lede": "Construisez avec confiance grâce à notre savoir-faire.",
+          "body": "Nos équipes de construction réalisent des bâtiments de haute qualité, respectant délais et budgets. Matériaux de premier choix et techniques de pointe pour garantir durabilité et sécurité.",
+          "bullets": [
+            "Qualité et sécurité : matériaux et techniques avancés.",
+            "Respect strict des délais et des budgets.",
+            "Une équipe dédiée et expérimentée à chaque étape."
+          ]
+        },
+        "renovation": {
+          "title": "Rénovation de bâtiments",
+          "lede": "Redonnez vie à vos bâtiments.",
+          "body": "Une équipe expérimentée maîtrisant les dernières techniques de rénovation, des matériaux de premier choix et une gestion rigoureuse pour livrer dans les temps et le budget.",
+          "bullets": [
+            "Rénovation intérieure : espaces de vie, bureaux, commerces.",
+            "Rénovation extérieure : façades, toitures, espaces extérieurs.",
+            "Projets résidentiels, commerciaux et publics."
+          ]
+        },
+        "architecture": {
+          "title": "Architecture",
+          "lede": "Transformez vos idées en réalité.",
+          "body": "Un département d’architecture structuré, avec une équipe inscrite à l’Ordre des Architectes de Côte d’Ivoire. Solutions innovantes, durables et esthétiques — de la conception à la réalisation.",
+          "bullets": [
+            "Conception sur mesure et obtention de permis de construire.",
+            "Sélection des entreprises et direction de chantier.",
+            "Projets résidentiels, commerciaux et espaces publics."
+          ]
+        },
+        "transaction": {
+          "title": "Transaction immobilière",
+          "lede": "Simplifiez vos transactions immobilières.",
+          "body": "Spécialistes des transactions immobilières : achat, vente et location. Un réseau solide d’acheteurs et de vendeurs, transparence et professionnalisme à chaque étape.",
+          "bullets": [
+            "Mise en vente et évaluation au juste prix.",
+            "Gestion de biens : location et entretien.",
+            "Résidentiel, commercial et foncier."
+          ]
+        }
+      }
+    },
+    "slogan": "Une Nouvelle Vie Commence !"
   },
   "realisations": {
     "title": "Nos Réalisations",
-    "intro": "Découvrez l\u2019étendue de nos projets livrés à travers les zones d\u2019Abidjan, du Grand Abidjan, de l\u2019intérieur et de l\u2019extérieur du pays.",
+    "intro": "Découvrez l’étendue de nos projets livrés à travers les zones d’Abidjan, du Grand Abidjan, de l’intérieur et de l’extérieur du pays.",
     "categories": {
       "terrains": "Terrains",
       "maisons": "Maisons",
@@ -80,11 +207,17 @@
       "lands": "Offres de Terrains"
     },
     "reserveCta": "Réserver un lot",
-    "catalogCta": "Télécharger le catalogue"
+    "catalogCta": "Télécharger le catalogue",
+    "saveSearch": {
+      "save": "Sauvegarder cette recherche",
+      "saved": "Recherche sauvegardée",
+      "toastDescription": "Recherche ajoutée à vos favoris — retrouvez-la dans votre espace client.",
+      "toastError": "Action impossible. Réessayez dans un instant."
+    }
   },
   "activities": {
     "title": "Nos Activités",
-    "intro": "Événements, inaugurations, séances de signatures, et vie de l\u2019entreprise."
+    "intro": "Événements, inaugurations, séances de signatures, et vie de l’entreprise."
   },
   "team": {
     "title": "Nos Équipes",
@@ -120,6 +253,7 @@
   "portal": {
     "portalDashboard": "Tableau de bord",
     "portalReservations": "Mes réservations",
+    "portalSaved": "Mes favoris",
     "portalProjects": "Mes projets",
     "portalApplication": "Ma candidature",
     "portalAppointments": "Mes visites",
@@ -135,9 +269,9 @@
       "visitor": "Visiteur"
     },
     "dashboardIntro": {
-      "buyer": "Suivez vos acquisitions, vos paiements et l\u2019avancement de vos biens.",
+      "buyer": "Suivez vos acquisitions, vos paiements et l’avancement de vos biens.",
       "prospect": "Réservez vos lots, planifiez vos visites et suivez vos demandes.",
-      "applicant": "Suivez l\u2019état de votre candidature chez FCI.",
+      "applicant": "Suivez l’état de votre candidature chez FCI.",
       "visitor": "Bienvenue dans votre espace personnel FirstClass Immobilier.",
       "staff": "Accès équipe FCI.",
       "admin": "Accès administrateur FCI."
@@ -165,23 +299,36 @@
     "paid": "Payé",
     "dueLabel": "À régler",
     "noPayments": "Aucun paiement planifié pour le moment.",
-    "noReservations": "Vous n\u2019avez pas encore de réservation.",
-    "noApplication": "Vous n\u2019avez pas encore déposé de candidature.",
+    "noReservations": "Vous n’avez pas encore de réservation.",
+    "noApplication": "Vous n’avez pas encore déposé de candidature.",
     "currentStatus": "Statut actuel",
     "backDashboard": "Retour au tableau de bord",
     "settingsIntro": "Vos informations personnelles et préférences.",
     "messagesComingSoon": "La messagerie intégrée arrive bientôt. En attendant, contactez-nous sur WhatsApp.",
     "applicationStatus": {
       "received": "Candidature reçue. Nous reviendrons vers vous.",
-      "reviewing": "Votre candidature est en cours d\u2019étude.",
+      "reviewing": "Votre candidature est en cours d’étude.",
       "interview": "Nous souhaitons vous rencontrer en entretien.",
-      "hired": "Bienvenue dans l\u2019équipe FirstClass !",
-      "rejected": "Votre candidature n\u2019a pas été retenue cette fois-ci."
-    }
+      "hired": "Bienvenue dans l’équipe FirstClass !",
+      "rejected": "Votre candidature n’a pas été retenue cette fois-ci."
+    },
+    "documentsIntro": "Téléversez chaque document requis. Votre agent le vérifiera puis approuvera, ou vous demandera une nouvelle version si besoin.",
+    "docStatus": {
+      "required": "À téléverser",
+      "uploaded": "En attente de validation",
+      "approved": "Validé",
+      "rejected": "À renvoyer"
+    },
+    "docUpload": "Téléverser",
+    "docReupload": "Envoyer une nouvelle version",
+    "docSubmitting": "Enregistrement…",
+    "docUploadSuccess": "Document envoyé. Votre agent le vérifiera sous peu.",
+    "docUploadError": "Échec de l’envoi. Veuillez réessayer.",
+    "viewFile": "Voir le fichier"
   },
   "auth": {
-    "signInTitle": "Connexion à l\u2019Espace FCI",
-    "signInIntro": "Connectez-vous pour accéder à votre espace client ou à l\u2019administration.",
+    "signInTitle": "Connexion à l’Espace FCI",
+    "signInIntro": "Connectez-vous pour accéder à votre espace client ou à l’administration.",
     "email": "E-mail",
     "password": "Mot de passe",
     "submit": "Se connecter",
@@ -207,12 +354,13 @@
     "navAnalytics": "Analytique",
     "navActivities": "Activités",
     "navTeam": "Équipe",
+    "navTestimonials": "Témoignages",
     "navPartners": "Partenaires",
     "navStats": "Compteurs",
     "navUsers": "Utilisateurs",
     "navSettings": "Paramètres",
     "dashboardTitle": "Tableau de bord",
-    "dashboardIntro": "Vue d\u2019ensemble de votre activité sur la plateforme.",
+    "dashboardIntro": "Vue d’ensemble de votre activité sur la plateforme.",
     "kpi": {
       "programs": "Programmes",
       "lots": "Lots",
@@ -237,13 +385,13 @@
       "sales": "Chaque vente confirmée, du brouillon à la livraison.",
       "appointments": "Demandes de visite, réunions et appels. Confirmez ou assignez à un agent.",
       "chat": "Toutes les conversations en cours avec acquéreurs, prospects et candidats.",
-      "analytics": "30 derniers jours d\u2019activité des visiteurs et tunnel de conversion alimentant votre pipeline.",
+      "analytics": "30 derniers jours d’activité des visiteurs et tunnel de conversion alimentant votre pipeline.",
       "leads": "Messages reçus via le formulaire « Vos Avis » et autres prospects entrants.",
       "applications": "Candidatures spontanées déposées via le formulaire « Postuler ».",
-      "activities": "Événements, inaugurations et vie de l\u2019entreprise. Les entrées publiées apparaissent sur « Nos Activités ».",
-      "team": "Membres visibles sur l\u2019onglet « Nos Équipes ». Modifiez l\u2019ordre d\u2019affichage avec le champ ordre.",
+      "activities": "Événements, inaugurations et vie de l’entreprise. Les entrées publiées apparaissent sur « Nos Activités ».",
+      "team": "Membres visibles sur l’onglet « Nos Équipes ». Modifiez l’ordre d’affichage avec le champ ordre.",
       "partners": "Logos affichés dans la bande « Nos Partenaires & Clients » sur Nous Découvrir.",
-      "stats": "Ces compteurs animent la page d\u2019accueil et « Nos Réalisations ».",
+      "stats": "Ces compteurs animent la page d’accueil et « Nos Réalisations ».",
       "users": "Annuaire de tous les comptes. Promouvez votre équipe ou réaffectez des rôles.",
       "settings": "Coordonnées, liens sociaux et slogan du pied de page affichés sur le site public."
     },
@@ -296,7 +444,50 @@
       "searchUser": "Rechercher par nom ou e-mail…",
       "assign": "Assigner",
       "open": "Ouvrir →",
-      "featured": "Mis en avant"
+      "featured": "Mis en avant",
+      "convertToSale": "Convertir en vente"
+    },
+    "empty": {
+      "reservations": "Aucune réservation pour le moment. Dès qu’un prospect clique sur Réserver sur un lot, elle apparaîtra ici."
+    },
+    "confirm": {
+      "cancel": "Annuler",
+      "deleteProgram": {
+        "title": "Supprimer ce programme ?",
+        "description": "Supprime définitivement les {count} lots, leurs médias et les réservations liées. Cette action est irréversible.",
+        "confirmLabel": "Oui, supprimer le programme"
+      },
+      "deleteLot": {
+        "title": "Supprimer ce lot ?",
+        "description": "Supprime ce lot et tous ses médias. Les éventuelles réservations restent attachées au programme pour traçabilité.",
+        "confirmLabel": "Oui, supprimer le lot"
+      },
+      "deleteActivity": {
+        "title": "Supprimer cette activité ?",
+        "description": "L’article sera immédiatement retiré de la page publique « Nos Activités ». Irréversible.",
+        "confirmLabel": "Oui, supprimer"
+      },
+      "cancelSale": {
+        "title": "Annuler cette vente ?",
+        "description": "L’espace client passera à « annulé ». Paiements et documents restent conservés pour audit. Le lot n’est pas automatiquement remis en vente.",
+        "confirmLabel": "Oui, annuler la vente"
+      },
+      "removeMedia": {
+        "title": "Retirer ce média ?",
+        "confirmLabel": "Retirer"
+      },
+      "removePlan": {
+        "title": "Retirer ce plan ?",
+        "confirmLabel": "Retirer"
+      },
+      "removePartner": {
+        "title": "Retirer ce partenaire ?",
+        "confirmLabel": "Retirer"
+      },
+      "removeTeam": {
+        "title": "Retirer ce membre de l’équipe ?",
+        "confirmLabel": "Retirer"
+      }
     },
     "statusFilter": {
       "new": "Nouveau",
@@ -325,6 +516,141 @@
       "available": "Disponible",
       "reserved": "Réservé",
       "sold": "Vendu"
+    },
+    "forms": {
+      "saved": "Enregistré",
+      "createProgram": "Créer le programme",
+      "saveChanges": "Enregistrer",
+      "createLot": "Créer le lot",
+      "saveSettings": "Enregistrer les paramètres",
+      "settingsSaved": "Paramètres enregistrés",
+      "settingsSavedDesc": "Le site public a été actualisé.",
+      "program": {
+        "sectionIdentity": "Identité",
+        "sectionClassification": "Classification",
+        "slug": "Identifiant URL",
+        "slugHint": "Utilisé dans les URLs, ex. aerocity-beach. Minuscules, chiffres et tirets uniquement.",
+        "name": "Nom",
+        "tagline": "Accroche",
+        "description": "Description",
+        "type": "Type",
+        "status": "Statut",
+        "zone": "Zone",
+        "featuredToggle": "Mettre en avant dans la section « À la Une » de l’accueil"
+      },
+      "lot": {
+        "sectionIdentity": "Identité",
+        "sectionSpecs": "Spécifications & prix",
+        "sectionVirtual": "Visite virtuelle",
+        "program": "Programme",
+        "reference": "Référence",
+        "referenceHint": "Unique dans le programme. Exemple : AERO-A01",
+        "title": "Titre",
+        "highlights": "Points clés",
+        "highlightsHint": "Courte liste à puces affichée sur les cartes.",
+        "description": "Description",
+        "surface": "Surface (m²)",
+        "price": "Prix (FCFA)",
+        "status": "Statut",
+        "bedrooms": "Chambres",
+        "bathrooms": "Salles de bain",
+        "features": "Équipements",
+        "featuresHint": "Un équipement par ligne. Stocké en tableau JSON — ex. \"Piscine\\nDomotique\\nJardin privé\"",
+        "virtualTourUrl": "URL de visite virtuelle (Matterport / Kuula)",
+        "virtualTourHint": "Intégré en iframe sur la page de détail du lot.",
+        "videoUrl": "URL de la vidéo (mp4 direct ou embed YouTube/Vimeo)"
+      },
+      "settings": {
+        "sectionContact": "Coordonnées",
+        "sectionContactHint": "Affichées dans le pied de page et sur la page Contacts.",
+        "phone": "Téléphone",
+        "mobile": "Mobile",
+        "whatsapp": "WhatsApp (chiffres uniquement)",
+        "whatsappHint": "Ex. 2250584212929",
+        "email": "E-mail",
+        "address": "Adresse",
+        "hoursFr": "Horaires — FR",
+        "hoursEn": "Horaires — EN",
+        "sectionSocial": "Liens sociaux",
+        "sectionSocialHint": "Affichés en icônes dans le pied de page. Laisser vide pour masquer.",
+        "sectionFooter": "Slogan du pied de page",
+        "sectionFooterHint": "Remplace le slogan par défaut sous le logo dans le pied de page.",
+        "footerTagline": "Slogan",
+        "sectionScheduler": "Planification",
+        "sectionSchedulerHint": "Créneaux hebdomadaires proposés aux prospects lors d’une demande de visite. Chaque créneau dure la durée configurée.",
+        "slotDuration": "Durée du créneau (min)",
+        "availability": "Plages de disponibilité",
+        "sectionLegal": "Mentions légales",
+        "sectionLegalHint": "Utilisées sur la page Mentions légales. Obligatoires selon la loi ivoirienne pour tout site commercial. Renseigner ces champs supprime les placeholders sur les pages légales publiques.",
+        "legalCompanyName": "Raison sociale",
+        "legalForm": "Forme juridique",
+        "legalFormHint": "SARL, SA, SAS, …",
+        "legalCapital": "Capital social",
+        "legalCapitalHint": "ex. 10 000 000 FCFA",
+        "legalRCCM": "N° RCCM",
+        "legalTaxId": "N° CC / IDU",
+        "legalDirector": "Directeur de publication",
+        "legalDirectorHint": "Personne responsable du contenu du site",
+        "legalHostName": "Hébergeur",
+        "legalHostAddress": "Adresse de l’hébergeur"
+      }
+    }
+  },
+  "errors": {
+    "notFound": {
+      "eyebrow": "Page introuvable",
+      "title": "Cette page n’existe plus",
+      "description": "Le lien est peut-être obsolète ou le programme a été retiré. Utilisez les raccourcis ci-dessous pour reprendre votre navigation.",
+      "ctaHome": "Retour à l’accueil",
+      "ctaFeatured": "Voir les programmes à la une",
+      "ctaContact": "Nous contacter"
+    },
+    "error": {
+      "eyebrow": "Une erreur est survenue",
+      "title": "Incident temporaire chez nous",
+      "description": "Notre équipe a été notifiée. Veuillez réessayer dans un instant — ou contactez-nous si le problème persiste.",
+      "reference": "Référence",
+      "retry": "Réessayer",
+      "home": "Retour à l’accueil",
+      "contact": "Contacter le support"
+    }
+  },
+  "legal": {
+    "sectionTitle": "Légal",
+    "mentionsLegales": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "cgu": "Conditions d’utilisation",
+    "cookies": "Cookies"
+  },
+  "cookies": {
+    "banner": {
+      "title": "Nous respectons votre choix",
+      "description": "Nous utilisons des cookies strictement nécessaires au fonctionnement du site et, avec votre accord, des cookies de mesure d’audience internes pour comprendre l’usage de nos programmes.",
+      "accept": "Accepter",
+      "reject": "Refuser",
+      "learnMore": "Politique cookies",
+      "manage": "Gérer les cookies"
+    }
+  },
+  "assistant": {
+    "open": "Ouvrir l’assistant",
+    "title": "Assistant FCI",
+    "subtitle": "Programmes, prix, réservations — toujours en ligne.",
+    "placeholder": "Posez votre question à FCI…",
+    "send": "Envoyer",
+    "footnote": "Assistant automatique · pour un humain, cliquez sur Parler à un agent.",
+    "leadSuccessTitle": "Demande envoyée",
+    "leadSuccessBody": "Un agent vous recontacte sous 24 heures.",
+    "leadConfirmed": "C’est noté — un agent FCI vous recontacte rapidement. En attendant, une autre question ?",
+    "lead": {
+      "intro": "Laissez-nous vos coordonnées, un agent FCI vous recontacte sous 24 heures.",
+      "name": "Nom complet",
+      "email": "E-mail",
+      "phone": "Téléphone / WhatsApp (facultatif)",
+      "phoneHint": "Chiffres uniquement, indicatif pays compris.",
+      "cancel": "Retour au chat",
+      "submit": "Envoyer",
+      "submitting": "Envoi…"
     }
   },
   "lot": {
@@ -352,6 +678,36 @@
     "visitCta": "Demander une visite sur site",
     "visitTitle": "Demander une visite",
     "visitIntro": "Planifiez une visite en personne. Notre agent vous recontactera pour confirmer le créneau.",
-    "backToProgram": "Retour au programme"
+    "backToProgram": "Retour au programme",
+    "share": {
+      "button": "Partager",
+      "email": "E-mail",
+      "copyLink": "Copier le lien",
+      "copied": "Lien copié dans le presse-papiers",
+      "copyFailed": "Impossible de copier le lien",
+      "messageTemplate": "Regarde ce {type} chez FirstClass Immobilier — {name} à {zone}, {price}."
+    },
+    "simulator": {
+      "title": "Simuler un échéancier",
+      "subtitle": "Obtenez une mensualité indicative en ajustant l’acompte et la durée.",
+      "deposit": "Acompte",
+      "duration": "Durée",
+      "months": "mois",
+      "monthsShort": "mois",
+      "monthly": "Mensualité indicative",
+      "totalBalance": "Solde à financer",
+      "fullPrice": "Prix du lot",
+      "cta": "Affiner avec un agent",
+      "disclaimer": "Simulation indicative, hors frais notariés et ACD. Le plan final est défini par contrat."
+    },
+    "save": {
+      "save": "Sauvegarder",
+      "saved": "Sauvegardé",
+      "add": "Ajouter à mes favoris",
+      "remove": "Retirer des favoris",
+      "added": "Lot ajouté à vos favoris",
+      "removed": "Lot retiré de vos favoris",
+      "failed": "Action impossible. Réessayez dans un instant."
+    }
   }
 }

@@ -4,6 +4,7 @@ import { useActionState, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { createActivity, updateActivity } from './actions'
 import { LocalizedField } from '@/components/fci/admin/LocalizedField'
+import { LocalizedRichField } from '@/components/fci/admin/LocalizedRichField'
 import { FileUpload } from '@/components/fci/admin/FileUpload'
 import { Button } from '@/components/ui/Button'
 import { useToast } from '@/components/ui/Toast'
@@ -51,7 +52,7 @@ export function ActivityForm({
 
       <section className="rounded-2xl border border-[color:var(--border)] bg-surface p-6 space-y-5">
         <LocalizedField name="title" label="Title" defaultValue={activity?.title ?? undefined} required />
-        <LocalizedField name="body" label="Recit / Description" defaultValue={activity?.body ?? undefined} rows={6} required />
+        <LocalizedRichField name="body" label="Recit / Description" defaultValue={activity?.body ?? undefined} required />
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block space-y-1.5">
             <span className="text-xs font-medium uppercase tracking-wider text-muted">Event date</span>

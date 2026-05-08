@@ -13,6 +13,7 @@ type TrackBody = {
 }
 
 const ANON_COOKIE = 'fci_anon'
+const CONSENT_COOKIE = 'fci_cookie_consent'
 
 export async function POST(request: Request) {
   let body: TrackBody
@@ -24,6 +25,14 @@ export async function POST(request: Request) {
 
   const c = await cookies()
   const h = await headers()
+
+  // APDP / GDPR-style gate: refuse to record analytics if the visitor hasn't
+  // explicitly accepted. The PageTracker client also gates on localStorage,
+  // this server check is defense-in-depth against stale tabs / non-browser
+  // clients hitting the endpoint.
+  if (c.get(CONSENT_COOKIE)?.value !== 'accepted') {
+    return new NextResponse(null, { status: 204 })
+  }
 
   let anonymousId = c.get(ANON_COOKIE)?.value
   if (!anonymousId) {

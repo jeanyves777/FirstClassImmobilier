@@ -38,22 +38,149 @@
       "projects": "Projects",
       "countries": "Countries of presence"
     },
-    "discoverCta": "Discover our programs"
+    "discoverCta": "Discover our programs",
+    "usp": {
+      "eyebrow": "Why FirstClass",
+      "licensed": {
+        "title": "Licensed developer",
+        "body": "Official license from the Ministry of Construction — every program backed by regulated paperwork."
+      },
+      "experience": {
+        "title": "8+ years delivering",
+        "body": "From Cocody to the countryside: hundreds of families settled into their new home."
+      },
+      "acd": {
+        "title": "ACD secured",
+        "body": "380+ title deeds (ACD) delivered — the only guarantee you truly own the land."
+      },
+      "diaspora": {
+        "title": "Diaspora-friendly",
+        "body": "Remote reservations, online file tracking, notary hand-off in Abidjan on your behalf."
+      }
+    },
+    "featured": {
+      "eyebrow": "Featured programs",
+      "title": "Flagship programs on sale",
+      "subtitle": "Hand-picked developments with lots still available. Reserve online and book a site visit.",
+      "viewAll": "See all programs",
+      "empty": "New programs are coming online soon — follow us to be notified."
+    },
+    "products": {
+      "eyebrow": "What we offer",
+      "title": "From plot to key",
+      "subtitle": "One team handles the full cycle — identify the land, secure the paperwork, build, and hand over.",
+      "items": {
+        "land": {
+          "title": "Serviced land",
+          "body": "Parceled, surveyed, ACD-ready lots in Abidjan and surrounding cities."
+        },
+        "house": {
+          "title": "Turn-key homes",
+          "body": "Architect-designed villas delivered fully finished, with warranties."
+        },
+        "lotissement": {
+          "title": "Subdivisions",
+          "body": "Full neighborhood developments — roads, utilities, security, common areas."
+        },
+        "support": {
+          "title": "Buyer support",
+          "body": "Contract, notary, ACD, handover — a dedicated agent from signature to keys."
+        }
+      }
+    },
+    "cta": {
+      "eyebrow": "Let's talk",
+      "title": "Ready to start your real-estate project?",
+      "subtitle": "Tell us what you're looking for and an agent will get back to you within 24 hours.",
+      "primary": "Contact an agent",
+      "secondary": "Chat on WhatsApp"
+    }
   },
   "about": {
     "title": "About Us",
     "bioTitle": "Who we are",
-    "bio": "FirstClass Immobilier is a licensed real estate developer based in Abidjan. For over eight years we have supported individuals, companies, and investors in acquiring land, building homes, and developing premium subdivisions.",
+    "bio": "Founded in Côte d’Ivoire in January 2018, FirstClass Immobilier is a leader in its sectors. Licensed under number 22-00109/MCLU/DGLCV/CAPPI/ogla, our company specialises in several key domains. We contribute to harmonious urban development and improve the quality of life of our clientele.",
     "servicesTitle": "Our Services",
     "valuesTitle": "Our Values",
     "visionTitle": "Our Vision",
     "missionTitle": "Our Mission",
     "productsTitle": "Our Products",
     "partnersTitle": "Our Partners & Clients",
-    "values": "Integrity, excellence, innovation, client-first service. We build lasting relationships by placing transparency at the heart of every transaction.",
-    "vision": "Become the go-to reference of real estate development in Côte d\u2019Ivoire and the sub-region, through premium developments and neighborhoods that shape a better way of life.",
-    "mission": "Democratize access to property ownership for the diaspora and Ivorian families by delivering reliable, secure projects on controlled timelines, with end-to-end support.",
-    "products": "Serviced land, turn-key homes, apartments, complete subdivisions, ACD support, rental management."
+    "values": "Client satisfaction · Honesty · Responsibility · Quality · Commitment · Trust.",
+    "vision": "Become a leader in real estate in Côte d’Ivoire and around the world, by offering top-tier housing solutions that meet international standards.",
+    "mission": "At FirstClass Immobilier, client satisfaction is at the heart of everything we do.",
+    "products": "Raw, semi-serviced and fully-serviced land · High-end duplex villas with or without pool · Mid, high and ultra-high standard apartments · Social housing (flats and villas).",
+    "agrementBadge": "License no. 22-00109/MCLU/DGLCV/CAPPI/ogla",
+    "services": {
+      "eyebrow": "Our trades",
+      "title": "Our Services",
+      "intro": "Six complementary disciplines under one roof, to deliver every project end-to-end.",
+      "expand": "See details",
+      "collapse": "Collapse",
+      "items": {
+        "promotion": {
+          "title": "Real-estate development",
+          "lede": "Discover our innovative property projects.",
+          "body": "Our developments stand out for their contemporary design and functionality. Each project is built in partnership with renowned architects and sector experts, blending aesthetics, comfort and durability.",
+          "bullets": [
+            "Prime locations: shops, schools, transit, business hubs.",
+            "Investment opportunities with steady returns.",
+            "Premium quality at accessible price points."
+          ]
+        },
+        "amenagement": {
+          "title": "Land development",
+          "lede": "Make the most of your parcel.",
+          "body": "We unlock the potential of your land thanks to deep regulatory knowledge and a strategic approach. We create functional and beautiful outdoor spaces.",
+          "bullets": [
+            "In-depth feasibility studies.",
+            "Tailored planning and concept design.",
+            "Site works: clearing, roads, water, electricity."
+          ]
+        },
+        "construction": {
+          "title": "Construction",
+          "lede": "Build with confidence.",
+          "body": "Our construction teams deliver high-quality buildings, on time and on budget. Premium materials and modern techniques ensure durability and safety on every project.",
+          "bullets": [
+            "Quality and safety: top materials and modern techniques.",
+            "Strict respect for deadlines and budgets.",
+            "Dedicated, experienced team at every stage."
+          ]
+        },
+        "renovation": {
+          "title": "Building renovation",
+          "lede": "Bring your buildings back to life.",
+          "body": "An experienced crew with mastery of modern renovation techniques, premium materials and rigorous management to deliver on time and on budget.",
+          "bullets": [
+            "Interior: homes, offices, retail spaces.",
+            "Exterior: facades, roofs, outdoor areas.",
+            "Residential, commercial and public projects."
+          ]
+        },
+        "architecture": {
+          "title": "Architecture",
+          "lede": "Turn ideas into reality.",
+          "body": "A structured architecture department whose team is registered with the Order of Architects of Côte d’Ivoire. Innovative, durable, beautiful solutions — from concept to delivery.",
+          "bullets": [
+            "Bespoke design and building-permit handling.",
+            "Contractor selection and site supervision.",
+            "Residential, commercial and public-space projects."
+          ]
+        },
+        "transaction": {
+          "title": "Real-estate transactions",
+          "lede": "Simplify your property deals.",
+          "body": "Specialists in real-estate transactions: buy, sell and rent. A strong network of buyers and sellers, transparent and professional at every step.",
+          "bullets": [
+            "Listing and accurate market valuation.",
+            "Property management: rentals and upkeep.",
+            "Residential, commercial and land."
+          ]
+        }
+      }
+    },
+    "slogan": "A New Life Begins!"
   },
   "realisations": {
     "title": "Our Work",
@@ -80,7 +207,13 @@
       "lands": "Land Offers"
     },
     "reserveCta": "Reserve a lot",
-    "catalogCta": "Download catalog"
+    "catalogCta": "Download catalog",
+    "saveSearch": {
+      "save": "Save this search",
+      "saved": "Search saved",
+      "toastDescription": "Search added to your favorites — find it in your client area.",
+      "toastError": "Action failed. Please try again in a moment."
+    }
   },
   "activities": {
     "title": "Activities",
@@ -120,6 +253,7 @@
   "portal": {
     "portalDashboard": "Dashboard",
     "portalReservations": "My reservations",
+    "portalSaved": "My saved lots",
     "portalProjects": "My projects",
     "portalApplication": "My application",
     "portalAppointments": "My visits",
@@ -165,8 +299,8 @@
     "paid": "Paid",
     "dueLabel": "Due",
     "noPayments": "No payment scheduled yet.",
-    "noReservations": "You haven\u2019t reserved anything yet.",
-    "noApplication": "You haven\u2019t applied yet. Head to",
+    "noReservations": "You haven’t reserved anything yet.",
+    "noApplication": "You haven’t applied yet. Head to",
     "currentStatus": "Current status",
     "backDashboard": "Back to dashboard",
     "settingsIntro": "Your personal information and preferences.",
@@ -174,10 +308,23 @@
     "applicationStatus": {
       "received": "Application received. We will get back to you.",
       "reviewing": "Your application is under review.",
-      "interview": "We\u2019d like to invite you for an interview.",
+      "interview": "We’d like to invite you for an interview.",
       "hired": "Welcome aboard the FirstClass team!",
-      "rejected": "Your application wasn\u2019t retained this time."
-    }
+      "rejected": "Your application wasn’t retained this time."
+    },
+    "documentsIntro": "Upload each required document. Your agent will review and approve, or ask for a new version if something is wrong.",
+    "docStatus": {
+      "required": "To upload",
+      "uploaded": "Awaiting review",
+      "approved": "Approved",
+      "rejected": "Needs re-upload"
+    },
+    "docUpload": "Upload",
+    "docReupload": "Upload a new version",
+    "docSubmitting": "Saving…",
+    "docUploadSuccess": "Document uploaded. Your agent will review it shortly.",
+    "docUploadError": "Upload failed. Please try again.",
+    "viewFile": "View file"
   },
   "auth": {
     "signInTitle": "Sign in to FCI",
@@ -207,6 +354,7 @@
     "navAnalytics": "Analytics",
     "navActivities": "Activities",
     "navTeam": "Team",
+    "navTestimonials": "Testimonials",
     "navPartners": "Partners",
     "navStats": "Counters",
     "navUsers": "Users",
@@ -238,12 +386,12 @@
       "appointments": "Visit requests, office meetings and calls. Confirm or assign to an agent.",
       "chat": "Every ongoing conversation with buyers, prospects and applicants.",
       "analytics": "Last 30 days of visitor activity and the conversion funnel feeding your pipeline.",
-      "leads": "\u00ab Vos Avis \u00bb submissions and other inbound leads. Move through the pipeline.",
+      "leads": "« Vos Avis » submissions and other inbound leads. Move through the pipeline.",
       "applications": "Spontaneous job applications from the Postuler form.",
-      "activities": "Events, openings and company life. Published entries appear on the public \u00ab Nos Activit\u00e9s \u00bb tab.",
-      "team": "People shown on the \u00ab Nos \u00c9quipes \u00bb tab. Reorder by changing the order number.",
-      "partners": "Logos shown in the \u00ab Nos Partenaires & Clients \u00bb strip on Nous D\u00e9couvrir.",
-      "stats": "These numbers power the animated counters on Accueil and Nos R\u00e9alisations.",
+      "activities": "Events, openings and company life. Published entries appear on the public « Nos Activités » tab.",
+      "team": "People shown on the « Nos Équipes » tab. Reorder by changing the order number.",
+      "partners": "Logos shown in the « Nos Partenaires & Clients » strip on Nous Découvrir.",
+      "stats": "These numbers power the animated counters on Accueil and Nos Réalisations.",
       "users": "Directory of every account. Promote staff, downgrade inactive buyers, or search for a specific person.",
       "settings": "Contact details, social URLs and footer copy shown across the public site."
     },
@@ -296,7 +444,50 @@
       "searchUser": "Search by name or email…",
       "assign": "Assign",
       "open": "Open →",
-      "featured": "Featured"
+      "featured": "Featured",
+      "convertToSale": "Convert to sale"
+    },
+    "empty": {
+      "reservations": "No reservations yet. As soon as a prospect clicks Reserve on a lot, it appears here."
+    },
+    "confirm": {
+      "cancel": "Cancel",
+      "deleteProgram": {
+        "title": "Delete this program?",
+        "description": "This permanently removes {count} lots, their media and related reservations. This cannot be undone.",
+        "confirmLabel": "Yes, delete program"
+      },
+      "deleteLot": {
+        "title": "Delete this lot?",
+        "description": "Deletes this lot and all its media. Any prior reservations stay attached to the program for traceability.",
+        "confirmLabel": "Yes, delete lot"
+      },
+      "deleteActivity": {
+        "title": "Delete this activity?",
+        "description": "The post will be removed from the public “Activities” page immediately. This cannot be undone.",
+        "confirmLabel": "Yes, delete"
+      },
+      "cancelSale": {
+        "title": "Cancel this sale?",
+        "description": "The client portal will flip to cancelled. Payments and documents remain for audit. The lot is not automatically re-listed.",
+        "confirmLabel": "Yes, cancel sale"
+      },
+      "removeMedia": {
+        "title": "Remove this media?",
+        "confirmLabel": "Remove"
+      },
+      "removePlan": {
+        "title": "Remove this plan?",
+        "confirmLabel": "Remove"
+      },
+      "removePartner": {
+        "title": "Remove this partner?",
+        "confirmLabel": "Remove"
+      },
+      "removeTeam": {
+        "title": "Remove this team member?",
+        "confirmLabel": "Remove"
+      }
     },
     "statusFilter": {
       "new": "New",
@@ -325,6 +516,141 @@
       "available": "Available",
       "reserved": "Reserved",
       "sold": "Sold"
+    },
+    "forms": {
+      "saved": "Saved",
+      "createProgram": "Create program",
+      "saveChanges": "Save changes",
+      "createLot": "Create lot",
+      "saveSettings": "Save settings",
+      "settingsSaved": "Settings saved",
+      "settingsSavedDesc": "Public site refreshed.",
+      "program": {
+        "sectionIdentity": "Identity",
+        "sectionClassification": "Classification",
+        "slug": "Slug",
+        "slugHint": "Used in URLs, e.g. aerocity-beach. Lowercase letters, digits, dashes only.",
+        "name": "Name",
+        "tagline": "Tagline",
+        "description": "Description",
+        "type": "Type",
+        "status": "Status",
+        "zone": "Zone",
+        "featuredToggle": "Feature on “À la Une” homepage section"
+      },
+      "lot": {
+        "sectionIdentity": "Identity",
+        "sectionSpecs": "Specs & pricing",
+        "sectionVirtual": "Virtual visit",
+        "program": "Program",
+        "reference": "Reference",
+        "referenceHint": "Unique within the program. Example: AERO-A01",
+        "title": "Title",
+        "highlights": "Highlights",
+        "highlightsHint": "Short bullet-style summary shown on cards.",
+        "description": "Description",
+        "surface": "Surface (m²)",
+        "price": "Price (FCFA)",
+        "status": "Status",
+        "bedrooms": "Bedrooms",
+        "bathrooms": "Bathrooms",
+        "features": "Features",
+        "featuresHint": "One feature per line. Stored as a JSON array — e.g. \"Pool\\nSmart home\\nPrivate garden\"",
+        "virtualTourUrl": "Virtual tour URL (Matterport / Kuula)",
+        "virtualTourHint": "Embedded as an iframe on the lot detail page.",
+        "videoUrl": "Video URL (direct mp4 or YouTube/Vimeo embed)"
+      },
+      "settings": {
+        "sectionContact": "Contact info",
+        "sectionContactHint": "Shown in the footer and on the Contacts page.",
+        "phone": "Phone",
+        "mobile": "Mobile",
+        "whatsapp": "WhatsApp (digits only)",
+        "whatsappHint": "E.g. 2250584212929",
+        "email": "Email",
+        "address": "Address",
+        "hoursFr": "Opening hours — FR",
+        "hoursEn": "Opening hours — EN",
+        "sectionSocial": "Social URLs",
+        "sectionSocialHint": "Shown as icon links in the footer. Leave blank to hide.",
+        "sectionFooter": "Footer tagline",
+        "sectionFooterHint": "Overrides the default slogan shown under the logo in the footer.",
+        "footerTagline": "Tagline",
+        "sectionScheduler": "Scheduler",
+        "sectionSchedulerHint": "Weekly windows offered to prospects when they request an on-site visit. Each slot runs for the configured duration.",
+        "slotDuration": "Slot duration (min)",
+        "availability": "Availability windows",
+        "sectionLegal": "Legal information",
+        "sectionLegalHint": "Used on Mentions légales. Required by Ivorian law for any commercial website. Filling these disables the placeholder markers on the public legal pages.",
+        "legalCompanyName": "Company name",
+        "legalForm": "Legal form",
+        "legalFormHint": "SARL, SA, SAS, …",
+        "legalCapital": "Share capital",
+        "legalCapitalHint": "e.g. 10 000 000 FCFA",
+        "legalRCCM": "RCCM number",
+        "legalTaxId": "Tax ID (CC / IDU)",
+        "legalDirector": "Publication director",
+        "legalDirectorHint": "Person responsible for site content",
+        "legalHostName": "Host name",
+        "legalHostAddress": "Host address"
+      }
+    }
+  },
+  "errors": {
+    "notFound": {
+      "eyebrow": "Page not found",
+      "title": "This page doesn’t exist anymore",
+      "description": "The link may be outdated or the program was withdrawn. Use the shortcuts below to get back on track.",
+      "ctaHome": "Back to home",
+      "ctaFeatured": "See featured programs",
+      "ctaContact": "Contact us"
+    },
+    "error": {
+      "eyebrow": "Something went wrong",
+      "title": "Temporary glitch on our side",
+      "description": "Our team has been notified. Please retry in a moment — or reach out if the problem persists.",
+      "reference": "Reference",
+      "retry": "Try again",
+      "home": "Back to home",
+      "contact": "Contact support"
+    }
+  },
+  "legal": {
+    "sectionTitle": "Legal",
+    "mentionsLegales": "Legal notice",
+    "privacy": "Privacy policy",
+    "cgu": "Terms of use",
+    "cookies": "Cookies"
+  },
+  "cookies": {
+    "banner": {
+      "title": "We respect your choice",
+      "description": "We use strictly necessary cookies to run this site and, with your consent, internal analytics to understand how visitors use our programs.",
+      "accept": "Accept",
+      "reject": "Refuse",
+      "learnMore": "Cookie policy",
+      "manage": "Manage cookies"
+    }
+  },
+  "assistant": {
+    "open": "Open chat assistant",
+    "title": "FCI Assistant",
+    "subtitle": "Programs, pricing, reservations — always online.",
+    "placeholder": "Ask anything about FCI…",
+    "send": "Send",
+    "footnote": "Automated assistant · for a human, click Talk to an agent.",
+    "leadSuccessTitle": "Request sent",
+    "leadSuccessBody": "An agent will get back to you within 24 hours.",
+    "leadConfirmed": "Got it — an FCI agent will reach out shortly. Anything else I can help with while you wait?",
+    "lead": {
+      "intro": "Leave your details and an FCI agent will get back to you within 24 hours.",
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone / WhatsApp (optional)",
+      "phoneHint": "Digits only, including country code.",
+      "cancel": "Back to chat",
+      "submit": "Send",
+      "submitting": "Sending…"
     }
   },
   "lot": {
@@ -352,6 +678,36 @@
     "visitCta": "Request an in-person visit",
     "visitTitle": "Request a visit",
     "visitIntro": "Book an on-site visit — our agent will reach out to confirm the slot.",
-    "backToProgram": "Back to program"
+    "backToProgram": "Back to program",
+    "share": {
+      "button": "Share",
+      "email": "Email",
+      "copyLink": "Copy link",
+      "copied": "Link copied to clipboard",
+      "copyFailed": "Couldn’t copy the link",
+      "messageTemplate": "Check out this {type} from FirstClass Immobilier — {name} in {zone}, {price}."
+    },
+    "simulator": {
+      "title": "Simulate a payment plan",
+      "subtitle": "Get an indicative monthly payment by adjusting deposit and duration.",
+      "deposit": "Deposit",
+      "duration": "Duration",
+      "months": "months",
+      "monthsShort": "month",
+      "monthly": "Indicative monthly",
+      "totalBalance": "Balance to finance",
+      "fullPrice": "Lot price",
+      "cta": "Refine with an agent",
+      "disclaimer": "Indicative only — excludes notary fees and ACD. The final plan is set in the contract."
+    },
+    "save": {
+      "save": "Save",
+      "saved": "Saved",
+      "add": "Add to favorites",
+      "remove": "Remove from favorites",
+      "added": "Lot added to your favorites",
+      "removed": "Lot removed from your favorites",
+      "failed": "Action failed. Please try again in a moment."
+    }
   }
 }

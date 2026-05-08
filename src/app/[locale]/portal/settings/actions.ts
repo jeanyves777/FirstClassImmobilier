@@ -15,6 +15,7 @@ const profileSchema = z.object({
   phone: z.string().optional().default('').transform((v) => (v.trim() ? v.trim() : null)),
   whatsapp: z.string().optional().default('').transform((v) => (v.trim() ? v.trim() : null)),
   locale: z.enum(locales as unknown as [string, ...string[]]),
+  themePreference: z.enum(['system', 'light', 'dark']).default('system'),
 })
 
 export async function updateProfile(
@@ -28,6 +29,7 @@ export async function updateProfile(
     phone: fd.get('phone') ?? '',
     whatsapp: fd.get('whatsapp') ?? '',
     locale: fd.get('userLocale') ?? 'fr',
+    themePreference: fd.get('themePreference') ?? 'system',
   })
   if (!parsed.success) return { ok: false, errors: z.flattenError(parsed.error).fieldErrors }
 

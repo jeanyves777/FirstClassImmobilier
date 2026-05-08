@@ -14,7 +14,15 @@ export default async function PortalSettings({
 
   const dbUser = await prisma.user.findUnique({
     where: { id: user.id },
-    select: { fullName: true, email: true, phone: true, whatsapp: true, locale: true, role: true },
+    select: {
+      fullName: true,
+      email: true,
+      phone: true,
+      whatsapp: true,
+      locale: true,
+      role: true,
+      themePreference: true,
+    },
   })
   if (!dbUser) return null
 
@@ -39,6 +47,10 @@ export default async function PortalSettings({
             phone: dbUser.phone ?? '',
             whatsapp: dbUser.whatsapp ?? '',
             locale: dbUser.locale === 'en' ? 'en' : 'fr',
+            themePreference:
+              dbUser.themePreference === 'light' || dbUser.themePreference === 'dark'
+                ? dbUser.themePreference
+                : 'system',
           }}
         />
       </section>

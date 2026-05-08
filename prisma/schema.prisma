@@ -23,6 +23,7 @@ model User {
   fullName        String
   passwordHash    String?
   locale          String    @default("fr")
+  themePreference String    @default("system") // system | light | dark
   role            String    @default("VISITOR") // VISITOR BUYER PROSPECT APPLICANT STAFF ADMIN
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
@@ -38,6 +39,8 @@ model User {
   chatThreads   ChatThread[]
   chatMessages  ChatMessage[]
   appointments  Appointment[]  @relation("UserAppointments")
+  savedLots     SavedLot[]
+  savedSearches SavedSearch[]
   staffAppts    Appointment[]  @relation("StaffAppointments")
   notifications Notification[]
 }
@@ -97,6 +100,7 @@ model Program {
   plans        Plan[]
   reservations Reservation[]
   sales        Sale[]
+  testimonials Testimonial[]
 }
 
 model Lot {
@@ -122,8 +126,36 @@ model Lot {
   reservations Reservation[]
   sales        Sale[]
   appointments Appointment[]
+  savedBy      SavedLot[]
 
   @@unique([programId, reference])
+}
+
+model SavedLot {
+  id        String   @id @default(cuid())
+  userId    String
+  lotId     String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lot  Lot  @relation(fields: [lotId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lotId])
+  @@index([userId])
+}
+
+model SavedSearch {
+  id        String   @id @default(cuid())
+  userId    String
+  label     String   // Human label (e.g. "Maisons Cocody · 20–50 M")
+  /** Canonical query string starting with `?` so the client can re-apply it. */
+  query     String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, query])
+  @@index([userId])
 }
 
 model Reservation {
@@ -222,6 +254,28 @@ model TeamMember {
   order    Int    @default(0)
 }
 
+model Testimonial {
+  id         String   @id @default(cuid())
+  source     String   @default("direct") // direct | google
+  authorName String
+  authorRole String?  // e.g. "Acquéreur diaspora" / "Diaspora client"
+  photoId    String?  // uploaded Media (direct testimonials)
+  photoUrl   String?  // external avatar URL (Google reviewer photo)
+  rating     Int?     // 1-5, used for Google reviews
+  quote      String   // LocalizedJSON { fr, en }
+  reviewDate DateTime? // when the review was originally posted (Google)
+  sourceUrl  String?  // deep link to the review on Google
+  programId  String?  // optional link to a specific program
+  published  Boolean  @default(true)
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  program Program? @relation(fields: [programId], references: [id], onDelete: SetNull)
+
+  @@index([published, order])
+}
+
 model SiteStats {
   id               Int @id @default(1)
   yearsExperience  Int @default(8)
@@ -252,6 +306,16 @@ model SiteSettings {
   // Scheduler
   slotDurationMin Int     @default(45)
   availability    String? // JSON: [{ day: 0-6, start: "HH:MM", end: "HH:MM" }]
+
+  // Legal / Mentions légales (Côte d'Ivoire)
+  legalCompanyName String?
+  legalForm        String? // SARL | SA | SAS | ...
+  legalCapital     String? // e.g. "10 000 000 FCFA"
+  legalRCCM        String? // Registre du Commerce et du Crédit Mobilier
+  legalTaxId       String? // CC / IDU fiscal
+  legalDirector    String? // Directeur de publication
+  legalHostName    String? // e.g. "Vercel Inc." or VPS provider
+  legalHostAddress String?
 
   updatedAt    DateTime @updatedAt
 }

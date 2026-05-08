@@ -4,6 +4,7 @@ import { useActionState } from 'react'
 import { useTranslations } from 'next-intl'
 import { createProgram, updateProgram } from './actions'
 import { LocalizedField } from '@/components/fci/admin/LocalizedField'
+import { LocalizedRichField } from '@/components/fci/admin/LocalizedRichField'
 import type { LocalizedText } from '@/lib/zod/localized'
 import { cn } from '@/lib/utils'
 
@@ -39,6 +40,8 @@ export function ProgramForm({
   mode: 'create' | 'edit'
 }) {
   const tc = useTranslations('common')
+  const tf = useTranslations('admin.forms')
+  const tp = useTranslations('admin.forms.program')
   const action = mode === 'create' ? createProgram : updateProgram
   const [state, formAction, pending] = useActionState(action, initial)
 
@@ -47,19 +50,19 @@ export function ProgramForm({
       <input type="hidden" name="locale" value={locale} />
       {program?.id && <input type="hidden" name="id" value={program.id} />}
 
-      <Section title="Identity">
-        <Field label="Slug" name="slug" defaultValue={program?.slug} required errors={state.errors?.slug}
-          hint="Used in URLs, e.g. aerocity-beach. Lowercase letters, digits, dashes only." />
-        <LocalizedField name="name" label="Name" defaultValue={program?.name} required errors={state.errors?.name as string[] | undefined} />
-        <LocalizedField name="tagline" label="Tagline" defaultValue={program?.tagline} required rows={2} errors={state.errors?.tagline as string[] | undefined} />
-        <LocalizedField name="description" label="Description" defaultValue={program?.description} required rows={6} errors={state.errors?.description as string[] | undefined} />
+      <Section title={tp('sectionIdentity')}>
+        <Field label={tp('slug')} name="slug" defaultValue={program?.slug} required errors={state.errors?.slug}
+          hint={tp('slugHint')} />
+        <LocalizedField name="name" label={tp('name')} defaultValue={program?.name} required errors={state.errors?.name as string[] | undefined} />
+        <LocalizedField name="tagline" label={tp('tagline')} defaultValue={program?.tagline} required rows={2} errors={state.errors?.tagline as string[] | undefined} />
+        <LocalizedRichField name="description" label={tp('description')} defaultValue={program?.description} required errors={state.errors?.description as string[] | undefined} />
       </Section>
 
-      <Section title="Classification">
+      <Section title={tp('sectionClassification')}>
         <div className="grid gap-4 sm:grid-cols-3">
-          <SelectField label="Type" name="type" defaultValue={program?.type ?? 'LOTISSEMENT'} options={TYPES.map((t) => ({ value: t, label: t }))} />
-          <SelectField label="Status" name="status" defaultValue={program?.status ?? 'ON_SALE'} options={STATUSES.map((s) => ({ value: s, label: s }))} />
-          <SelectField label="Zone" name="zone" defaultValue={program?.zone ?? 'Abidjan'} options={ZONES.map((z) => ({ value: z, label: z }))} errors={state.errors?.zone} />
+          <SelectField label={tp('type')} name="type" defaultValue={program?.type ?? 'LOTISSEMENT'} options={TYPES.map((t) => ({ value: t, label: t }))} />
+          <SelectField label={tp('status')} name="status" defaultValue={program?.status ?? 'ON_SALE'} options={STATUSES.map((s) => ({ value: s, label: s }))} />
+          <SelectField label={tp('zone')} name="zone" defaultValue={program?.zone ?? 'Abidjan'} options={ZONES.map((z) => ({ value: z, label: z }))} errors={state.errors?.zone} />
         </div>
         <label className="mt-4 inline-flex items-center gap-2 text-sm text-foreground">
           <input
@@ -68,14 +71,14 @@ export function ProgramForm({
             defaultChecked={program?.featured ?? false}
             className="h-4 w-4 rounded border-[color:var(--border)] accent-[color:var(--brand-navy)]"
           />
-          Feature on “À la Une” homepage section
+          {tp('featuredToggle')}
         </label>
       </Section>
 
       <footer className="flex items-center justify-between gap-4 border-t border-[color:var(--border)] pt-6">
         {state.ok && mode === 'edit' && (
           <p className="rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
-            Saved ✓
+            {tf('saved')} ✓
           </p>
         )}
         <div className="ml-auto flex items-center gap-3">
@@ -87,7 +90,7 @@ export function ProgramForm({
               pending && 'opacity-60',
             )}
           >
-            {pending ? tc('submitting') : mode === 'create' ? 'Create program' : 'Save changes'}
+            {pending ? tc('submitting') : mode === 'create' ? tf('createProgram') : tf('saveChanges')}
           </button>
         </div>
       </footer>

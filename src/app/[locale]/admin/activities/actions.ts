@@ -6,12 +6,13 @@ import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/db'
 import { requireStaff } from '@/lib/auth/rbac'
 import { localizedTextSchema } from '@/lib/zod/localized'
+import { sanitizeRichText } from '@/lib/sanitize'
 
 type State = { ok: boolean; errors?: Record<string, string[]>; id?: string; timestamp?: number }
 
 const schema = z.object({
   title: z.string().transform((v, ctx) => parseLocalized(v, ctx)),
-  body: z.string().transform((v, ctx) => parseLocalized(v, ctx)),
+  body: z.string().transform((v, ctx) => parseLocalizedRich(v, ctx)),
   date: z.string().min(1),
   coverUrl: z.string().optional().transform((v) => (v && v.trim() ? v.trim() : null)),
   published: z.string().optional().transform((v) => v === 'on' || v === 'true'),
@@ -25,6 +26,25 @@ function parseLocalized(raw: string, ctx: z.RefinementCtx) {
       return JSON.stringify({ fr: '', en: '' })
     }
     return JSON.stringify(parsed)
+  } catch {
+    ctx.addIssue({ code: 'custom', message: 'Invalid payload' })
+    return raw
+  }
+}
+
+function parseLocalizedRich(raw: string, ctx: z.RefinementCtx) {
+  try {
+    const parsed = localizedTextSchema.parse(JSON.parse(raw))
+    const clean = {
+      fr: sanitizeRichText(parsed.fr),
+      en: sanitizeRichText(parsed.en),
+    }
+    const textOnly = (s: string) => s.replace(/<[^>]*>/g, '').trim()
+    if (!textOnly(clean.fr) && !textOnly(clean.en)) {
+      ctx.addIssue({ code: 'custom', message: 'Both languages empty' })
+      return JSON.stringify({ fr: '', en: '' })
+    }
+    return JSON.stringify(clean)
   } catch {
     ctx.addIssue({ code: 'custom', message: 'Invalid payload' })
     return raw

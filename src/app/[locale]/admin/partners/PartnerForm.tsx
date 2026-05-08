@@ -23,7 +23,7 @@ export function PartnerForm({ locale }: { locale: string }) {
     if (state.ok && state.timestamp) {
       push({ title: 'Partner added', variant: 'success' })
       formRef.current?.reset()
-      setLogoUrl('')
+      queueMicrotask(() => setLogoUrl(''))
     }
   }, [state, push])
 

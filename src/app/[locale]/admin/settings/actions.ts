@@ -58,6 +58,14 @@ const schema = z.object({
         return raw
       }
     }),
+  legalCompanyName: z.string().optional().transform((v) => (v && v.trim() ? v.trim() : null)),
+  legalForm: z.string().optional().transform((v) => (v && v.trim() ? v.trim() : null)),
+  legalCapital: z.string().optional().transform((v) => (v && v.trim() ? v.trim() : null)),
+  legalRCCM: z.string().optional().transform((v) => (v && v.trim() ? v.trim() : null)),
+  legalTaxId: z.string().optional().transform((v) => (v && v.trim() ? v.trim() : null)),
+  legalDirector: z.string().optional().transform((v) => (v && v.trim() ? v.trim() : null)),
+  legalHostName: z.string().optional().transform((v) => (v && v.trim() ? v.trim() : null)),
+  legalHostAddress: z.string().optional().transform((v) => (v && v.trim() ? v.trim() : null)),
 })
 
 export async function updateSiteSettings(_prev: State, fd: FormData): Promise<State> {
@@ -79,6 +87,14 @@ export async function updateSiteSettings(_prev: State, fd: FormData): Promise<St
     footerCopy: fd.get('footerCopy') ?? '',
     slotDurationMin: fd.get('slotDurationMin') ?? 45,
     availability: fd.get('availability') ?? '',
+    legalCompanyName: fd.get('legalCompanyName') ?? '',
+    legalForm: fd.get('legalForm') ?? '',
+    legalCapital: fd.get('legalCapital') ?? '',
+    legalRCCM: fd.get('legalRCCM') ?? '',
+    legalTaxId: fd.get('legalTaxId') ?? '',
+    legalDirector: fd.get('legalDirector') ?? '',
+    legalHostName: fd.get('legalHostName') ?? '',
+    legalHostAddress: fd.get('legalHostAddress') ?? '',
   })
   if (!parsed.success) return { ok: false, errors: z.flattenError(parsed.error).fieldErrors }
 

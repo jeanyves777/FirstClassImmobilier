@@ -39,6 +39,14 @@ export default async function AdminSettingsPage({
           footerCopy: row?.footerCopy ? parseLocalized(row.footerCopy) : null,
           slotDurationMin: row?.slotDurationMin ?? 45,
           availability: parseAvailability(row?.availability),
+          legalCompanyName: row?.legalCompanyName ?? '',
+          legalForm: row?.legalForm ?? '',
+          legalCapital: row?.legalCapital ?? '',
+          legalRCCM: row?.legalRCCM ?? '',
+          legalTaxId: row?.legalTaxId ?? '',
+          legalDirector: row?.legalDirector ?? '',
+          legalHostName: row?.legalHostName ?? '',
+          legalHostAddress: row?.legalHostAddress ?? '',
         }}
       />
     </div>

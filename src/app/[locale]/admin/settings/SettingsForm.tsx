@@ -1,6 +1,7 @@
 'use client'
 
 import { useActionState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/Button'
 import { useToast } from '@/components/ui/Toast'
 import { LocalizedField } from '@/components/fci/admin/LocalizedField'
@@ -25,6 +26,14 @@ type Defaults = {
   footerCopy: LocalizedText | null
   slotDurationMin: number
   availability: AvailabilityWindow[]
+  legalCompanyName: string
+  legalForm: string
+  legalCapital: string
+  legalRCCM: string
+  legalTaxId: string
+  legalDirector: string
+  legalHostName: string
+  legalHostAddress: string
 }
 
 type State = { ok: boolean; errors?: Record<string, string[]>; timestamp?: number }
@@ -36,44 +45,46 @@ const baseField =
 export function SettingsForm({ locale, defaults }: { locale: string; defaults: Defaults }) {
   const [state, action, pending] = useActionState(updateSiteSettings, initial)
   const { push } = useToast()
+  const tf = useTranslations('admin.forms')
+  const ts = useTranslations('admin.forms.settings')
 
   useEffect(() => {
     if (state.ok && state.timestamp) {
-      push({ title: 'Settings saved', description: 'Public site refreshed.', variant: 'success' })
+      push({ title: tf('settingsSaved'), description: tf('settingsSavedDesc'), variant: 'success' })
     }
-  }, [state, push])
+  }, [state, push, tf])
 
   return (
     <form action={action} className="space-y-8">
       <input type="hidden" name="locale" value={locale} />
 
-      <Section title="Contact info" hint="Shown in the footer and on the Contacts page.">
+      <Section title={ts('sectionContact')} hint={ts('sectionContactHint')}>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Phone" name="phone" defaultValue={defaults.phone} errors={state.errors?.phone} />
-          <Field label="Mobile" name="mobile" defaultValue={defaults.mobile} errors={state.errors?.mobile} />
+          <Field label={ts('phone')} name="phone" defaultValue={defaults.phone} errors={state.errors?.phone} />
+          <Field label={ts('mobile')} name="mobile" defaultValue={defaults.mobile} errors={state.errors?.mobile} />
           <Field
-            label="WhatsApp (digits only)"
+            label={ts('whatsapp')}
             name="whatsapp"
             defaultValue={defaults.whatsapp}
-            hint="E.g. 2250584212929"
+            hint={ts('whatsappHint')}
             errors={state.errors?.whatsapp}
           />
-          <Field label="Email" name="email" type="email" defaultValue={defaults.email} errors={state.errors?.email} />
+          <Field label={ts('email')} name="email" type="email" defaultValue={defaults.email} errors={state.errors?.email} />
           <Field
-            label="Address"
+            label={ts('address')}
             name="address"
             defaultValue={defaults.address}
             className="sm:col-span-2"
             errors={state.errors?.address}
           />
           <Field
-            label="Opening hours — FR"
+            label={ts('hoursFr')}
             name="hoursFr"
             defaultValue={defaults.hoursFr}
             errors={state.errors?.hoursFr}
           />
           <Field
-            label="Opening hours — EN"
+            label={ts('hoursEn')}
             name="hoursEn"
             defaultValue={defaults.hoursEn}
             errors={state.errors?.hoursEn}
@@ -81,7 +92,7 @@ export function SettingsForm({ locale, defaults }: { locale: string; defaults: D
         </div>
       </Section>
 
-      <Section title="Social URLs" hint="Shown as icon links in the footer. Leave blank to hide.">
+      <Section title={ts('sectionSocial')} hint={ts('sectionSocialHint')}>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Facebook" name="facebookUrl" type="url" defaultValue={defaults.facebookUrl} errors={state.errors?.facebookUrl} />
           <Field label="Instagram" name="instagramUrl" type="url" defaultValue={defaults.instagramUrl} errors={state.errors?.instagramUrl} />
@@ -91,22 +102,19 @@ export function SettingsForm({ locale, defaults }: { locale: string; defaults: D
         </div>
       </Section>
 
-      <Section title="Footer tagline" hint="Overrides the default slogan shown under the logo in the footer.">
+      <Section title={ts('sectionFooter')} hint={ts('sectionFooterHint')}>
         <LocalizedField
           name="footerCopy"
-          label="Tagline"
+          label={ts('footerTagline')}
           defaultValue={defaults.footerCopy ?? undefined}
           rows={2}
         />
       </Section>
 
-      <Section
-        title="Scheduler"
-        hint="Weekly windows offered to prospects when they request an on-site visit. Each slot runs for the configured duration."
-      >
+      <Section title={ts('sectionScheduler')} hint={ts('sectionSchedulerHint')}>
         <div className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-start">
           <label className="block space-y-1.5">
-            <span className="text-xs font-medium uppercase tracking-wider text-muted">Slot duration (min)</span>
+            <span className="text-xs font-medium uppercase tracking-wider text-muted">{ts('slotDuration')}</span>
             <input
               type="number"
               name="slotDurationMin"
@@ -118,14 +126,27 @@ export function SettingsForm({ locale, defaults }: { locale: string; defaults: D
             />
           </label>
           <div>
-            <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted">Availability windows</p>
+            <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted">{ts('availability')}</p>
             <AvailabilityEditor name="availability" defaultValue={defaults.availability} />
           </div>
         </div>
       </Section>
 
+      <Section title={ts('sectionLegal')} hint={ts('sectionLegalHint')}>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label={ts('legalCompanyName')} name="legalCompanyName" defaultValue={defaults.legalCompanyName} />
+          <Field label={ts('legalForm')} name="legalForm" defaultValue={defaults.legalForm} hint={ts('legalFormHint')} />
+          <Field label={ts('legalCapital')} name="legalCapital" defaultValue={defaults.legalCapital} hint={ts('legalCapitalHint')} />
+          <Field label={ts('legalRCCM')} name="legalRCCM" defaultValue={defaults.legalRCCM} />
+          <Field label={ts('legalTaxId')} name="legalTaxId" defaultValue={defaults.legalTaxId} />
+          <Field label={ts('legalDirector')} name="legalDirector" defaultValue={defaults.legalDirector} hint={ts('legalDirectorHint')} />
+          <Field label={ts('legalHostName')} name="legalHostName" defaultValue={defaults.legalHostName} />
+          <Field label={ts('legalHostAddress')} name="legalHostAddress" defaultValue={defaults.legalHostAddress} />
+        </div>
+      </Section>
+
       <div className="flex justify-end">
-        <Button type="submit" loading={pending}>Save settings</Button>
+        <Button type="submit" loading={pending}>{tf('saveSettings')}</Button>
       </div>
     </form>
   )

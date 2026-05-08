@@ -3,6 +3,9 @@
 import { z } from 'zod'
 import { prisma } from '@/lib/db'
 import { sendMail } from '@/lib/mail/transport'
+import { renderEmail } from '@/lib/mail/render'
+import { ApplicationReceived } from '@/lib/mail/templates/ApplicationReceived'
+import { LeadNotification } from '@/lib/mail/templates/LeadNotification'
 import { site } from '@/lib/site'
 
 type FormState = { ok: boolean; message?: string; errors?: Record<string, string[]> }
@@ -51,14 +54,22 @@ export async function submitApplication(
   })
 
   try {
+    const { html, text } = await renderEmail(
+      ApplicationReceived({
+        locale: 'fr',
+        applicantName: data.fullName,
+        applicantEmail: data.email,
+        applicantPhone: data.phone,
+        message: data.message,
+        audience: 'admin',
+      }),
+    )
     await sendMail({
       to: destinationInbox(),
       replyTo: data.email,
       subject: `[Postuler] ${data.fullName}`,
-      text: `${data.fullName}\n${data.email}\n${data.phone}\n\n${data.message}`,
-      html: `<h2>Nouvelle candidature</h2>
-<p><b>${data.fullName}</b><br/>${data.email}<br/>${data.phone}</p>
-<pre style="font:14px/1.5 system-ui;white-space:pre-wrap">${escape(data.message)}</pre>`,
+      text,
+      html,
     })
   } catch (err) {
     console.error('[mail][postuler]', err)
@@ -92,27 +103,25 @@ export async function submitFeedback(
   })
 
   try {
+    const { html, text } = await renderEmail(
+      LeadNotification({
+        channel: 'Vos Avis',
+        fullName: data.fullName,
+        email: data.email,
+        phone: data.phone || null,
+        message: data.message,
+      }),
+    )
     await sendMail({
       to: destinationInbox(),
       replyTo: data.email,
       subject: `[Vos Avis] ${data.fullName}`,
-      text: `${data.fullName}\n${data.email}\n${data.phone}\n\n${data.message}`,
-      html: `<h2>Nouveau message (Vos Avis)</h2>
-<p><b>${data.fullName}</b><br/>${data.email}<br/>${data.phone}</p>
-<pre style="font:14px/1.5 system-ui;white-space:pre-wrap">${escape(data.message)}</pre>`,
+      text,
+      html,
     })
   } catch (err) {
     console.error('[mail][vos-avis]', err)
   }
 
   return { ok: true }
-}
-
-function escape(s: string) {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
 }

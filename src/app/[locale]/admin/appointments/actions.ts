@@ -4,8 +4,11 @@ import { revalidatePath } from 'next/cache'
 import { prisma } from '@/lib/db'
 import { requireStaff } from '@/lib/auth/rbac'
 import { sendMail } from '@/lib/mail/transport'
+import { renderEmail } from '@/lib/mail/render'
+import { VisitConfirmation } from '@/lib/mail/templates/VisitConfirmation'
 import { buildIcs } from '@/lib/schedule/ics'
 import { getSiteConfig } from '@/lib/site'
+import type { Locale } from '@/i18n/routing'
 
 export async function setAppointmentStatus(formData: FormData): Promise<void> {
   const locale = String(formData.get('locale') ?? 'fr')
@@ -117,22 +120,30 @@ export async function confirmAppointment(formData: FormData): Promise<void> {
         attendeeName: appt.user?.fullName ?? appt.guestName ?? undefined,
       })
 
-      const whenLabel = start.toLocaleString(locale === 'fr' ? 'fr-FR' : 'en-US', {
-        dateStyle: 'full',
-        timeStyle: 'short',
-      })
+      const l = (locale === 'en' ? 'en' : 'fr') as Locale
+      const programUrl = program
+        ? `${cfg.siteUrl.replace(/\/$/, '')}/${l}/a-la-une/${program.slug}`
+        : null
+
+      const { html, text } = await renderEmail(
+        VisitConfirmation({
+          locale: l,
+          visitorName: appt.user?.fullName ?? appt.guestName ?? 'Visiteur',
+          programName,
+          lotReference: appt.lot?.reference ?? null,
+          scheduledAt: start,
+          meetingPoint: cfg.address,
+          agentName: staff.name ?? null,
+          agentEmail: staff.email ?? cfg.email,
+          programUrl,
+        }),
+      )
 
       await sendMail({
         to: toEmail,
-        subject: `${locale === 'fr' ? 'Confirmation de visite' : 'Visit confirmation'} — ${programName}`,
-        text:
-          `${locale === 'fr' ? 'Votre visite est confirmée' : 'Your visit is confirmed'}: ${whenLabel}\n\n` +
-          `${summary}\n${cfg.address}\n\n${locale === 'fr' ? 'Contact' : 'Contact'}: ${cfg.phone} · ${cfg.email}`,
-        html: `<h2>${locale === 'fr' ? 'Votre visite est confirmée' : 'Your visit is confirmed'}</h2>
-<p><b>${whenLabel}</b></p>
-<p>${summary}<br/>${cfg.address}</p>
-<p>${locale === 'fr' ? 'Contact' : 'Contact'}: ${cfg.phone} · <a href="mailto:${cfg.email}">${cfg.email}</a></p>
-<p style="color:#6b7280;font-size:12px">${locale === 'fr' ? 'La pièce jointe est un rendez-vous ajoutable à votre calendrier.' : 'The attachment is a calendar invite you can add to any calendar app.'}</p>`,
+        subject: `${l === 'fr' ? 'Confirmation de visite' : 'Visit confirmation'} — ${programName}`,
+        text,
+        html,
         attachments: [
           {
             filename: 'visite-fci.ics',

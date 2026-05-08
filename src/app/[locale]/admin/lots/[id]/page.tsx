@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { Link } from '@/i18n/navigation'
@@ -17,6 +17,7 @@ export default async function EditLotPage({
   const { locale, id } = await params
   setRequestLocale(locale)
   const l = locale as Locale
+  const t = await getTranslations('admin')
 
   const [lot, programs] = await Promise.all([
     prisma.lot.findUnique({
@@ -105,13 +106,18 @@ export default async function EditLotPage({
                     <ConfirmButton
                       action={removeLotMedia}
                       hiddenFields={{ mediaId: m.id, lotId: lot.id, locale }}
-                      title="Remove this media?"
-                      description="It will disappear from the public gallery and the buyer portal."
-                      confirmLabel="Remove"
+                      title={t('confirm.removeMedia.title')}
+                      description={
+                        l === 'fr'
+                          ? 'Le média disparaîtra immédiatement de la galerie publique et de l\u2019espace acquéreur.'
+                          : 'It will disappear from the public gallery and the buyer portal.'
+                      }
+                      confirmLabel={t('confirm.removeMedia.confirmLabel')}
+                      cancelLabel={t('confirm.cancel')}
                       variant="danger"
                       size="sm"
                     >
-                      Remove
+                      {t('confirm.removeMedia.confirmLabel')}
                     </ConfirmButton>
                   </div>
                 </div>
@@ -137,12 +143,17 @@ export default async function EditLotPage({
           <ConfirmButton
             action={deleteLot}
             hiddenFields={{ id: lot.id, locale }}
-            title="Delete this lot?"
-            description={`Lot ${lot.reference} and its ${lot.media.length} media items will be permanently removed.`}
-            confirmLabel="Yes, delete lot"
+            title={t('confirm.deleteLot.title')}
+            description={
+              l === 'fr'
+                ? `Le lot ${lot.reference} et ses ${lot.media.length} médias seront définitivement supprimés.`
+                : `Lot ${lot.reference} and its ${lot.media.length} media items will be permanently removed.`
+            }
+            confirmLabel={t('confirm.deleteLot.confirmLabel')}
+            cancelLabel={t('confirm.cancel')}
             variant="danger"
           >
-            Delete lot
+            {t('confirm.deleteLot.confirmLabel')}
           </ConfirmButton>
         </div>
       </section>

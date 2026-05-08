@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import { getSiteConfig } from '@/lib/site'
 import { Logo } from './Logo'
+import { ManageCookiesButton } from './ManageCookiesButton'
 
 type SocialKey = 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok'
 type Social = { key: SocialKey; label: string; icon: React.ReactNode }
@@ -41,10 +42,11 @@ const SOCIAL: Social[] = [
 ]
 
 export async function FooterGlobal() {
-  const [t, tContact, tNav, cfg] = await Promise.all([
+  const [t, tContact, tNav, tLegal, cfg] = await Promise.all([
     getTranslations('footer'),
     getTranslations('contact'),
     getTranslations('nav'),
+    getTranslations('legal'),
     getSiteConfig(),
   ])
   const year = new Date().getFullYear()
@@ -103,11 +105,27 @@ export async function FooterGlobal() {
       </div>
 
       <div className="border-t border-[color:var(--border)]">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-2 px-4 py-4 text-xs text-muted sm:flex-row sm:items-center sm:px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-3 px-4 py-4 text-xs text-muted sm:flex-row sm:items-center sm:px-6 lg:px-8">
           <p>{t('copyright', { year })}</p>
-          <p>
-            <a href={`mailto:${cfg.email}`}>{cfg.email}</a>
-          </p>
+          <nav aria-label={tLegal('sectionTitle')} className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <Link href="/legal/mentions-legales" className="hover:text-foreground">
+              {tLegal('mentionsLegales')}
+            </Link>
+            <span className="text-[color:var(--border)]">·</span>
+            <Link href="/legal/politique-confidentialite" className="hover:text-foreground">
+              {tLegal('privacy')}
+            </Link>
+            <span className="text-[color:var(--border)]">·</span>
+            <Link href="/legal/cgu" className="hover:text-foreground">
+              {tLegal('cgu')}
+            </Link>
+            <span className="text-[color:var(--border)]">·</span>
+            <Link href="/legal/cookies" className="hover:text-foreground">
+              {tLegal('cookies')}
+            </Link>
+            <span className="text-[color:var(--border)]">·</span>
+            <ManageCookiesButton />
+          </nav>
         </div>
       </div>
     </footer>

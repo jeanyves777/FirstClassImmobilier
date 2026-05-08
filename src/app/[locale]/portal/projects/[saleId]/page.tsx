@@ -7,6 +7,7 @@ import { tr } from '@/lib/zod/localized'
 import type { Locale } from '@/i18n/routing'
 import { formatFCFA } from '@/lib/format'
 import { saleProgress } from '@/lib/sales/packet'
+import { RequirementUpload } from './RequirementUpload'
 
 export default async function BuyerProjectPage({
   params,
@@ -30,6 +31,15 @@ export default async function BuyerProjectPage({
     },
   })
   if (!sale) notFound()
+
+  const documentIds = sale.requirements.map((r) => r.documentId).filter((v): v is string => !!v)
+  const documents = documentIds.length
+    ? await prisma.document.findMany({
+        where: { id: { in: documentIds } },
+        select: { id: true, url: true, kind: true },
+      })
+    : []
+  const documentById = new Map(documents.map((d) => [d.id, d]))
 
   const docsApproved = sale.requirements.filter((r) => r.status === 'approved').length
   const pct = saleProgress({
@@ -130,17 +140,29 @@ export default async function BuyerProjectPage({
 
       {/* Documents */}
       <section>
-        <h2 className="mb-4 font-display text-xl font-semibold text-foreground">{t('documents')}</h2>
+        <h2 className="mb-2 font-display text-xl font-semibold text-foreground">{t('documents')}</h2>
+        <p className="mb-4 text-xs text-muted">{t('documentsIntro')}</p>
         <ul className="divide-y divide-[color:var(--border)] overflow-hidden rounded-2xl border border-[color:var(--border)] bg-surface">
-          {sale.requirements.map((r) => (
-            <li key={r.id} className="flex items-start justify-between gap-4 p-4">
-              <div>
-                <p className="font-medium text-foreground">{tr(r.label, l)}</p>
-                {r.note && <p className="mt-1 text-xs text-muted">{r.note}</p>}
-              </div>
-              <DocStatusPill value={r.status} />
-            </li>
-          ))}
+          {sale.requirements.map((r) => {
+            const doc = r.documentId ? documentById.get(r.documentId) : null
+            return (
+              <li key={r.id} className="flex flex-col items-stretch justify-between gap-4 p-4 sm:flex-row sm:items-start">
+                <div>
+                  <p className="font-medium text-foreground">{tr(r.label, l)}</p>
+                  {r.note && r.status !== 'rejected' && (
+                    <p className="mt-1 text-xs text-muted">{r.note}</p>
+                  )}
+                </div>
+                <RequirementUpload
+                  requirementId={r.id}
+                  locale={locale}
+                  status={r.status}
+                  documentUrl={doc?.url ?? null}
+                  note={r.note}
+                />
+              </li>
+            )
+          })}
         </ul>
       </section>
 
@@ -189,17 +211,3 @@ export default async function BuyerProjectPage({
   )
 }
 
-function DocStatusPill({ value }: { value: string }) {
-  const map: Record<string, string> = {
-    required: 'bg-surface-muted text-muted',
-    uploaded: 'bg-amber-500/10 text-amber-700 dark:text-amber-400',
-    approved: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400',
-    rejected: 'bg-[color:var(--brand-red)]/10 text-[color:var(--brand-red)]',
-  }
-  const cls = map[value] ?? 'bg-surface-muted text-muted'
-  return (
-    <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider ${cls}`}>
-      {value}
-    </span>
-  )
-}

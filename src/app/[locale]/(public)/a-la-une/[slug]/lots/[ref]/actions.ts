@@ -3,6 +3,8 @@
 import { z } from 'zod'
 import { prisma } from '@/lib/db'
 import { sendMail } from '@/lib/mail/transport'
+import { renderEmail } from '@/lib/mail/render'
+import { LeadNotification } from '@/lib/mail/templates/LeadNotification'
 import { site } from '@/lib/site'
 
 type FormState = { ok: boolean; errors?: Record<string, string[]> }
@@ -57,16 +59,28 @@ export async function requestVisit(_prev: FormState, formData: FormData): Promis
 
   try {
     const programName = JSON.parse(lot.program.name).fr ?? lot.program.slug
+    const lines = [
+      `Lot : ${lot.reference} — ${programName}`,
+      `Créneau souhaité : ${d.preferredAt ?? '—'}`,
+      d.note ? `\nNote : ${d.note}` : '',
+    ]
+      .filter(Boolean)
+      .join('\n')
+    const { html, text } = await renderEmail(
+      LeadNotification({
+        channel: `Visite ${lot.reference}`,
+        fullName: d.guestName,
+        email: d.guestEmail,
+        phone: d.guestPhone,
+        message: lines,
+      }),
+    )
     await sendMail({
       to: process.env.SMTP_TO_CONTACT || site.email,
       replyTo: d.guestEmail,
       subject: `[Visite] ${lot.reference} — ${programName}`,
-      text: `Demande de visite\n\nLot: ${lot.reference}\nProgramme: ${programName}\n\n${d.guestName}\n${d.guestEmail}\n${d.guestPhone}\n\nCréneau souhaité: ${d.preferredAt ?? '—'}\n\n${d.note ?? ''}`,
-      html: `<h2>Demande de visite</h2>
-<p><b>Lot ${lot.reference}</b> — ${programName}</p>
-<p>${d.guestName}<br/>${d.guestEmail}<br/>${d.guestPhone}</p>
-<p><b>Créneau souhaité:</b> ${d.preferredAt ?? '—'}</p>
-${d.note ? `<p>${escapeHtml(d.note)}</p>` : ''}`,
+      text,
+      html,
     })
   } catch (err) {
     console.error('[mail][visit-request]', err)
@@ -75,11 +89,3 @@ ${d.note ? `<p>${escapeHtml(d.note)}</p>` : ''}`,
   return { ok: true }
 }
 
-function escapeHtml(s: string) {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
-}
