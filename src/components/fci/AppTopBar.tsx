@@ -70,6 +70,17 @@ export function AppTopBar({
       </span>
 
       <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+        {variant === 'portal' && (user.role === 'ADMIN' || user.role === 'STAFF') && (
+          <Link
+            href="/admin/dashboard"
+            className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--brand-red)] px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-white transition-colors hover:bg-[color:var(--brand-red-600)]"
+          >
+            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" />
+            </svg>
+            <span className="hidden sm:inline">Administration</span>
+          </Link>
+        )}
         <Link
           href="/"
           className="hidden items-center gap-1.5 rounded-full border border-[color:var(--border)] bg-surface px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-foreground transition-colors hover:bg-[color:var(--brand-navy)] hover:text-white md:inline-flex"
@@ -127,6 +138,19 @@ export function AppTopBar({
                   )}
                 </div>
                 <div className="p-1">
+                  {variant === 'portal' && (user.role === 'ADMIN' || user.role === 'STAFF') && (
+                    <Link
+                      href="/admin/dashboard"
+                      role="menuitem"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-[color:var(--brand-red)] hover:bg-[color:var(--brand-red)]/10"
+                    >
+                      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                        <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" />
+                      </svg>
+                      Administration
+                    </Link>
+                  )}
                   <Link
                     href={variant === 'admin' ? '/admin/settings' : '/portal/settings'}
                     role="menuitem"

@@ -2,65 +2,45 @@ import { cn } from '@/lib/utils'
 
 type LogoVariant = 'auto' | 'mono-white' | 'mono-navy'
 
-const WORDMARK_COLORS: Record<LogoVariant, { first: string; class: string; sub: string }> = {
-  auto: {
-    first: 'text-[color:var(--brand-red)]',
-    class: 'text-[color:var(--brand-navy)] dark:text-foreground',
-    sub: 'text-muted',
-  },
-  'mono-white': {
-    first: 'text-white',
-    class: 'text-white',
-    sub: 'text-white/60',
-  },
-  'mono-navy': {
-    first: 'text-[color:var(--brand-navy)]',
-    class: 'text-[color:var(--brand-navy)]',
-    sub: 'text-[color:var(--brand-navy)]/60',
-  },
-}
-
 /**
- * SVG recreation of the FirstClass Immobilier wordmark.
- * `variant="auto"` uses brand colors; `"mono-white"` renders the whole
- * mark in white for use on dark hero surfaces.
+ * FirstClass Immobilier logo — the single shared source of truth.
+ *
+ * Always renders the official brand image (public/logo-firstclass.png, a
+ * transparent PNG) so the logo is identical everywhere. On dark surfaces
+ * (`variant="mono-white"` or `onDark`) it sits on a light plate so the
+ * colored mark stays legible; it also adapts in dark theme.
+ *
+ * `size="lg"` renders it large (e.g. auth screens); `variant` / `showWordmark`
+ * are accepted for backward compatibility.
  */
 export function Logo({
   className,
-  showWordmark = true,
+  onDark = false,
   variant = 'auto',
+  size = 'sm',
 }: {
   className?: string
-  showWordmark?: boolean
+  onDark?: boolean
   variant?: LogoVariant
+  showWordmark?: boolean
+  size?: 'sm' | 'lg'
 }) {
-  const colors = WORDMARK_COLORS[variant]
+  const dark = onDark || variant === 'mono-white'
+  const sizeCls = size === 'lg' ? 'h-20 w-auto sm:h-28' : 'h-10 w-auto sm:h-11'
+  const plate = size === 'lg' ? 'rounded-xl bg-white p-3' : 'rounded-md bg-white p-1.5'
   return (
-    <span className={cn('inline-flex items-center gap-3', className)} aria-label="FirstClass Immobilier">
-      <svg
-        viewBox="0 0 64 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-9 w-auto shrink-0"
-        aria-hidden="true"
-      >
-        <path d="M6 34 L32 6 L58 34" stroke="currentColor" strokeWidth="5" strokeLinejoin="miter" />
-        <path d="M44 18 H50 V30 H44 Z" fill="currentColor" />
-        <path d="M4 38 H60" stroke="currentColor" strokeWidth="2" />
-      </svg>
-      {showWordmark && (
-        <span className="font-display leading-none">
-          <span className={cn('text-xl font-semibold tracking-tight sm:text-2xl', colors.first)}>
-            First
-          </span>
-          <span className={cn('text-xl font-semibold tracking-tight sm:text-2xl', colors.class)}>
-            Class
-          </span>
-          <span className={cn('mt-0.5 hidden text-[10px] uppercase tracking-[0.24em] sm:block', colors.sub)}>
-            Immobilier
-          </span>
-        </span>
-      )}
+    <span className={cn('inline-flex items-center', className)} aria-label="FirstClass Immobilier">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/logo-firstclass.png"
+        alt="FirstClass Immobilier"
+        width={1181}
+        height={691}
+        className={cn(
+          sizeCls,
+          dark ? plate : 'dark:rounded-md dark:bg-white dark:px-2 dark:py-1',
+        )}
+      />
     </span>
   )
 }

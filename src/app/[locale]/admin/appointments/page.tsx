@@ -3,7 +3,8 @@ import { prisma } from '@/lib/db'
 import { tr } from '@/lib/zod/localized'
 import type { Locale } from '@/i18n/routing'
 import { AdminHeader } from '@/components/fci/admin/AdminHeader'
-import { assignAppointment, confirmAppointment, setAppointmentStatus } from './actions'
+import { assignAppointment, confirmAppointment, setAppointmentStatus, deleteAppointment } from './actions'
+import { ConfirmButton } from '@/components/ui/ConfirmButton'
 
 const STATUS_ORDER = ['requested', 'booked', 'confirmed', 'completed', 'cancelled']
 const STATUS_OPTIONS = ['requested', 'booked', 'confirmed', 'cancelled', 'completed'] as const
@@ -159,6 +160,17 @@ export default async function AppointmentsInbox({
                     </button>
                   </form>
                 )}
+                <ConfirmButton
+                  action={deleteAppointment}
+                  hiddenFields={{ id: a.id, locale }}
+                  title={locale === 'fr' ? 'Supprimer ce rendez-vous ?' : 'Delete this appointment?'}
+                  description={locale === 'fr' ? 'Cette action est irréversible.' : 'This action is irreversible.'}
+                  confirmLabel={locale === 'fr' ? 'Supprimer' : 'Delete'}
+                  variant="danger"
+                  size="sm"
+                >
+                  {locale === 'fr' ? 'Supprimer' : 'Delete'}
+                </ConfirmButton>
               </div>
             </article>
           )

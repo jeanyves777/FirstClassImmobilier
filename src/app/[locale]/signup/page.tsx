@@ -27,7 +27,7 @@ export default async function SignUpPage({
           className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(200,16,46,.35),transparent_55%),radial-gradient(circle_at_85%_80%,rgba(255,255,255,.08),transparent_60%)]"
         />
         <div className="relative flex items-center gap-3 text-white">
-          <Logo variant="mono-white" />
+          <Logo variant="mono-white" size="lg" />
         </div>
         <div className="relative max-w-lg space-y-4">
           <h1 className="font-display text-4xl font-semibold leading-tight">
@@ -44,8 +44,8 @@ export default async function SignUpPage({
       <main className="flex items-center justify-center px-6 py-16 sm:py-24">
         <div className="w-full max-w-sm space-y-8">
           <div className="space-y-2">
-            <Link href="/" className="lg:hidden">
-              <Logo />
+            <Link href="/" className="mb-2 inline-flex">
+              <Logo size="lg" />
             </Link>
             <h2 className="font-display text-3xl font-semibold text-foreground">Create your account</h2>
             <p className="text-sm text-muted">
