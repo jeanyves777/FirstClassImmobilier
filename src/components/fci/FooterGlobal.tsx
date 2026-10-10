@@ -4,7 +4,7 @@ import { getSiteConfig } from '@/lib/site'
 import { Logo } from './Logo'
 import { ManageCookiesButton } from './ManageCookiesButton'
 
-type SocialKey = 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok'
+type SocialKey = 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'whatsappChannel'
 type Social = { key: SocialKey; label: string; icon: React.ReactNode }
 
 const FB = (
@@ -33,12 +33,19 @@ const TT = (
   </svg>
 )
 
+const WA = (
+  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+    <path d="M20.5 3.5A11 11 0 0 0 3 20.1L2 23l2.9-1a11 11 0 0 0 16.6-14.5ZM12 21a9 9 0 0 1-4.6-1.3l-.3-.2-2.7.7.7-2.7-.2-.3A9 9 0 1 1 12 21Zm4.9-6.6c-.3-.2-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.2l-.9 1.1c-.2.2-.3.2-.6.1a7 7 0 0 1-2-1.3 7.5 7.5 0 0 1-1.4-1.8c-.2-.3 0-.5.1-.6l.4-.5c.1-.1.2-.3.3-.4 0-.2 0-.4 0-.5 0-.1-.6-1.4-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4 0-.6.3a2.6 2.6 0 0 0-.8 1.9c0 1.1.8 2.2.9 2.3.1.2 1.6 2.5 3.9 3.4.5.2 1 .4 1.3.5.6.2 1.1.1 1.5.1.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z" />
+  </svg>
+)
+
 const SOCIAL: Social[] = [
   { key: 'facebook', label: 'Facebook', icon: FB },
   { key: 'instagram', label: 'Instagram', icon: IG },
   { key: 'linkedin', label: 'LinkedIn', icon: LI },
   { key: 'youtube', label: 'YouTube', icon: YT },
   { key: 'tiktok', label: 'TikTok', icon: TT },
+  { key: 'whatsappChannel', label: 'WhatsApp', icon: WA },
 ]
 
 export async function FooterGlobal() {

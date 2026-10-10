@@ -29,62 +29,63 @@
     "viewSite": "Voir le site"
   },
   "home": {
-    "tagline": "FirstClass Immobilier, Promoteur Immobilier Agréé.",
+    "tagline": "FirstClass Immobilier, Promoteur Immobilier Agréé",
     "subTagline": "Leader dans ses secteurs d’activité.",
-    "statement": "Avec nous, soyez-en sûr, l’Immobilier se vit et se fait autrement.",
+    "statement": "Avec nous, soyez-en sûr, l’Immobilier se fait et vit autrement !",
     "counters": {
       "years": "Années d’expérience",
       "clients": "Clients satisfaits",
       "projects": "Projets",
-      "countries": "Pays de présence"
+      "countries": "Présent dans"
     },
     "discoverCta": "Découvrir nos programmes",
     "usp": {
       "eyebrow": "Pourquoi FirstClass",
       "licensed": {
-        "title": "Promoteur agréé",
-        "body": "Agrément officiel du Ministère de la Construction — chaque programme est adossé à des documents réglementaires."
+        "title": "Promoteur Immobilier Agréé",
+        "body": "Agréé par le Ministère de la Construction, du Logement et de l’Urbanisme, nous exerçons en toute légalité, tout en respectant les normes et standards internationaux en termes de construction. Nous contribuons au développement urbain harmonieux et à l’amélioration de la qualité de vie de notre clientèle."
       },
       "experience": {
-        "title": "8+ années de livraisons",
-        "body": "De Cocody à l’intérieur du pays : des centaines de familles installées dans leur nouveau foyer."
+        "title": "Plusieurs années de savoir-faire et d’amélioration constante",
+        "body": "Depuis plus de 10 ans, d’Abidjan au Grand-Abidjan, en passant par l’intérieur du pays, pour nous étendre à l’international : notre savoir-faire s’intensifie, notre connaissance ne cesse de s’accroître, notre vision grandit. Car nous sommes à l’écoute de notre clientèle, nous nous adaptons aux règles et mesures en vigueur, nous apprenons de nos erreurs et nous disposons d’une équipe qualifiée. Tout cela dans la quête constante de l’Amélioration."
       },
       "acd": {
-        "title": "ACD sécurisés",
-        "body": "380+ Attestations de Concession Définitive délivrées — la seule garantie d’être pleinement propriétaire."
+        "title": "Titres de propriétés fiables et sécurisés",
+        "body": "Avec plus de 380 ACD déjà délivrés, nous disposons d’une excellente maîtrise des procédures documentaires. Nous ne négligeons aucun détail et faisons le suivi personnel de nos dossiers à toutes les étapes, jusqu’à la finalisation."
       },
       "diaspora": {
-        "title": "Diaspora-friendly",
-        "body": "Réservation à distance, suivi en ligne de votre dossier, formalités notariales prises en charge à Abidjan."
-      }
+        "title": "Diaspora",
+        "body": "Nous disposons d’un grand nombre de clients à l’international (France, Italie, Londres, USA, Canada, Ghana, Burkina, Mali, Sénégal, etc.). Cela est dû à la bonne gestion de la relation client, à la qualité et à la fiabilité de nos produits et services, mais surtout à nos bonnes méthodes de travail."
+      },
+      "title": "Pourquoi choisir FirstClass Immobilier ?"
     },
     "featured": {
       "eyebrow": "À la une",
       "title": "Programmes phares en commercialisation",
-      "subtitle": "Des lots encore disponibles dans nos programmes sélectionnés. Réservez en ligne et planifiez une visite.",
+      "subtitle": "Nous disposons encore d’unités disponibles sur ces Programmes Immobiliers. Réservez dès maintenant en ligne et planifiez une visite de site gratuitement !",
       "viewAll": "Voir tous les programmes",
       "empty": "De nouveaux programmes sont en préparation — suivez-nous pour être alerté."
     },
     "products": {
       "eyebrow": "Ce que nous proposons",
-      "title": "Du terrain à la clé",
+      "title": "Du terrain à la clé en main !",
       "subtitle": "Une équipe unique pour tout le cycle — trouver le terrain, sécuriser les documents, construire et livrer.",
       "items": {
         "land": {
-          "title": "Terrains viabilisés",
-          "body": "Parcelles bornées, viabilisées, prêtes pour ACD à Abidjan et dans les villes environnantes."
+          "title": "Terrains",
+          "body": "Nous disposons d’une pléthore de terrains (friche, semi-viabilisé, viabilisé) mis en vente dans diverses zones du territoire ivoirien (Abidjan, Grand-Abidjan, intérieur du pays). Slogan : 1 Homme, 1 terrain sûr avec FirstClass Immobilier."
         },
         "house": {
           "title": "Maisons clé en main",
-          "body": "Villas conçues par nos architectes, livrées finies avec leurs garanties."
+          "body": "Avec notre agrément de Promoteur Immobilier Agréé, notre service Construction & Architecture et nos équipes d’experts qualifiés, nous développons et réalisons des Programmes Immobiliers (villas duplex, villas basses, appartements, maisons économiques, etc.) d’un certain standing, tout en respectant les standards internationaux et en produisant avec du matériel de qualité, dans les délais."
         },
         "lotissement": {
-          "title": "Lotissements",
-          "body": "Quartiers complets — voiries, réseaux, sécurité, espaces communs."
+          "title": "Aménagement foncier / Lotissement",
+          "body": "Nos équipements de qualité et de dernière génération, notre équipe qualifiée et expérimentée, notre expertise en la matière et notre collaboration avec des géomètres et urbanistes aguerris nous donnent toutes les aptitudes pour développer et mettre en valeur vos grandes parcelles, pour le bonheur de toute une génération."
         },
         "support": {
-          "title": "Accompagnement acquéreur",
-          "body": "Contrat, notaire, ACD, remise des clés — un agent dédié de la signature à l’emménagement."
+          "title": "Transactions immobilières",
+          "body": "Notre équipe qualifiée et équipée vous accompagne dans : toutes vos procédures d’acquisition / vente de biens immobiliers ; l’obtention fiable et sécurisée de la documentation de vos biens ; le choix et l’évaluation de vos biens ; la gérance de vos biens immobiliers ; le conseil et l’orientation sur vos décisions d’investissement en immobilier ; etc."
         }
       }
     },

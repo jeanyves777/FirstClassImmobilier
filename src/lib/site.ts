@@ -7,12 +7,15 @@
  * `SiteSettings` singleton so admin edits take effect live.
  */
 
+type LocalizedCard = { title: { fr: string; en: string }; body: { fr: string; en: string } }
+
 type Social = {
   facebook: string
   instagram: string
   linkedin: string
   youtube: string
   tiktok: string
+  whatsappChannel: string
 }
 
 export type LegalInfo = {
@@ -59,6 +62,14 @@ export type SiteConfig = {
   email: string
   siteUrl: string
   social: Social
+  hero: {
+    title: { fr: string; en: string }
+    subtitle: { fr: string; en: string }
+    statement: { fr: string; en: string }
+    imageUrl: string | null
+  }
+  uspCards: LocalizedCard[]
+  services: LocalizedCard[]
   countries: readonly CountryOffice[]
   footerCopy?: { fr: string; en: string } | null
   legal: LegalInfo
@@ -94,7 +105,16 @@ const DEFAULTS = {
     linkedin: process.env.NEXT_PUBLIC_LINKEDIN_URL || '',
     youtube: process.env.NEXT_PUBLIC_YOUTUBE_URL || '',
     tiktok: process.env.NEXT_PUBLIC_TIKTOK_URL || '',
+    whatsappChannel: process.env.NEXT_PUBLIC_WHATSAPP_CHANNEL_URL || '',
   },
+  hero: {
+    title: { fr: '', en: '' },
+    subtitle: { fr: '', en: '' },
+    statement: { fr: '', en: '' },
+    imageUrl: null,
+  },
+  uspCards: [],
+  services: [],
   countries: [
     {
       code: 'CI',
@@ -139,6 +159,30 @@ export const whatsappLink = (message?: string, number?: string) => {
   return message ? `${base}?text=${encodeURIComponent(message)}` : base
 }
 
+function parseLoc(raw: string | null | undefined): { fr: string; en: string } | null {
+  if (!raw) return null
+  try {
+    const o = JSON.parse(raw) as { fr?: unknown; en?: unknown }
+    return { fr: String(o.fr ?? ''), en: String(o.en ?? '') }
+  } catch {
+    return null
+  }
+}
+
+function parseCards(raw: string | null | undefined): LocalizedCard[] {
+  if (!raw) return []
+  try {
+    const arr = JSON.parse(raw)
+    if (!Array.isArray(arr)) return []
+    return arr.map((c) => ({
+      title: { fr: String(c?.title?.fr ?? ''), en: String(c?.title?.en ?? '') },
+      body: { fr: String(c?.body?.fr ?? ''), en: String(c?.body?.en ?? '') },
+    }))
+  } catch {
+    return []
+  }
+}
+
 /**
  * Server-only: merge env defaults with the editable SiteSettings row.
  */
@@ -177,7 +221,16 @@ export async function getSiteConfig(): Promise<SiteConfig> {
       linkedin: row.linkedinUrl || DEFAULTS.social.linkedin,
       youtube: row.youtubeUrl || DEFAULTS.social.youtube,
       tiktok: row.tiktokUrl || DEFAULTS.social.tiktok,
+      whatsappChannel: row.whatsappChannelUrl || DEFAULTS.social.whatsappChannel,
     },
+    hero: {
+      title: parseLoc(row.heroTitle) ?? DEFAULTS.hero.title,
+      subtitle: parseLoc(row.heroSubtitle) ?? DEFAULTS.hero.subtitle,
+      statement: parseLoc(row.heroStatement) ?? DEFAULTS.hero.statement,
+      imageUrl: row.heroImageUrl || null,
+    },
+    uspCards: parseCards(row.homeUspCards),
+    services: parseCards(row.homeServices),
     footerCopy: row.footerCopy
       ? (() => {
           try {

@@ -28,6 +28,8 @@ export async function generateMetadata({
   })
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function ActivitiesPage({
   params,
 }: PageProps<'/[locale]/nos-activites'>) {
@@ -35,6 +37,19 @@ export default async function ActivitiesPage({
   setRequestLocale(locale)
   const t = await getTranslations('activities')
   const l = locale as Locale
+  const _ovRow = await prisma.siteSettings.findUnique({ where: { id: 1 }, select: { activitesContent: true } })
+  const _ovMap: Record<string, { fr: string; en: string }> = (() => {
+    try {
+      const o = _ovRow?.activitesContent ? JSON.parse(_ovRow.activitesContent) : {}
+      return o && typeof o === 'object' ? (o as Record<string, { fr: string; en: string }>) : {}
+    } catch {
+      return {}
+    }
+  })()
+  const tc = (key: string) => {
+    const o = _ovMap[key]
+    return o && o[l]?.trim() ? o[l] : t(key)
+  }
 
   const activities = await prisma.activity.findMany({
     where: { publishedAt: { not: null } },
@@ -54,7 +69,7 @@ export default async function ActivitiesPage({
   const c = copy(l)
 
   return (
-    <PageShell eyebrow="FCI" title={t('title')} intro={t('intro')} wide>
+    <PageShell eyebrow="FCI" title={tc('title')} intro={tc('intro')} wide>
       {/* Intro / categories strip */}
       <section className="mb-14 rounded-2xl border border-[color:var(--border)] bg-surface p-6 sm:p-8">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-red)]">

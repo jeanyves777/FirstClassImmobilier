@@ -34,6 +34,16 @@ export async function setReservationStatus(formData: FormData): Promise<void> {
   revalidatePath(`/${locale}/a-la-une`)
 }
 
+export async function deleteReservation(formData: FormData): Promise<void> {
+  const locale = String(formData.get('locale') ?? 'fr')
+  const id = String(formData.get('id') ?? '')
+  await requireStaff(locale)
+  if (!id) return
+  await prisma.reservation.delete({ where: { id } })
+  revalidatePath(`/${locale}/admin/reservations`)
+  revalidatePath(`/${locale}/a-la-une`)
+}
+
 export async function assignReservation(formData: FormData): Promise<void> {
   const locale = String(formData.get('locale') ?? 'fr')
   const id = String(formData.get('id') ?? '')

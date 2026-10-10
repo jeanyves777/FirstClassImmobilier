@@ -43,6 +43,32 @@ model User {
   savedSearches SavedSearch[]
   staffAppts    Appointment[]  @relation("StaffAppointments")
   notifications Notification[]
+  documents         Document[] @relation("DocumentOwner")
+  uploadedDocuments Document[] @relation("DocumentUploader")
+}
+
+model Document {
+  id           String   @id @default(cuid())
+  title        String
+  description  String?
+  type         String   @default("AUTRE") // ACD | TITRE_FONCIER | CONTRAT | PLAN | RECU | PIECE_IDENTITE | AUTRE
+  tags         String?  // comma-separated
+  storedName   String   // random filename in the private uploads dir
+  fileName     String   // original filename
+  mimeType     String
+  sizeBytes    Int
+  ownerId      String?
+  uploadedById String?
+  source       String   @default("ADMIN") // ADMIN | CLIENT
+  status       String   @default("ACTIVE") // ACTIVE | PENDING | ARCHIVED
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  owner      User? @relation("DocumentOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  uploadedBy User? @relation("DocumentUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
+
+  @@index([ownerId])
+  @@index([status])
 }
 
 model Account {
@@ -301,7 +327,20 @@ model SiteSettings {
   linkedinUrl  String?
   youtubeUrl   String?
   tiktokUrl    String?
+  whatsappChannelUrl String?
   footerCopy   String? // LocalizedJSON (fr/en)
+
+  // Homepage hero (editable from admin)
+  heroTitle     String? // LocalizedJSON
+  heroSubtitle  String? // LocalizedJSON
+  heroStatement String? // LocalizedJSON
+  heroImageUrl  String?
+  homeUspCards  String? // LocalizedJSON array
+  homeServices  String? // LocalizedJSON array
+  aboutContent  String? // LocalizedJSON map (about-page section texts)
+  realisationsContent String? // LocalizedJSON map
+  activitesContent    String? // LocalizedJSON map
+  equipesContent      String? // LocalizedJSON map
 
   // Scheduler
   slotDurationMin Int     @default(45)
