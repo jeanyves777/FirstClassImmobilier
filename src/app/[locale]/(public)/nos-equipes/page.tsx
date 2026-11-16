@@ -29,11 +29,26 @@ export async function generateMetadata({
   })
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function TeamPage({ params }: PageProps<'/[locale]/nos-equipes'>) {
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations('team')
   const l = locale as Locale
+  const _ovRow = await prisma.siteSettings.findUnique({ where: { id: 1 }, select: { equipesContent: true } })
+  const _ovMap: Record<string, { fr: string; en: string }> = (() => {
+    try {
+      const o = _ovRow?.equipesContent ? JSON.parse(_ovRow.equipesContent) : {}
+      return o && typeof o === 'object' ? (o as Record<string, { fr: string; en: string }>) : {}
+    } catch {
+      return {}
+    }
+  })()
+  const tc = (key: string) => {
+    const o = _ovMap[key]
+    return o && o[l]?.trim() ? o[l] : t(key)
+  }
 
   const members = await prisma.teamMember.findMany({
     orderBy: [{ order: 'asc' }, { fullName: 'asc' }],
@@ -51,7 +66,7 @@ export default async function TeamPage({ params }: PageProps<'/[locale]/nos-equi
   const c = copy(l)
 
   return (
-    <PageShell eyebrow="FCI" title={t('title')} intro={t('intro')} wide>
+    <PageShell eyebrow="FCI" title={tc('title')} intro={tc('intro')} wide>
       {/* Intro block */}
       <section className="mb-14 overflow-hidden rounded-2xl border border-[color:var(--border)] bg-surface">
         <div className="grid lg:grid-cols-[1.3fr_1fr]">

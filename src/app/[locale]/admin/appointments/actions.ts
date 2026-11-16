@@ -161,6 +161,33 @@ export async function confirmAppointment(formData: FormData): Promise<void> {
   revalidatePath(`/${locale}/portal/appointments`)
 }
 
+export async function deleteApplication(formData: FormData): Promise<void> {
+  const locale = String(formData.get('locale') ?? 'fr')
+  const id = String(formData.get('id') ?? '')
+  await requireStaff(locale)
+  if (!id) return
+  await prisma.application.delete({ where: { id } })
+  revalidatePath(`/${locale}/admin/applications`)
+}
+
+export async function deleteLead(formData: FormData): Promise<void> {
+  const locale = String(formData.get('locale') ?? 'fr')
+  const id = String(formData.get('id') ?? '')
+  await requireStaff(locale)
+  if (!id) return
+  await prisma.lead.delete({ where: { id } })
+  revalidatePath(`/${locale}/admin/leads`)
+}
+
+export async function deleteAppointment(formData: FormData): Promise<void> {
+  const locale = String(formData.get('locale') ?? 'fr')
+  const id = String(formData.get('id') ?? '')
+  await requireStaff(locale)
+  if (!id) return
+  await prisma.appointment.delete({ where: { id } })
+  revalidatePath(`/${locale}/admin/appointments`)
+}
+
 function safeFr(raw: string): string {
   try {
     const v = JSON.parse(raw) as { fr?: string; en?: string }

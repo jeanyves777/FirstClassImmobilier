@@ -15,6 +15,64 @@ const urlOrEmpty = z
   .transform((v) => (v && v.trim() ? v.trim() : null))
   .refine((v) => v === null || /^https?:\/\//.test(v), { message: 'Must start with http(s)://' })
 
+const localizedJsonOrNull = z
+  .string()
+  .optional()
+  .transform((v) => {
+    const raw = (v ?? '').trim()
+    if (!raw) return null
+    try {
+      const o = JSON.parse(raw) as { fr?: unknown; en?: unknown }
+      const fr = String(o.fr ?? '').trim()
+      const en = String(o.en ?? '').trim()
+      if (!fr && !en) return null
+      return JSON.stringify({ fr, en })
+    } catch {
+      return null
+    }
+  })
+
+const cardsJsonOrNull = z
+  .string()
+  .optional()
+  .transform((v) => {
+    const raw = (v ?? '').trim()
+    if (!raw) return null
+    try {
+      const arr = JSON.parse(raw)
+      if (!Array.isArray(arr)) return null
+      const cleaned = arr.map((c) => ({
+        title: { fr: String(c?.title?.fr ?? '').trim(), en: String(c?.title?.en ?? '').trim() },
+        body: { fr: String(c?.body?.fr ?? '').trim(), en: String(c?.body?.en ?? '').trim() },
+      }))
+      const has = cleaned.some((c) => c.title.fr || c.title.en || c.body.fr || c.body.en)
+      return has ? JSON.stringify(cleaned) : null
+    } catch {
+      return null
+    }
+  })
+
+const overridesJsonOrNull = z
+  .string()
+  .optional()
+  .transform((v) => {
+    const raw = (v ?? '').trim()
+    if (!raw) return null
+    try {
+      const o = JSON.parse(raw) as Record<string, { fr?: unknown; en?: unknown }>
+      if (!o || typeof o !== 'object') return null
+      const out: Record<string, { fr: string; en: string }> = {}
+      for (const [k, val] of Object.entries(o)) {
+        const fr = String(val?.fr ?? '').trim()
+        const en = String(val?.en ?? '').trim()
+        if (fr || en) out[k] = { fr, en }
+      }
+      return Object.keys(out).length ? JSON.stringify(out) : null
+    } catch {
+      return null
+    }
+  })
+
 const schema = z.object({
   phone: z.string().optional().transform((v) => (v && v.trim() ? v.trim() : null)),
   mobile: z.string().optional().transform((v) => (v && v.trim() ? v.trim() : null)),
@@ -28,6 +86,39 @@ const schema = z.object({
   linkedinUrl: urlOrEmpty,
   youtubeUrl: urlOrEmpty,
   tiktokUrl: urlOrEmpty,
+  whatsappChannelUrl: urlOrEmpty,
+  heroTitle: localizedJsonOrNull,
+  heroSubtitle: localizedJsonOrNull,
+  heroStatement: localizedJsonOrNull,
+  heroImageUrl: z
+    .string()
+    .optional()
+    .transform((v) => (v && v.trim() ? v.trim() : null)),
+  homeUspCards: cardsJsonOrNull,
+  homeServices: cardsJsonOrNull,
+  aboutContent: z
+    .string()
+    .optional()
+    .transform((v) => {
+      const raw = (v ?? '').trim()
+      if (!raw) return null
+      try {
+        const o = JSON.parse(raw) as Record<string, { fr?: unknown; en?: unknown }>
+        if (!o || typeof o !== 'object') return null
+        const out: Record<string, { fr: string; en: string }> = {}
+        for (const [k, val] of Object.entries(o)) {
+          const fr = String(val?.fr ?? '').trim()
+          const en = String(val?.en ?? '').trim()
+          if (fr || en) out[k] = { fr, en }
+        }
+        return Object.keys(out).length ? JSON.stringify(out) : null
+      } catch {
+        return null
+      }
+    }),
+  realisationsContent: overridesJsonOrNull,
+  activitesContent: overridesJsonOrNull,
+  equipesContent: overridesJsonOrNull,
   footerCopy: z
     .string()
     .optional()
@@ -84,6 +175,17 @@ export async function updateSiteSettings(_prev: State, fd: FormData): Promise<St
     linkedinUrl: fd.get('linkedinUrl') ?? '',
     youtubeUrl: fd.get('youtubeUrl') ?? '',
     tiktokUrl: fd.get('tiktokUrl') ?? '',
+    whatsappChannelUrl: fd.get('whatsappChannelUrl') ?? '',
+    heroTitle: fd.get('heroTitle') ?? '',
+    heroSubtitle: fd.get('heroSubtitle') ?? '',
+    heroStatement: fd.get('heroStatement') ?? '',
+    heroImageUrl: fd.get('heroImageUrl') ?? '',
+    homeUspCards: fd.get('homeUspCards') ?? '',
+    homeServices: fd.get('homeServices') ?? '',
+    aboutContent: fd.get('aboutContent') ?? '',
+    realisationsContent: fd.get('realisationsContent') ?? '',
+    activitesContent: fd.get('activitesContent') ?? '',
+    equipesContent: fd.get('equipesContent') ?? '',
     footerCopy: fd.get('footerCopy') ?? '',
     slotDurationMin: fd.get('slotDurationMin') ?? 45,
     availability: fd.get('availability') ?? '',

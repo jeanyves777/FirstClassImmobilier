@@ -20,6 +20,10 @@ import {
 } from '@/components/fci/illustrations'
 import { ReviewsSection } from '@/components/fci/ReviewsSection'
 
+// Render from the database on every request so admin edits (prices, stats,
+// featured programs, reviews, contact/social settings) appear live — no rebuild.
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata({
   params,
 }: PageProps<'/[locale]'>): Promise<Metadata> {
@@ -110,16 +114,51 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
   ])
   const l = locale as Locale
 
+  const pick = (loc: { fr: string; en: string } | undefined, fb: string) =>
+    loc && loc[l]?.trim() ? loc[l] : fb
+  const uspIcons = [
+    <IconShieldCheck key="s" />,
+    <IconHome key="h" />,
+    <IconDocument key="d" />,
+    <IconGlobe key="g" />,
+  ]
+  const uspFallback = [
+    { title: t('usp.licensed.title'), body: t('usp.licensed.body') },
+    { title: t('usp.experience.title'), body: t('usp.experience.body') },
+    { title: t('usp.acd.title'), body: t('usp.acd.body') },
+    { title: t('usp.diaspora.title'), body: t('usp.diaspora.body') },
+  ]
+  const uspCards = uspFallback.map((fb, i) => ({
+    icon: uspIcons[i],
+    title: pick(site.uspCards[i]?.title, fb.title),
+    body: pick(site.uspCards[i]?.body, fb.body),
+  }))
+  const serviceFallback = [
+    { title: t('products.items.land.title'), body: t('products.items.land.body') },
+    { title: t('products.items.house.title'), body: t('products.items.house.body') },
+    { title: t('products.items.lotissement.title'), body: t('products.items.lotissement.body') },
+    { title: t('products.items.support.title'), body: t('products.items.support.body') },
+  ]
+  const serviceCards = serviceFallback.map((fb, i) => ({
+    title: pick(site.services[i]?.title, fb.title),
+    body: pick(site.services[i]?.body, fb.body),
+  }))
+
   return (
     <div className="flex flex-col">
       <JsonLd data={realEstateAgentLd(site, l)} />
       {/* Hero ─────────────────────────────────────────────── */}
       <section className="relative min-h-[480px] overflow-hidden sm:min-h-[560px] lg:min-h-[620px]">
         <div className="absolute inset-0">
-          <HeroSlideshow
-            slides={HERO_SLIDES.map((s) => ({ src: s.src, alt: s.alt[l] }))}
-            className="h-full w-full"
-          />
+          {site.hero.imageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={site.hero.imageUrl} alt="" className="h-full w-full object-cover" />
+          ) : (
+            <HeroSlideshow
+              slides={HERO_SLIDES.map((s) => ({ src: s.src, alt: s.alt[l] }))}
+              className="h-full w-full"
+            />
+          )}
         </div>
         <div
           aria-hidden
@@ -137,12 +176,14 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
           </span>
 
           <h1 className="max-w-3xl font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-            {t('tagline')}
-            <span className="block text-[color:var(--brand-red)]">{t('subTagline')}</span>
+            {site.hero.title[l]?.trim() ? site.hero.title[l] : t('tagline')}
+            <span className="block text-[color:var(--brand-red)]">
+              {site.hero.subtitle[l]?.trim() ? site.hero.subtitle[l] : t('subTagline')}
+            </span>
           </h1>
 
           <p className="max-w-2xl text-lg leading-relaxed text-white/80 sm:text-xl">
-            {t('statement')}
+            {site.hero.statement[l]?.trim() ? site.hero.statement[l] : t('statement')}
           </p>
 
           <div className="flex flex-wrap items-center gap-3">
@@ -183,12 +224,14 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--brand-red)]">
             {t('usp.eyebrow')}
           </p>
+          <h2 className="font-display text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
+            {t('usp.title')}
+          </h2>
         </header>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <UspCard icon={<IconShieldCheck />} title={t('usp.licensed.title')} body={t('usp.licensed.body')} />
-          <UspCard icon={<IconHome />} title={t('usp.experience.title')} body={t('usp.experience.body')} />
-          <UspCard icon={<IconDocument />} title={t('usp.acd.title')} body={t('usp.acd.body')} />
-          <UspCard icon={<IconGlobe />} title={t('usp.diaspora.title')} body={t('usp.diaspora.body')} />
+          {uspCards.map((c, i) => (
+            <UspCard key={i} icon={c.icon} title={c.title} body={c.body} />
+          ))}
         </div>
       </section>
 
@@ -289,10 +332,9 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
           <p className="mt-3 text-sm text-muted sm:text-base">{t('products.subtitle')}</p>
         </header>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          <ProductCard index="01" title={t('products.items.land.title')} body={t('products.items.land.body')} />
-          <ProductCard index="02" title={t('products.items.house.title')} body={t('products.items.house.body')} />
-          <ProductCard index="03" title={t('products.items.lotissement.title')} body={t('products.items.lotissement.body')} />
-          <ProductCard index="04" title={t('products.items.support.title')} body={t('products.items.support.body')} />
+          {serviceCards.map((c, i) => (
+            <ProductCard key={i} index={String(i + 1).padStart(2, '0')} title={c.title} body={c.body} />
+          ))}
         </div>
       </section>
 
@@ -353,25 +395,35 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
 
 function UspCard({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
-    <div className="group rounded-2xl border border-[color:var(--border)] bg-surface p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--brand-navy)]/30 hover:shadow-[0_24px_60px_-30px_rgba(15,23,42,.3)]">
-      <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[color:var(--brand-red)]/10 text-[color:var(--brand-red)]">
-        {icon}
-      </div>
-      <h3 className="font-display text-base font-semibold text-foreground">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted">{body}</p>
-    </div>
+    <details className="group rounded-2xl border border-[color:var(--border)] bg-surface p-5 transition-all duration-300 open:shadow-[0_24px_60px_-30px_rgba(15,23,42,.3)] hover:border-[color:var(--brand-navy)]/30">
+      <summary className="flex cursor-pointer list-none items-center gap-3 [&::-webkit-details-marker]:hidden">
+        <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[color:var(--brand-red)]/10 text-[color:var(--brand-red)]">
+          {icon}
+        </span>
+        <h3 className="flex-1 font-display text-base font-semibold text-foreground">{title}</h3>
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted transition-transform group-open:rotate-180" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </summary>
+      <p className="mt-3 text-sm leading-relaxed text-muted">{body}</p>
+    </details>
   )
 }
 
 function ProductCard({ index, title, body }: { index: string; title: string; body: string }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border)] bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--brand-navy)]/30 hover:shadow-[0_24px_60px_-30px_rgba(15,23,42,.3)]">
-      <span className="absolute right-4 top-4 font-display text-4xl font-semibold text-[color:var(--brand-red)]/10">
+    <details className="group relative overflow-hidden rounded-2xl border border-[color:var(--border)] bg-surface p-6 transition-all duration-300 open:shadow-[0_24px_60px_-30px_rgba(15,23,42,.3)] hover:border-[color:var(--brand-navy)]/30">
+      <span className="pointer-events-none absolute right-4 top-4 font-display text-4xl font-semibold text-[color:var(--brand-red)]/10">
         {index}
       </span>
-      <h3 className="font-display text-lg font-semibold text-foreground">{title}</h3>
+      <summary className="flex cursor-pointer list-none items-center gap-3 pr-12 [&::-webkit-details-marker]:hidden">
+        <h3 className="flex-1 font-display text-lg font-semibold text-foreground">{title}</h3>
+        <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-muted transition-transform group-open:rotate-180" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </summary>
       <p className="mt-3 text-sm leading-relaxed text-muted">{body}</p>
-    </div>
+    </details>
   )
 }
 

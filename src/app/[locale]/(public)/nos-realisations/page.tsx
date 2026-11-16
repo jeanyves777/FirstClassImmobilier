@@ -36,6 +36,8 @@ export async function generateMetadata({
   })
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function RealisationsPage({
   params,
 }: PageProps<'/[locale]/nos-realisations'>) {
@@ -43,6 +45,19 @@ export default async function RealisationsPage({
   setRequestLocale(locale)
   const t = await getTranslations('realisations')
   const l = locale as Locale
+  const _ovRow = await prisma.siteSettings.findUnique({ where: { id: 1 }, select: { realisationsContent: true } })
+  const _ovMap: Record<string, { fr: string; en: string }> = (() => {
+    try {
+      const o = _ovRow?.realisationsContent ? JSON.parse(_ovRow.realisationsContent) : {}
+      return o && typeof o === 'object' ? (o as Record<string, { fr: string; en: string }>) : {}
+    } catch {
+      return {}
+    }
+  })()
+  const tc = (key: string) => {
+    const o = _ovMap[key]
+    return o && o[l]?.trim() ? o[l] : t(key)
+  }
 
   const [stats, delivered, onSale, allPrograms, testimonials] = await Promise.all([
     prisma.siteStats.findUnique({ where: { id: 1 } }),
@@ -97,7 +112,7 @@ export default async function RealisationsPage({
   const zonesByType = groupZonesByType(allPrograms, l)
 
   return (
-    <PageShell eyebrow="FCI" title={t('title')} intro={t('intro')} wide>
+    <PageShell eyebrow="FCI" title={tc('title')} intro={tc('intro')} wide>
       {/* Intro metrics + portfolio visual */}
       <section className="mb-14 grid gap-6 lg:grid-cols-[1fr_1fr]">
         <div className="rounded-2xl border border-[color:var(--border)] bg-surface p-6 sm:p-10">
@@ -138,7 +153,7 @@ export default async function RealisationsPage({
             items={[
               {
                 slug: 'TERRAIN',
-                label: t('categories.terrains'),
+                label: tc('categories.terrains'),
                 body: c.categories.terrainsBody,
                 bullets: c.categories.terrainsBullets,
                 count: byType.TERRAIN.total,
@@ -151,7 +166,7 @@ export default async function RealisationsPage({
               },
               {
                 slug: 'MAISON',
-                label: t('categories.maisons'),
+                label: tc('categories.maisons'),
                 body: c.categories.maisonsBody,
                 bullets: c.categories.maisonsBullets,
                 count: byType.MAISON.total,
@@ -164,7 +179,7 @@ export default async function RealisationsPage({
               },
               {
                 slug: 'LOTISSEMENT',
-                label: t('categories.lotissements'),
+                label: tc('categories.lotissements'),
                 body: c.categories.lotissementsBody,
                 bullets: c.categories.lotissementsBullets,
                 count: byType.LOTISSEMENT.total,
