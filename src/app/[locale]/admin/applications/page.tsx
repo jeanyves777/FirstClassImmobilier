@@ -2,7 +2,8 @@ import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { prisma } from '@/lib/db'
 import type { Locale } from '@/i18n/routing'
 import { AdminHeader } from '@/components/fci/admin/AdminHeader'
-import { setApplicationStatus } from '../appointments/actions'
+import { setApplicationStatus, deleteApplication } from '../appointments/actions'
+import { ConfirmButton } from '@/components/ui/ConfirmButton'
 
 const STATUS_ORDER = ['received', 'reviewing', 'interview', 'rejected', 'hired']
 
@@ -57,25 +58,38 @@ export default async function ApplicationsInbox({
               )}
             </div>
 
-            <form action={setApplicationStatus} className="flex items-start gap-2">
-              <input type="hidden" name="id" value={a.id} />
-              <input type="hidden" name="locale" value={locale} />
-              <select
-                name="status"
-                defaultValue={a.status}
-                className="flex-1 rounded-lg border border-[color:var(--border)] bg-background px-2 py-1.5 text-xs"
+            <div className="space-y-2">
+              <form action={setApplicationStatus} className="flex items-start gap-2">
+                <input type="hidden" name="id" value={a.id} />
+                <input type="hidden" name="locale" value={locale} />
+                <select
+                  name="status"
+                  defaultValue={a.status}
+                  className="flex-1 rounded-lg border border-[color:var(--border)] bg-background px-2 py-1.5 text-xs"
+                >
+                  {STATUS_ORDER.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+                <button
+                  type="submit"
+                  className="rounded-lg bg-[color:var(--brand-navy)] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[color:var(--brand-navy-700)]"
+                >
+                  Update
+                </button>
+              </form>
+              <ConfirmButton
+                action={deleteApplication}
+                hiddenFields={{ id: a.id, locale }}
+                title={l === 'fr' ? 'Supprimer cette candidature ?' : 'Delete this application?'}
+                description={l === 'fr' ? 'Cette action est irréversible.' : 'This action is irreversible.'}
+                confirmLabel={l === 'fr' ? 'Supprimer' : 'Delete'}
+                variant="danger"
+                size="sm"
               >
-                {STATUS_ORDER.map((s) => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
-              <button
-                type="submit"
-                className="rounded-lg bg-[color:var(--brand-navy)] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[color:var(--brand-navy-700)]"
-              >
-                Update
-              </button>
-            </form>
+                {l === 'fr' ? 'Supprimer' : 'Delete'}
+              </ConfirmButton>
+            </div>
           </article>
         ))}
         {applications.length === 0 && (

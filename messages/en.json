@@ -29,62 +29,63 @@
     "viewSite": "View site"
   },
   "home": {
-    "tagline": "FirstClass Immobilier, Licensed Real Estate Developer.",
-    "subTagline": "Leader in its sectors of activity.",
-    "statement": "With us, rest assured — real estate is done and lived differently.",
+    "tagline": "FirstClass Immobilier, Licensed Real-Estate Developer",
+    "subTagline": "A leader in its sectors of activity.",
+    "statement": "With us, rest assured — real estate is done and lived differently!",
     "counters": {
       "years": "Years of experience",
       "clients": "Satisfied clients",
       "projects": "Projects",
-      "countries": "Countries of presence"
+      "countries": "Present in"
     },
     "discoverCta": "Discover our programs",
     "usp": {
       "eyebrow": "Why FirstClass",
       "licensed": {
-        "title": "Licensed developer",
-        "body": "Official license from the Ministry of Construction — every program backed by regulated paperwork."
+        "title": "Licensed Real-Estate Developer",
+        "body": "Licensed by the Ministry of Construction, Housing and Urban Planning, we operate in full legality while respecting international construction norms and standards. We contribute to harmonious urban development and to improving our clients’ quality of life."
       },
       "experience": {
-        "title": "8+ years delivering",
-        "body": "From Cocody to the countryside: hundreds of families settled into their new home."
+        "title": "Years of expertise and constant improvement",
+        "body": "For more than 10 years, from Abidjan to Greater Abidjan, across the country’s interior and reaching internationally: our know-how deepens, our knowledge keeps growing and our vision expands. Because we listen to our clients, adapt to prevailing rules and measures, learn from our mistakes and rely on a qualified team — all in the constant pursuit of Improvement."
       },
       "acd": {
-        "title": "ACD secured",
-        "body": "380+ title deeds (ACD) delivered — the only guarantee you truly own the land."
+        "title": "Reliable and secure property titles",
+        "body": "With more than 380 ACD already delivered, we have excellent command of documentary procedures. We overlook no detail and personally follow each file at every step, through to completion."
       },
       "diaspora": {
-        "title": "Diaspora-friendly",
-        "body": "Remote reservations, online file tracking, notary hand-off in Abidjan on your behalf."
-      }
+        "title": "Diaspora",
+        "body": "We serve a large number of international clients (France, Italy, London, USA, Canada, Ghana, Burkina, Mali, Senegal, etc.). This is thanks to strong client-relationship management, the quality and reliability of our products and services, and above all our sound working methods."
+      },
+      "title": "Why choose FirstClass Immobilier?"
     },
     "featured": {
       "eyebrow": "Featured programs",
       "title": "Flagship programs on sale",
-      "subtitle": "Hand-picked developments with lots still available. Reserve online and book a site visit.",
+      "subtitle": "Units are still available in these real-estate programs. Reserve online now and schedule a free site visit!",
       "viewAll": "See all programs",
       "empty": "New programs are coming online soon — follow us to be notified."
     },
     "products": {
       "eyebrow": "What we offer",
-      "title": "From plot to key",
+      "title": "From land to turnkey!",
       "subtitle": "One team handles the full cycle — identify the land, secure the paperwork, build, and hand over.",
       "items": {
         "land": {
-          "title": "Serviced land",
-          "body": "Parceled, surveyed, ACD-ready lots in Abidjan and surrounding cities."
+          "title": "Land plots",
+          "body": "We offer a wide range of plots (raw, semi-serviced, fully serviced) for sale across various areas of Côte d’Ivoire (Abidjan, Greater Abidjan, the interior). Slogan: 1 Person, 1 secure plot with FirstClass Immobilier."
         },
         "house": {
-          "title": "Turn-key homes",
-          "body": "Architect-designed villas delivered fully finished, with warranties."
+          "title": "Turnkey homes",
+          "body": "With our Licensed Developer accreditation, our Construction & Architecture department and our teams of qualified experts, we develop and deliver real-estate programs (duplex villas, single-storey villas, apartments, affordable homes, etc.) of a certain standing — respecting international standards and building with quality materials, on time."
         },
         "lotissement": {
-          "title": "Subdivisions",
-          "body": "Full neighborhood developments — roads, utilities, security, common areas."
+          "title": "Land development / Subdivision",
+          "body": "Our quality, latest-generation equipment, our qualified and experienced team, our expertise and our collaboration with seasoned surveyors and urban planners give us every capability to develop and enhance your large parcels — for the benefit of a whole generation."
         },
         "support": {
-          "title": "Buyer support",
-          "body": "Contract, notary, ACD, handover — a dedicated agent from signature to keys."
+          "title": "Real-estate transactions",
+          "body": "Our qualified, well-equipped team supports you with: all your property acquisition / sale procedures; reliable and secure documentation of your assets; the selection and valuation of your properties; property management; advice and guidance on your real-estate investment decisions; and more."
         }
       }
     },

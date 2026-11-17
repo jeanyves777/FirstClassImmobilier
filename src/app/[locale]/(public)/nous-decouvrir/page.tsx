@@ -11,6 +11,9 @@ import { VillaSkyline, GrowthChart, BlueprintGrid } from '@/components/fci/illus
 import { ServicesGrid, type ServiceItem } from '@/components/fci/ServicesGrid'
 import { site } from '@/lib/site'
 
+// Render from the DB each request so admin section-text edits appear live.
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata({
   params,
 }: PageProps<'/[locale]/nous-decouvrir'>): Promise<Metadata> {
@@ -36,10 +39,23 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/nous-de
   const t = await getTranslations('about')
   const l = locale as Locale
 
-  const [partners, stats] = await Promise.all([
+  const [partners, stats, settings] = await Promise.all([
     prisma.partner.findMany({ orderBy: [{ order: 'asc' }, { name: 'asc' }] }),
     prisma.siteStats.findUnique({ where: { id: 1 } }),
+    prisma.siteSettings.findUnique({ where: { id: 1 }, select: { aboutContent: true } }),
   ])
+  const aboutOv: Record<string, { fr: string; en: string }> = (() => {
+    try {
+      const o = settings?.aboutContent ? JSON.parse(settings.aboutContent) : {}
+      return o && typeof o === 'object' ? (o as Record<string, { fr: string; en: string }>) : {}
+    } catch {
+      return {}
+    }
+  })()
+  const tc = (key: string) => {
+    const o = aboutOv[key]
+    return o && o[l]?.trim() ? o[l] : t(key)
+  }
   const logoIds = partners.map((p) => p.logoId).filter((v): v is string => !!v)
   const logos = logoIds.length
     ? await prisma.media.findMany({
@@ -56,7 +72,7 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/nous-de
   })
 
   return (
-    <PageShell eyebrow="FCI" title={t('title')} intro={c.leadIntro} wide>
+    <PageShell eyebrow="FCI" title={tc('title')} intro={c.leadIntro} wide>
       {/* Story section */}
       <section className="mb-16 grid gap-8 lg:grid-cols-[1.3fr_1fr]">
         <div className="rounded-2xl border border-[color:var(--border)] bg-surface p-6 sm:p-10">
@@ -64,10 +80,10 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/nous-de
             {c.story.eyebrow}
           </p>
           <h2 className="font-display text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
-            {t('bioTitle')}
+            {tc('bioTitle')}
           </h2>
           <div className="mt-6 space-y-4 text-base leading-relaxed text-muted sm:text-lg">
-            <p>{t('bio')}</p>
+            <p>{tc('bio')}</p>
             <p>{c.story.paragraph2}</p>
             <p>{c.story.paragraph3}</p>
           </div>
@@ -76,7 +92,7 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/nous-de
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
               <path d="m9 12 2 2 4-4" />
             </svg>
-            {t('agrementBadge')}
+            {tc('agrementBadge')}
           </p>
           <div className="mt-8 grid grid-cols-3 gap-4">
             <HeadlineStat value={`${stats?.yearsExperience ?? 8}+`} label={c.story.statYears} />
@@ -128,26 +144,26 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/nous-de
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           <PillarCard
             icon={<IconSparkle />}
-            title={t('valuesTitle')}
-            body={t('values')}
+            title={tc('valuesTitle')}
+            body={tc('values')}
             bullets={c.pillars.valuesBullets}
           />
           <PillarCard
             icon={<IconTarget />}
-            title={t('visionTitle')}
-            body={t('vision')}
+            title={tc('visionTitle')}
+            body={tc('vision')}
             bullets={c.pillars.visionBullets}
           />
           <PillarCard
             icon={<IconCompass />}
-            title={t('missionTitle')}
-            body={t('mission')}
+            title={tc('missionTitle')}
+            body={tc('mission')}
             bullets={c.pillars.missionBullets}
           />
           <PillarCard
             icon={<IconCube />}
-            title={t('productsTitle')}
-            body={t('products')}
+            title={tc('productsTitle')}
+            body={tc('products')}
             bullets={c.pillars.productsBullets}
           />
         </div>
@@ -228,7 +244,7 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/nous-de
           {site.shortName}
         </p>
         <p className="mt-2 font-display text-3xl font-semibold leading-tight text-[color:var(--brand-navy)] dark:text-foreground sm:text-4xl">
-          <span className="text-[color:var(--brand-red)]">«</span> {t('slogan')}{' '}
+          <span className="text-[color:var(--brand-red)]">«</span> {tc('slogan')}{' '}
           <span className="text-[color:var(--brand-red)]">»</span>
         </p>
       </section>
@@ -237,7 +253,7 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/nous-de
       <section className="mb-16">
         <SectionHeader
           eyebrow={c.partners.eyebrow}
-          title={t('partnersTitle')}
+          title={tc('partnersTitle')}
           intro={c.partners.intro}
         />
         {partners.length === 0 ? (

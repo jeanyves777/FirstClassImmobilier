@@ -8,8 +8,10 @@ import {
   assignReservation,
   convertReservationToSale,
   setReservationStatus,
+  deleteReservation,
 } from './actions'
 import { formatFCFA } from '@/lib/format'
+import { ConfirmButton } from '@/components/ui/ConfirmButton'
 
 const STATUS_ORDER = ['pending', 'confirmed', 'cancelled']
 
@@ -142,6 +144,18 @@ export default async function ReservationsInbox({
                   </button>
                 </form>
               )}
+              <ConfirmButton
+                action={deleteReservation}
+                hiddenFields={{ id: r.id, locale }}
+                title={locale === 'fr' ? 'Supprimer cette réservation ?' : 'Delete this reservation?'}
+                description={locale === 'fr' ? 'Cette action est irréversible.' : 'This action is irreversible.'}
+                confirmLabel={locale === 'fr' ? 'Supprimer' : 'Delete'}
+                variant="danger"
+                size="sm"
+                fullWidth
+              >
+                {locale === 'fr' ? 'Supprimer' : 'Delete'}
+              </ConfirmButton>
             </div>
           </article>
         ))}
